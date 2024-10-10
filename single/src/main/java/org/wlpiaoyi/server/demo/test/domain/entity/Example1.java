@@ -4,13 +4,12 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.wlpiaoyi.server.demo.domain.entity.BaseEntity;
 import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
-
+import org.wlpiaoyi.server.demo.domain.entity.CommonEntity;
 
 
 /**
@@ -24,7 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @TableName("test_example_1")
 @Schema(description = "测试用的表格")
 @EqualsAndHashCode(callSuper = true)
-public class Example1 extends BaseEntity implements Serializable {
+public class Example1 extends CommonEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,4 +42,4 @@ public class Example1 extends BaseEntity implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dateVar;
 
-}
+}

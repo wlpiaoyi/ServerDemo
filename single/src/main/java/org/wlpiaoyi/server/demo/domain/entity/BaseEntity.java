@@ -53,31 +53,6 @@ public class BaseEntity implements Serializable {
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
-    @JsonSerialize(using = ToStringSerializer.class)
-    @Schema(description = "创建人")
-    private Long createUser;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = BaseEntity.ZONE)
-    @Schema(description = "创建时间")
-    private Date createTime;
-
-    @JsonSerialize(using = ToStringSerializer.class)
-    @Schema(description = "更新人")
-    private Long updateUser;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = BaseEntity.ZONE)
-    @Schema(description = "更新时间")
-    private Date updateTime;
-
-    @Schema(description = "业务状态")
-    private int status = 1;
-
-    @TableLogic(value = "0", delval = "1")
-    @Schema(description = "是否已删除")
-    private int isDeleted = 0;
-
 
     /**
      * <p><b>{@code @description:}</b>
@@ -93,10 +68,6 @@ public class BaseEntity implements Serializable {
      */
     public void cleanKeyData(){
         this.setId(null);
-        this.setCreateTime(null);
-        this.setCreateUser(null);
-        this.setUpdateTime(null);
-        this.setUpdateUser(null);
     }
 
 

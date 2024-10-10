@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.reflect.ClassModel;
 import org.wlpiaoyi.server.demo.domain.entity.BaseEntity;
+import org.wlpiaoyi.server.demo.domain.entity.CommonEntity;
 import org.wlpiaoyi.server.demo.service.IBaseService;
 import org.wlpiaoyi.server.demo.utils.IdUtils;
 
@@ -72,9 +73,11 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> exte
         List<T> list = new ArrayList<>();
         ids.forEach((id) -> {
             T entity = ClassModel.newInstance(this.currentModelClass());
-            entity.setIsDeleted(1);
-            entity.setUpdateTime(new Date());
             entity.setId(id);
+            if(entity instanceof CommonEntity){
+                ((CommonEntity) entity).setIsDeleted(1);
+                ((CommonEntity) entity).setUpdateTime(new Date());
+            };
             list.add(entity);
         });
         return super.updateBatchById(list) && super.removeByIds(ids);
@@ -86,9 +89,11 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> exte
         List<T> list = new ArrayList<>();
         ids.forEach((id) -> {
             T entity = ClassModel.newInstance(this.currentModelClass());
-            entity.setUpdateTime(new Date());
             entity.setId(id);
-            entity.setStatus(status);
+            if(entity instanceof CommonEntity){
+                ((CommonEntity) entity).setUpdateTime(new Date());
+                ((CommonEntity) entity).setStatus(status);
+            }
             list.add(entity);
         });
         return super.updateBatchById(list);
@@ -98,8 +103,10 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> exte
         if(ValueUtils.isBlank(entity.getId())){
             entity.setId(IdUtils.nextId());
         }
-        if(entity.getCreateTime() == null){
-            entity.setCreateTime(new Date());
+        if(entity instanceof CommonEntity){
+            if(((CommonEntity) entity).getCreateTime() == null){
+                ((CommonEntity) entity).setCreateTime(new Date());
+            }
         }
     }
 
@@ -107,8 +114,10 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> exte
         if(ValueUtils.isBlank(entity.getId())){
             this.resolveEntityForSave(entity);
         }else{
-            if(entity.getUpdateTime() == null){
-                entity.setUpdateTime(new Date());
+            if(entity instanceof CommonEntity){
+                if(((CommonEntity) entity).getUpdateTime() == null){
+                    ((CommonEntity) entity).setUpdateTime(new Date());
+                }
             }
         }
     }

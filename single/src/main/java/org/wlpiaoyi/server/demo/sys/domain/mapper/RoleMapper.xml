@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--@author wlpia:WLPIAOYI-PC-->
+<!--@since 2024-10-10 23:05:43-->
+<!--@desc 角色-->
+<mapper namespace="org.wlpiaoyi.server.demo.sys.domain.mapper.RoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="roleResultMap" type="org.wlpiaoyi.server.demo.sys.domain.entity.Role">
+        <id column="id" property="id"/>
+        <!-- 创建时间 -->
+        <result column="gmt_create" property="gmtCreate"/>
+        <!-- 修改时间 -->
+        <result column="gmt_modified" property="gmtModified"/>
+        <!-- 状态(1:正常，0:禁用) -->
+        <result column="status_id" property="statusId"/>
+        <!-- 排序 -->
+        <result column="sort" property="sort"/>
+        <!-- 名称 -->
+        <result column="role_name" property="roleName"/>
+        <!-- 备注 -->
+        <result column="remark" property="remark"/>
+        <!-- 角色ID -->
+        <result column="role_id" property="roleId"/>
+        <!-- 角色权限字符串 -->
+        <result column="role_key" property="roleKey"/>
+        <!-- 显示顺序 -->
+        <result column="role_sort" property="roleSort"/>
+        <!-- 数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限） -->
+        <result column="data_scope" property="dataScope"/>
+        <!-- 角色状态（0正常 1停用） -->
+        <result column="status" property="status"/>
+        <!-- 删除标志（0代表存在 2代表删除） -->
+        <result column="del_flag" property="delFlag"/>
+        <!-- 创建者 -->
+        <result column="create_by" property="createBy"/>
+        <!-- 创建时间 -->
+        <result column="create_time" property="createTime"/>
+        <!-- 更新者 -->
+        <result column="update_by" property="updateBy"/>
+        <!-- 更新时间 -->
+        <result column="update_time" property="updateTime"/>
+        <!-- name -->
+        <result column="name" property="name"/>
+        <!-- 角色编码=(amdin:管理员) -->
+        <result column="code" property="code"/>
+        <!-- 是否删除 -->
+        <result column="is_deleted" property="isDeleted"/>
+        <!-- 创建人 -->
+        <result column="create_user" property="createUser"/>
+        <!-- 创建部门 -->
+        <result column="create_dept" property="createDept"/>
+        <!-- 修改人 -->
+        <result column="update_user" property="updateUser"/>
+    </resultMap>
+
+</mapper>

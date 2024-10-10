@@ -64,7 +64,7 @@ public class ##className##Controller {
 	public R<IPage<##className##Vo>> page(@RequestBody ##className##Ro.Query body){
 		LambdaQueryWrapper<##className##> wrapper = Wrappers.<##className##>lambdaQuery();
 		wrapper.orderByDesc(##className##::getCreateTime);
-		IPage<Example1> pages = ##varClassName##Service.page(Condition.getPage(body), wrapper);
+		IPage<##className##> pages = ##varClassName##Service.page(Condition.getPage(body), wrapper);
 		return R.success(ModelWrapper.parseForPage(pages, ##className##Vo.class));
 	}
 

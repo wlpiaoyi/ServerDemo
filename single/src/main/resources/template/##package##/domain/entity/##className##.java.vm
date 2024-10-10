@@ -4,9 +4,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import ##package##.domain.entity.BaseEntity;
 import lombok.experimental.Accessors;
 import java.io.Serializable;
+import ##package##.domain.entity.BaseEntity;
+import ##package##.domain.entity.CommonEntity;
 ##/*import*/##
 
 
@@ -21,7 +22,7 @@ import java.io.Serializable;
 @TableName("##tableName##")
 @Schema(description = "##tableComment##")
 @EqualsAndHashCode(callSuper = true)
-public class ##className## extends BaseEntity implements Serializable {
+public class ##className## extends CommonEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
