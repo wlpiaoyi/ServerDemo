@@ -1,0 +1,24 @@
+package ##package##.##bizTag##.service.impl;
+
+import ##package##.##bizTag##.service.I##className##Service;
+import ##package##.##bizTag##.domain.entity.##className##;
+import ##package##.##bizTag##.domain.mapper.##className##Mapper;
+import ##package##.##bizTag##.domain.vo.##className##Vo;
+import ##package##.##bizTag##.domain.ro.##className##Ro;
+import ##package##.service.impl.BaseServiceImpl;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+
+
+/**
+ * {@code @author:} 		##author##
+ * {@code @description:} 	##tableComment## 服务类实现
+ * {@code @date:} 			##createTime##
+ * {@code @version:}: 		##version##
+ */
+@Primary
+@Service
+public class ##className##ServiceImpl extends BaseServiceImpl<##className##Mapper, ##className##> implements I##className##Service {
+
+
+}

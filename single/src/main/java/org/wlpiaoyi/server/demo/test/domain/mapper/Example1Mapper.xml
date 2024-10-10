@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--@author wlpia:WLPIAOYI-PC-->
+<!--@since 2024-09-15 17:30:33-->
+<!--@desc 测试用的表格-->
+<mapper namespace="org.wlpiaoyi.server.demo.test.domain.mapper.Example1Mapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="example1ResultMap" type="org.wlpiaoyi.server.demo.test.domain.entity.Example1">
+        <id column="id" property="id"/>
+        <!-- stringVar -->
+        <result column="string_var" property="stringVar"/>
+        <!-- intVar -->
+        <result column="int_var" property="intVar"/>
+        <!-- dateVar -->
+        <result column="date_var" property="dateVar"/>
+        <!-- 状态 -->
+        <result column="status" property="status"/>
+        <!-- 是否删除 -->
+        <result column="is_deleted" property="isDeleted"/>
+        <!-- 创建人 -->
+        <result column="create_user" property="createUser"/>
+        <!-- 创建部门 -->
+        <result column="create_dept" property="createDept"/>
+        <!-- 创建时间 -->
+        <result column="create_time" property="createTime"/>
+        <!-- 修改人 -->
+        <result column="update_user" property="updateUser"/>
+        <!-- 修改时间 -->
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+
+</mapper>

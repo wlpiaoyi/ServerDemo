@@ -1,0 +1,18 @@
+package ##package##.service;
+
+import ##package##.##bizTag##.domain.entity.##className##;
+import ##package##.##bizTag##.domain.vo.##className##Vo;
+import ##package##.##bizTag##.domain.ro.##className##Ro;
+import ##package##.service.IBaseService;
+
+
+/**
+ * {@code @author:} 		##author##
+ * {@code @description:} 	##tableComment## 服务类接口
+ * {@code @date:} 			##createTime##
+ * {@code @version:}: 		##version##
+ */
+public interface I##className##Service extends IBaseService<##className##> {
+
+
+}

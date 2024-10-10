@@ -1,0 +1,73 @@
+server:
+  tomcat:
+    basedir: C:/Home/Document/Temp/tomcat/basedir
+# mongodb 日志级别
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb:
+            core:
+              MongoTemplate: INFO
+spring:
+  #  LOWER_CAMEL_CASE    userName    默认策略
+  #  KEBAB_CASE    user-name
+  #  LOWER_CASE    username
+  #  SNAKE_CASE    user_name
+  #  UPPER_CAMEL_CASE    UserName
+  　jackson:
+    　property-naming-strategy: LOWER_CAMEL_CASE
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/server_demo?useSSL=false&useUnicode=true&characterEncoding=utf-8&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8
+    username: root
+    password: '00000000'
+    initial-size: 10
+    max-active: 100
+    min-idle: 30
+    max-wait: 40
+    validation-query: SELECT 1
+    druid:
+      # MySql、PostgreSQL、SqlServer、DaMeng校验
+      validation-query: select 1
+    # Redis 配置。Redisson 默认的配置足够使用，一般不需要进行调优
+    redis:
+      host: 127.0.0.1 # 地址
+      port: 6379 # 端口
+      database: 11 # 数据库索引
+      password: '000000'
+      pool:
+        maxTotal: 1000
+        maxIdle: 10000
+
+  servlet:
+    multipart:
+      #设置总上传的数据大小
+      max-request-size: 4096MB
+      #单个文件大小
+      maxFileSize : 1024MB
+      #xx 报错修改的地方
+    max-connections: 200000
+    max-http-post-size: 9000000
+  #热部署模块
+  devtools:
+    restart:
+      #热部署开关
+      enabled: true
+      #指定热部署的目录
+      additional-paths: src/main/java
+      #指定目录不更新
+      exclude: test/**
+# 在线文档配置
+springdoc:
+  swagger-ui:
+    # 配置swagger-ui界面访问路径
+    path: /swagger-ui.html
+    config:
+      title: demo
+    # 包扫描路径
+  packages-to-scan: org.wlpiaoyi.server.demo
+  # 默认开启wend
+  api-docs:
+    enabled: true
