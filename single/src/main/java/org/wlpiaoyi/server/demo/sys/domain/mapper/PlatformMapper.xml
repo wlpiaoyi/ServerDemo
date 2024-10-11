@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--@author wlpia:WLPIAOYI-PC-->
-<!--@since 2024-10-10 23:05:43-->
+<!--@author wlpiaoyi:WLPIAOYI-DELL-->
+<!--@since 2024-10-11 18:08:10-->
 <!--@desc 平台-->
 <mapper namespace="org.wlpiaoyi.server.demo.sys.domain.mapper.PlatformMapper">
 
     <!-- 通用查询映射结果 -->
     <resultMap id="platformResultMap" type="org.wlpiaoyi.server.demo.sys.domain.entity.Platform">
         <id column="id" property="id"/>
-        <!-- 名称 -->
+        <!-- 平台名称 -->
         <result column="name" property="name"/>
-        <!-- 编码 -->
+        <!-- 平台编码 -->
         <result column="code" property="code"/>
     </resultMap>
 

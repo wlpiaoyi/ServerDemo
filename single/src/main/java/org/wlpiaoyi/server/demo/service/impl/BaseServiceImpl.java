@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.core.ResolvableType;
 import org.springframework.transaction.annotation.Transactional;
 import org.wlpiaoyi.framework.utils.ValueUtils;
+import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.reflect.ClassModel;
 import org.wlpiaoyi.server.demo.domain.entity.BaseEntity;
 import org.wlpiaoyi.server.demo.domain.entity.CommonEntity;
@@ -77,7 +78,9 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> exte
             if(entity instanceof CommonEntity){
                 ((CommonEntity) entity).setIsDeleted(1);
                 ((CommonEntity) entity).setUpdateTime(new Date());
-            };
+            }else{
+                throw new BusinessException("not support logic delete");
+            }
             list.add(entity);
         });
         return super.updateBatchById(list) && super.removeByIds(ids);
@@ -93,6 +96,8 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> exte
             if(entity instanceof CommonEntity){
                 ((CommonEntity) entity).setUpdateTime(new Date());
                 ((CommonEntity) entity).setStatus(status);
+            }else{
+                throw new BusinessException("not support change status");
             }
             list.add(entity);
         });

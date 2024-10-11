@@ -1,51 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--@author wlpia:WLPIAOYI-PC-->
-<!--@since 2024-10-10 23:05:43-->
+<!--@author wlpiaoyi:WLPIAOYI-DELL-->
+<!--@since 2024-10-11 18:08:10-->
 <!--@desc 部门-->
 <mapper namespace="org.wlpiaoyi.server.demo.sys.domain.mapper.DeptMapper">
 
     <!-- 通用查询映射结果 -->
     <resultMap id="deptResultMap" type="org.wlpiaoyi.server.demo.sys.domain.entity.Dept">
         <id column="id" property="id"/>
-        <!-- 部门id -->
-        <result column="dept_id" property="deptId"/>
-        <!-- 父部门id -->
+        <!-- 上级部门Id -->
         <result column="parent_id" property="parentId"/>
-        <!-- 祖级列表 -->
-        <result column="ancestors" property="ancestors"/>
         <!-- 部门名称 -->
-        <result column="dept_name" property="deptName"/>
-        <!-- 显示顺序 -->
-        <result column="order_num" property="orderNum"/>
-        <!-- 负责人 -->
-        <result column="leader" property="leader"/>
-        <!-- 联系电话 -->
-        <result column="phone" property="phone"/>
-        <!-- 邮箱 -->
-        <result column="email" property="email"/>
-        <!-- 部门状态（0正常 1停用） -->
-        <result column="status" property="status"/>
-        <!-- 删除标志（0代表存在 2代表删除） -->
-        <result column="del_flag" property="delFlag"/>
-        <!-- 创建者 -->
-        <result column="create_by" property="createBy"/>
-        <!-- 创建时间 -->
-        <result column="create_time" property="createTime"/>
-        <!-- 更新者 -->
-        <result column="update_by" property="updateBy"/>
-        <!-- 更新时间 -->
-        <result column="update_time" property="updateTime"/>
-        <!-- name -->
         <result column="name" property="name"/>
         <!-- 部门编码 -->
         <result column="code" property="code"/>
+        <!-- 状态 -->
+        <result column="status" property="status"/>
         <!-- 是否删除 -->
         <result column="is_deleted" property="isDeleted"/>
         <!-- 创建部门 -->
         <result column="create_dept" property="createDept"/>
+        <!-- 创建人 -->
+        <result column="create_user" property="createUser"/>
+        <!-- 创建时间 -->
+        <result column="create_time" property="createTime"/>
         <!-- 修改人 -->
         <result column="update_user" property="updateUser"/>
+        <!-- 修改时间 -->
+        <result column="update_time" property="updateTime"/>
     </resultMap>
 
 </mapper>

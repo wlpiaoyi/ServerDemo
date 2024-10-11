@@ -63,7 +63,6 @@ public class AccessController {
 	@Operation(summary = "数据权限 分页")
 	public R<IPage<AccessVo>> page(@RequestBody AccessQuery body){
 		LambdaQueryWrapper<Access> wrapper = Wrappers.<Access>lambdaQuery();
-		wrapper.orderByDesc(Access::getCreateTime);
 		IPage<Access> pages = accessService.page(Condition.getPage(body), wrapper);
 		return R.success(ModelWrapper.parseForPage(pages, AccessVo.class));
 	}
@@ -121,4 +120,4 @@ public class AccessController {
 		return R.success(accessService.deleteLogic(ValueUtils.toLongList(ids)));
 	}
 
-}
+}

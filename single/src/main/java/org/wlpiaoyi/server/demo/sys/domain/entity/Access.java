@@ -23,7 +23,7 @@ import jakarta.validation.constraints.NotBlank;
 @TableName("sys_access")
 @Schema(description = "数据权限")
 @EqualsAndHashCode(callSuper = true)
-public class Access extends CommonEntity implements Serializable {
+public class Access extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,4 +38,4 @@ public class Access extends CommonEntity implements Serializable {
     @NotBlank(message = "path不能为空")
     private String path;
 
-}
+}

@@ -1,10 +1,13 @@
 package org.wlpiaoyi.server.demo.config.web.support;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.wlpiaoyi.server.demo.sys.service.IAccessService;
 import org.wlpiaoyi.server.demo.utils.web.support.impl.access.AccessUriSet;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * <p><b>{@code @author:}</b>wlpiaoyi</p>
@@ -42,6 +45,11 @@ public class AccessSupport extends org.wlpiaoyi.server.demo.utils.web.support.im
     public static final AccessUriSet ACCESS_URI_SET = new AccessUriSet() {
 
         private Map<String, String> uriMap = new HashMap<>();
+
+        @Override
+        public Set<String> getAllUri() {
+            return uriMap.keySet();
+        }
 
         @Override
         public boolean contains(String uri) {

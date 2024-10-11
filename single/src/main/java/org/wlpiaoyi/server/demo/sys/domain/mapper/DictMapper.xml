@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--@author wlpia:WLPIAOYI-PC-->
-<!--@since 2024-10-10 23:05:43-->
+<!--@author wlpiaoyi:WLPIAOYI-DELL-->
+<!--@since 2024-10-11 18:08:10-->
 <!--@desc 数据字典-->
 <mapper namespace="org.wlpiaoyi.server.demo.sys.domain.mapper.DictMapper">
 
     <!-- 通用查询映射结果 -->
     <resultMap id="dictResultMap" type="org.wlpiaoyi.server.demo.sys.domain.entity.Dict">
         <id column="id" property="id"/>
-        <!-- parentId -->
+        <!-- 上级节点 -->
         <result column="parent_id" property="parentId"/>
-        <!-- name -->
+        <!-- 字典名称 -->
         <result column="name" property="name"/>
-        <!-- code -->
+        <!-- 字典编码 -->
         <result column="code" property="code"/>
-        <!-- value -->
+        <!-- 字典值 -->
         <result column="value" property="value"/>
-        <!-- isPublic -->
+        <!-- 是否公开,如果是公开则所有人都能看到,否则只有指定角色的人才能看到=(0:非公开,1:公开) -->
         <result column="is_public" property="isPublic"/>
-        <!-- sort -->
+        <!-- 排序 -->
         <result column="sort" property="sort"/>
-        <!-- deep -->
+        <!-- 树深度 -->
         <result column="deep" property="deep"/>
-        <!-- isLeaf -->
+        <!-- 是否是叶子节点 -->
         <result column="is_leaf" property="isLeaf"/>
         <!-- 状态 -->
         <result column="status" property="status"/>

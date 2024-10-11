@@ -1,5 +1,7 @@
 package org.wlpiaoyi.server.demo.utils.web.support.impl.access;
 
+import java.util.Set;
+
 /**
  * <p><b>{@code @author:}</b>wlpiaoyi</p>
  * <p><b>{@code @description:}</b></p>
@@ -7,6 +9,8 @@ package org.wlpiaoyi.server.demo.utils.web.support.impl.access;
  * <p><b>{@code @version:}:</b>1.0</p>
  */
 public interface AccessUriSet {
+
+    Set<String> getAllUri();
 
     boolean contains(String uri);
 

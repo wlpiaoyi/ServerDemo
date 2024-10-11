@@ -5,6 +5,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.wlpiaoyi.server.demo.config.web.support.AccessSupport;
+import org.wlpiaoyi.server.demo.sys.service.IAccessService;
 import org.wlpiaoyi.server.demo.utils.SpringUtils;
 import org.wlpiaoyi.server.demo.utils.loader.AccessLoader;
 import org.wlpiaoyi.server.demo.utils.loader.IdWorkerLoader;
@@ -25,6 +26,8 @@ public class ApplicationListens implements CommandLineRunner, DisposableBean {
         AccessLoader.load(SpringUtils.getApplicationContext(), AccessSupport.ACCESS_URI_SET);
         IdWorkerLoader.load(SpringUtils.getApplicationContext(), System.currentTimeMillis());
         IdempotenceLoader.load(SpringUtils.getApplicationContext(), IdempotenceUriSetObj);
+        IAccessService accessService = SpringUtils.getBean(IAccessService.class);
+        accessService.mergeAll();
 
     }
 

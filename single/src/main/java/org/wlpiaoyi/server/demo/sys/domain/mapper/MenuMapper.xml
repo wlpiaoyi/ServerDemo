@@ -1,65 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--@author wlpia:WLPIAOYI-PC-->
-<!--@since 2024-10-10 23:05:43-->
+<!--@author wlpiaoyi:WLPIAOYI-DELL-->
+<!--@since 2024-10-11 18:08:10-->
 <!--@desc 菜单-->
 <mapper namespace="org.wlpiaoyi.server.demo.sys.domain.mapper.MenuMapper">
 
     <!-- 通用查询映射结果 -->
     <resultMap id="menuResultMap" type="org.wlpiaoyi.server.demo.sys.domain.entity.Menu">
         <id column="id" property="id"/>
-        <!-- 创建时间 -->
-        <result column="gmt_create" property="gmtCreate"/>
-        <!-- 修改时间 -->
-        <result column="gmt_modified" property="gmtModified"/>
-        <!-- 状态(1:正常，0:禁用) -->
-        <result column="status_id" property="statusId"/>
-        <!-- 排序 -->
-        <result column="sort" property="sort"/>
-        <!-- 父ID -->
+        <!-- 上级ID,如果为空就是顶级节点 -->
         <result column="parent_id" property="parentId"/>
-        <!-- 菜单名称 -->
-        <result column="menu_name" property="menuName"/>
-        <!-- 路由路径 -->
-        <result column="menu_url" property="menuUrl"/>
-        <!-- 权限值 -->
-        <result column="auth_value" property="authValue"/>
-        <!-- 菜单图标 -->
-        <result column="menu_icon" property="menuIcon"/>
-        <!-- 备注 -->
-        <result column="remark" property="remark"/>
-        <!-- 菜单类型(1目录,2菜单,3权限) -->
-        <result column="menu_type" property="menuType"/>
-        <!-- 菜单ID -->
-        <result column="menu_id" property="menuId"/>
-        <!-- 显示顺序 -->
-        <result column="order_num" property="orderNum"/>
-        <!-- 请求地址 -->
-        <result column="url" property="url"/>
-        <!-- 打开方式（menuItem页签 menuBlank新窗口） -->
-        <result column="target" property="target"/>
-        <!-- 菜单状态（0显示 1隐藏） -->
-        <result column="visible" property="visible"/>
-        <!-- 是否刷新（0刷新 1不刷新） -->
-        <result column="is_refresh" property="isRefresh"/>
-        <!-- 权限标识 -->
-        <result column="perms" property="perms"/>
-        <!-- 菜单图标 -->
-        <result column="icon" property="icon"/>
-        <!-- 创建者 -->
-        <result column="create_by" property="createBy"/>
-        <!-- 创建时间 -->
-        <result column="create_time" property="createTime"/>
-        <!-- 更新者 -->
-        <result column="update_by" property="updateBy"/>
-        <!-- 更新时间 -->
-        <result column="update_time" property="updateTime"/>
-        <!-- 菜单名称 -->
+        <!-- 名称 -->
         <result column="name" property="name"/>
-        <!-- 菜单编码 -->
+        <!-- 编码 -->
         <result column="code" property="code"/>
-        <!-- action -->
+        <!-- 事件响应 -->
         <result column="action" property="action"/>
+        <!-- icon -->
+        <result column="icon" property="icon"/>
         <!-- 菜单类型=(0:未知类型, 1:菜单, 2:按钮) -->
         <result column="type" property="type"/>
         <!-- 状态 -->
@@ -70,8 +28,12 @@
         <result column="create_user" property="createUser"/>
         <!-- 创建部门 -->
         <result column="create_dept" property="createDept"/>
+        <!-- 创建时间 -->
+        <result column="create_time" property="createTime"/>
         <!-- 修改人 -->
         <result column="update_user" property="updateUser"/>
+        <!-- 修改时间 -->
+        <result column="update_time" property="updateTime"/>
     </resultMap>
 
 </mapper>

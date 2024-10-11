@@ -15,4 +15,6 @@ import org.wlpiaoyi.server.demo.service.IBaseService;
 public interface IUserService extends IBaseService<User> {
 
 
+    UserVo login(UserRo.UserAuth auth);
+
 }

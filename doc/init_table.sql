@@ -13,12 +13,13 @@ CREATE TABLE `sys_access_role_rela` (
 
 CREATE TABLE `sys_dept` (
   `id` bigint unsigned NOT NULL,
-  `parent_id` bigint DEFAULT NULL,
-  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `parent_id` bigint DEFAULT NULL COMMENT '上级部门Id',
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '部门名称',
   `code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '部门编码',
   `status` int DEFAULT '1' COMMENT '状态',
   `is_deleted` int DEFAULT '0' COMMENT '是否删除',
   `create_dept` bigint DEFAULT NULL COMMENT '创建部门',
+  `create_user` bigint DEFAULT NULL COMMENT '创建人',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_user` bigint DEFAULT NULL COMMENT '修改人',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
@@ -28,14 +29,14 @@ CREATE TABLE `sys_dept` (
 
 CREATE TABLE `sys_dict` (
   `id` bigint unsigned NOT NULL,
-  `parent_id` bigint DEFAULT NULL,
-  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `code` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `value` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `is_public` tinyint NOT NULL DEFAULT '1',
-  `sort` int NOT NULL DEFAULT '0',
-  `deep` int NOT NULL DEFAULT '0',
-  `is_leaf` tinyint NOT NULL DEFAULT '1',
+  `parent_id` bigint DEFAULT NULL COMMENT '上级节点',
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '字典名称',
+  `code` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '字典编码',
+  `value` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '字典值',
+  `is_public` tinyint NOT NULL DEFAULT '1' COMMENT '是否公开,如果是公开则所有人都能看到,否则只有指定角色的人才能看到=(0:非公开,1:公开)',
+  `sort` int NOT NULL DEFAULT '0' COMMENT '排序',
+  `deep` int NOT NULL DEFAULT '0' COMMENT '树深度',
+  `is_leaf` tinyint NOT NULL DEFAULT '1' COMMENT '是否是叶子节点',
   `status` int DEFAULT '1' COMMENT '状态',
   `is_deleted` int DEFAULT '0' COMMENT '是否删除',
   `create_user` bigint DEFAULT NULL COMMENT '创建人',
@@ -88,8 +89,8 @@ CREATE TABLE `sys_platform` (
 
 CREATE TABLE `sys_role` (
   `id` int unsigned NOT NULL,
-  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '角色编码=(amdin:管理员)',
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '角色名称',
+  `code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '角色编码=(amdin:管理员,...)',
   `status` int DEFAULT '1' COMMENT '状态',
   `is_deleted` int DEFAULT '0' COMMENT '是否删除',
   `create_user` bigint DEFAULT NULL COMMENT '创建人',
@@ -106,7 +107,7 @@ CREATE TABLE `sys_role` (
 CREATE TABLE `sys_user` (
   `id` bigint unsigned NOT NULL,
   `account` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '账号',
-  `password` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '密码',
+  `password` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '密码',
   `dept_id` bigint NOT NULL COMMENT '部门ID',
   `status` int DEFAULT '1' COMMENT '状态',
   `is_deleted` int DEFAULT '0' COMMENT '是否删除',

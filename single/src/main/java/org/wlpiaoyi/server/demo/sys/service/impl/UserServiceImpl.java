@@ -1,5 +1,7 @@
 package org.wlpiaoyi.server.demo.sys.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.wlpiaoyi.server.demo.sys.service.IUserService;
 import org.wlpiaoyi.server.demo.sys.domain.entity.User;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.UserMapper;
@@ -20,5 +22,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implements IUserService {
 
+    @Autowired
+    private RedisTemplate redisTemplate;
 
-}
+
+    @Override
+    public UserVo login(UserRo.UserAuth auth) {
+        return null;
+    }
+}

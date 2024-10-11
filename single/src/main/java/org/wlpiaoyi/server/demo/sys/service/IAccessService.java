@@ -14,5 +14,6 @@ import org.wlpiaoyi.server.demo.service.IBaseService;
  */
 public interface IAccessService extends IBaseService<Access> {
 
+    void mergeAll();
 
 }
