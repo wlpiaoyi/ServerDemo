@@ -14,6 +14,7 @@ import ##package##.##bizTag##.domain.entity.##className##;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class ##className##Vo extends ##className## implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 }

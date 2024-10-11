@@ -44,7 +44,7 @@ public class PlatformController {
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "平台 详情")
-	public R<PlatformVo> detail(PlatformRo.Query body) {
+	public R<PlatformVo> detail(PlatformRo.PlatformQuery body) {
 		PlatformVo platform = ModelWrapper.parseOne(
 				this.platformService.getOne(
 						Condition.getQueryWrapper(ModelWrapper.parseOne(body, Platform.class))
@@ -61,7 +61,7 @@ public class PlatformController {
 	@PostMapping("/page")
 	@ApiOperationSupport(order = 2)
 	@Operation(summary = "平台 分页")
-	public R<IPage<PlatformVo>> page(@RequestBody PlatformRo.Query body){
+	public R<IPage<PlatformVo>> page(@RequestBody PlatformRo.PlatformQuery body){
 		LambdaQueryWrapper<Platform> wrapper = Wrappers.<Platform>lambdaQuery();
 		wrapper.orderByDesc(Platform::getCreateTime);
 		IPage<Platform> pages = platformService.page(Condition.getPage(body), wrapper);
@@ -74,7 +74,7 @@ public class PlatformController {
 	@PostMapping("/list")
 	@ApiOperationSupport(order = 3)
 	@Operation(summary = "平台 分页")
-	public R<IPage<PlatformVo>> list(@RequestBody PlatformRo.Query body) {
+	public R<IPage<PlatformVo>> list(@RequestBody PlatformRo.PlatformQuery body) {
 		QueryWrapper<Platform> wrapper = Condition.getQueryWrapper(ModelWrapper.parseOne(body, Platform.class));
 		wrapper.orderByDesc("create_time");
 		IPage<Platform> pages = platformService.page(Condition.getPage(body), wrapper);
@@ -87,7 +87,7 @@ public class PlatformController {
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
 	@Operation(summary = "平台 新增")
-	public R<Boolean> save(@Valid @RequestBody PlatformRo.Submit body) {
+	public R<Boolean> save(@Valid @RequestBody PlatformRo.PlatformSubmit body) {
 		return R.success(platformService.save(ModelWrapper.parseOne(body, Platform.class)));
 	}
 
@@ -97,7 +97,7 @@ public class PlatformController {
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
 	@Operation(summary = "平台 修改")
-	public R<Boolean> update(@RequestBody PlatformRo.Submit body) {
+	public R<Boolean> update(@RequestBody PlatformRo.PlatformSubmit body) {
 		return R.success(platformService.updateById(ModelWrapper.parseOne(body, Platform.class)));
 	}
 
@@ -107,7 +107,7 @@ public class PlatformController {
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
 	@Operation(summary = "平台 新增或修改")
-	public R<Boolean> submit(@Valid @RequestBody PlatformRo.Submit body) {
+	public R<Boolean> submit(@Valid @RequestBody PlatformRo.PlatformSubmit body) {
 		return R.success(platformService.saveOrUpdate(ModelWrapper.parseOne(body, Platform.class)));
 	}
 
@@ -121,4 +121,4 @@ public class PlatformController {
 		return R.success(platformService.deleteLogic(ValueUtils.toLongList(ids)));
 	}
 
-}
+}

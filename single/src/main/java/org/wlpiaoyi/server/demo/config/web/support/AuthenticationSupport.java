@@ -1,4 +1,4 @@
-package org.wlpiaoyi.server.demo.test.utils.support;
+package org.wlpiaoyi.server.demo.config.web.support;
 
 import org.springframework.stereotype.Component;
 

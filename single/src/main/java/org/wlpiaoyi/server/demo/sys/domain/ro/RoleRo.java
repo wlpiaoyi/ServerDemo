@@ -7,19 +7,18 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import java.io.Serializable;
-import org.wlpiaoyi.server.demo.domain.entity.BaseEntity;
 
 
 /**
- * {@code @author:} 		wlpia:WLPIAOYI-PC
+ * {@code @author:} 		wlpiaoyi:WLPIAOYI-DELL
  * {@code @description:} 	角色 请求包装类
- * {@code @date:} 			2024-10-10 23:41:54
+ * {@code @date:} 			2024-10-11 17:17:25
  * {@code @version:}: 		1.0
  */
 public class RoleRo {
     @Data
     @Schema(description = "角色 请求实例")
-	public static class Query extends org.wlpiaoyi.server.demo.utils.request.Query implements Serializable {
+	public static class RoleQuery extends org.wlpiaoyi.server.demo.utils.request.Query implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
@@ -27,17 +26,17 @@ public class RoleRo {
 		@Schema(description = "主键id")
 		@TableId(value = "id", type = IdType.ASSIGN_ID)
 		private Long id;
-		/** name **/
-		@Schema(description = "name")
+		/** 角色名称 **/
+		@Schema(name = "name" , description = "角色名称")
 		private String name;
-		/** 角色编码=(amdin:管理员) **/
-		@Schema(description = "角色编码=(amdin:管理员)")
+		/** 角色编码=(amdin:管理员,...) **/
+		@Schema(name = "code" , description = "角色编码 enums(amdin:管理员,...)" , examples = {"amdin:管理员","..."})
 		private String code;
     }
 
     @Data
     @Schema(description = "角色 请求实例")
-    public static class Submit implements Serializable {
+    public static class RoleSubmit implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
@@ -45,11 +44,11 @@ public class RoleRo {
 		@Schema(description = "主键id")
 		@TableId(value = "id", type = IdType.ASSIGN_ID)
 		private Long id;
-		/** name **/
-		@Schema(description = "name")
+		/** 角色名称 **/
+		@Schema(name = "name" , description = "角色名称")
 		private String name;
-		/** 角色编码=(amdin:管理员) **/
-		@Schema(description = "角色编码=(amdin:管理员)")
+		/** 角色编码=(amdin:管理员,...) **/
+		@Schema(name = "code" , description = "角色编码 enums(amdin:管理员,...)" , examples = {"amdin:管理员","..."})
 		private String code;
     }
-}
+}

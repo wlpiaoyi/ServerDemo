@@ -4,13 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import org.wlpiaoyi.server.demo.test.utils.support.AccessSupport;
+import org.wlpiaoyi.server.demo.config.web.support.AccessSupport;
 import org.wlpiaoyi.server.demo.utils.SpringUtils;
 import org.wlpiaoyi.server.demo.utils.loader.AccessLoader;
 import org.wlpiaoyi.server.demo.utils.loader.IdWorkerLoader;
 import org.wlpiaoyi.server.demo.utils.loader.IdempotenceLoader;
 
-import static org.wlpiaoyi.server.demo.test.utils.support.IdempotenceSupport.IdempotenceUriSetObj;
+import static org.wlpiaoyi.server.demo.config.web.support.IdempotenceSupport.IdempotenceUriSetObj;
 
 @Slf4j
 @Component

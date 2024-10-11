@@ -7,23 +7,21 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import java.io.Serializable;
-import org.wlpiaoyi.server.demo.domain.entity.BaseEntity;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 
 /**
- * {@code @author:} 		wlpia:WLPIAOYI-PC
+ * {@code @author:} 		wlpiaoyi:WLPIAOYI-DELL
  * {@code @description:} 	用户表 请求包装类
- * {@code @date:} 			2024-10-10 23:41:53
+ * {@code @date:} 			2024-10-11 17:17:25
  * {@code @version:}: 		1.0
  */
 public class UserRo {
     @Data
     @Schema(description = "用户表 请求实例")
-	public static class Query extends org.wlpiaoyi.server.demo.utils.request.Query implements Serializable {
+	public static class UserQuery extends org.wlpiaoyi.server.demo.utils.request.Query implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
@@ -31,24 +29,24 @@ public class UserRo {
 		@Schema(description = "主键id")
 		@TableId(value = "id", type = IdType.ASSIGN_ID)
 		private Long id;
-		/** account **/
-		@Schema(description = "account")
-		@NotBlank(message = "account不能为空")
+		/** 账号 **/
+		@Schema(name = "account" , description = "账号")
+		@NotBlank(message = "账号不能为空")
 		private String account;
-		/** password **/
-		@Schema(description = "password")
-		@NotBlank(message = "password不能为空")
+		/** 密码 **/
+		@Schema(name = "password" , description = "密码")
+		@NotBlank(message = "密码不能为空")
 		private String password;
-		/** deptId **/
-		@Schema(description = "deptId")
-		@NotNull(message = "deptId不能为空")
+		/** 部门ID **/
+		@Schema(name = "deptId" , description = "部门ID")
+		@NotNull(message = "部门ID不能为空")
 		@JsonSerialize(using = ToStringSerializer.class)
 		private Long deptId;
     }
 
     @Data
     @Schema(description = "用户表 请求实例")
-    public static class Submit implements Serializable {
+    public static class UserSubmit implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
@@ -56,17 +54,17 @@ public class UserRo {
 		@Schema(description = "主键id")
 		@TableId(value = "id", type = IdType.ASSIGN_ID)
 		private Long id;
-		/** account **/
-		@Schema(description = "account")
-		@NotBlank(message = "account不能为空")
+		/** 账号 **/
+		@Schema(name = "account" , description = "账号")
+		@NotBlank(message = "账号不能为空")
 		private String account;
-		/** password **/
-		@Schema(description = "password")
-		@NotBlank(message = "password不能为空")
+		/** 密码 **/
+		@Schema(name = "password" , description = "密码")
+		@NotBlank(message = "密码不能为空")
 		private String password;
-		/** deptId **/
-		@Schema(description = "deptId")
-		@NotNull(message = "deptId不能为空")
+		/** 部门ID **/
+		@Schema(name = "deptId" , description = "部门ID")
+		@NotNull(message = "部门ID不能为空")
 		@JsonSerialize(using = ToStringSerializer.class)
 		private Long deptId;
     }
@@ -76,13 +74,14 @@ public class UserRo {
 	public static class Auth implements Serializable {
 
 		private static final long serialVersionUID = 1L;
-		/** account **/
-		@Schema(description = "account")
-		@NotBlank(message = "account不能为空")
+
+		/** 账号 **/
+		@Schema(name = "account" , description = "账号")
+		@NotBlank(message = "账号不能为空")
 		private String account;
-		/** password **/
-		@Schema(description = "password")
-		@NotBlank(message = "password不能为空")
+		/** 密码 **/
+		@Schema(name = "password" , description = "密码")
+		@NotBlank(message = "密码不能为空")
 		private String password;
 	}
 }

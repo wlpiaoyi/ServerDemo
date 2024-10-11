@@ -13,9 +13,9 @@ import jakarta.validation.constraints.NotBlank;
 
 
 /**
- * {@code @author:} 		wlpia:WLPIAOYI-PC
+ * {@code @author:} 		wlpiaoyi:WLPIAOYI-DELL
  * {@code @description:} 	平台 实体类
- * {@code @date:} 			2024-10-10 23:41:53
+ * {@code @date:} 			2024-10-11 17:17:25
  * {@code @version:}: 		1.0
  */
 @Data
@@ -28,14 +28,14 @@ public class Platform extends CommonEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    /** 名称 **/
-    @Schema(description = "名称")
-    @NotBlank(message = "名称不能为空")
+    /** 平台名称 **/
+    @Schema(name = "name" , description = "平台名称")
+    @NotBlank(message = "平台名称不能为空")
     private String name;
 
-    /** 编码 **/
-    @Schema(description = "编码")
-    @NotBlank(message = "编码不能为空")
+    /** 平台编码 **/
+    @Schema(name = "code" , description = "平台编码")
+    @NotBlank(message = "平台编码不能为空")
     private String code;
 
 }

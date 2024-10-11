@@ -14,6 +14,7 @@ import org.wlpiaoyi.server.demo.sys.domain.entity.Dept;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class DeptVo extends Dept implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
-}
+}

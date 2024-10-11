@@ -1,4 +1,4 @@
-package org.wlpiaoyi.server.demo.test.utils.support;
+package org.wlpiaoyi.server.demo.config.web.support;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;

@@ -53,17 +53,14 @@ CREATE TABLE `sys_dict_role_rela` (
   PRIMARY KEY (`dict_id`,`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
-CREATE TABLE `sys_menu_role_rela` (
-  `menu_id` bigint NOT NULL,
-  `role_id` bigint NOT NULL,
-  PRIMARY KEY (`menu_id`,`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
-CREATE TABLE `sys_user` (
-  `id` bigint unsigned NOT NULL,
-  `account` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `password` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `dept_id` bigint NOT NULL,
+CREATE TABLE `sys_menu` (
+  `id` int unsigned NOT NULL,
+  `parent_id` bigint DEFAULT NULL COMMENT '上级ID,如果为空就是顶级节点',
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '名称',
+  `code` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '编码',
+  `action` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '事件响应',
+  `icon` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `type` int NOT NULL COMMENT '菜单类型=(0:未知类型, 1:菜单, 2:按钮)',
   `status` int DEFAULT '1' COMMENT '状态',
   `is_deleted` int DEFAULT '0' COMMENT '是否删除',
   `create_user` bigint DEFAULT NULL COMMENT '创建人',
@@ -73,7 +70,21 @@ CREATE TABLE `sys_user` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='菜单';
+
+CREATE TABLE `sys_menu_role_rela` (
+  `menu_id` bigint NOT NULL,
+  `role_id` bigint NOT NULL,
+  PRIMARY KEY (`menu_id`,`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+CREATE TABLE `sys_platform` (
+  `id` bigint unsigned NOT NULL,
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '平台名称',
+  `code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '平台编码',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='平台';
 
 CREATE TABLE `sys_role` (
   `id` int unsigned NOT NULL,
@@ -92,22 +103,11 @@ CREATE TABLE `sys_role` (
   UNIQUE KEY `code_UNIQUE` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='角色';
 
-CREATE TABLE `sys_platform` (
+CREATE TABLE `sys_user` (
   `id` bigint unsigned NOT NULL,
-  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '名称',
-  `code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '编码',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='平台';
-
-CREATE TABLE `sys_menu` (
-  `id` int unsigned NOT NULL,
-  `parent_id` bigint DEFAULT NULL,
-  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '菜单名称',
-  `code` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '菜单编码',
-  `action` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `icon` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `type` int NOT NULL COMMENT '菜单类型=(0:未知类型, 1:菜单, 2:按钮)',
+  `account` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '账号',
+  `password` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '密码',
+  `dept_id` bigint NOT NULL COMMENT '部门ID',
   `status` int DEFAULT '1' COMMENT '状态',
   `is_deleted` int DEFAULT '0' COMMENT '是否删除',
   `create_user` bigint DEFAULT NULL COMMENT '创建人',
@@ -117,7 +117,7 @@ CREATE TABLE `sys_menu` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='菜单';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户表';
 
 CREATE TABLE `sys_user_role_rela` (
   `role_id` bigint NOT NULL,

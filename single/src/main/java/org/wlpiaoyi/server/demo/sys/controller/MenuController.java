@@ -44,7 +44,7 @@ public class MenuController {
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "菜单 详情")
-	public R<MenuVo> detail(MenuRo.Query body) {
+	public R<MenuVo> detail(MenuRo.MenuQuery body) {
 		MenuVo menu = ModelWrapper.parseOne(
 				this.menuService.getOne(
 						Condition.getQueryWrapper(ModelWrapper.parseOne(body, Menu.class))
@@ -61,7 +61,7 @@ public class MenuController {
 	@PostMapping("/page")
 	@ApiOperationSupport(order = 2)
 	@Operation(summary = "菜单 分页")
-	public R<IPage<MenuVo>> page(@RequestBody MenuRo.Query body){
+	public R<IPage<MenuVo>> page(@RequestBody MenuRo.MenuQuery body){
 		LambdaQueryWrapper<Menu> wrapper = Wrappers.<Menu>lambdaQuery();
 		wrapper.orderByDesc(Menu::getCreateTime);
 		IPage<Menu> pages = menuService.page(Condition.getPage(body), wrapper);
@@ -74,7 +74,7 @@ public class MenuController {
 	@PostMapping("/list")
 	@ApiOperationSupport(order = 3)
 	@Operation(summary = "菜单 分页")
-	public R<IPage<MenuVo>> list(@RequestBody MenuRo.Query body) {
+	public R<IPage<MenuVo>> list(@RequestBody MenuRo.MenuQuery body) {
 		QueryWrapper<Menu> wrapper = Condition.getQueryWrapper(ModelWrapper.parseOne(body, Menu.class));
 		wrapper.orderByDesc("create_time");
 		IPage<Menu> pages = menuService.page(Condition.getPage(body), wrapper);
@@ -87,7 +87,7 @@ public class MenuController {
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
 	@Operation(summary = "菜单 新增")
-	public R<Boolean> save(@Valid @RequestBody MenuRo.Submit body) {
+	public R<Boolean> save(@Valid @RequestBody MenuRo.MenuSubmit body) {
 		return R.success(menuService.save(ModelWrapper.parseOne(body, Menu.class)));
 	}
 
@@ -97,7 +97,7 @@ public class MenuController {
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
 	@Operation(summary = "菜单 修改")
-	public R<Boolean> update(@RequestBody MenuRo.Submit body) {
+	public R<Boolean> update(@RequestBody MenuRo.MenuSubmit body) {
 		return R.success(menuService.updateById(ModelWrapper.parseOne(body, Menu.class)));
 	}
 
@@ -107,7 +107,7 @@ public class MenuController {
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
 	@Operation(summary = "菜单 新增或修改")
-	public R<Boolean> submit(@Valid @RequestBody MenuRo.Submit body) {
+	public R<Boolean> submit(@Valid @RequestBody MenuRo.MenuSubmit body) {
 		return R.success(menuService.saveOrUpdate(ModelWrapper.parseOne(body, Menu.class)));
 	}
 
@@ -121,4 +121,4 @@ public class MenuController {
 		return R.success(menuService.deleteLogic(ValueUtils.toLongList(ids)));
 	}
 
-}
+}

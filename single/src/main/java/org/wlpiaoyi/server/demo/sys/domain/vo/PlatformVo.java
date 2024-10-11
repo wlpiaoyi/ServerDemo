@@ -14,6 +14,7 @@ import org.wlpiaoyi.server.demo.sys.domain.entity.Platform;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class PlatformVo extends Platform implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
-}
+}

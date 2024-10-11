@@ -1,11 +1,10 @@
-package org.wlpiaoyi.server.demo.test.utils.filter;
+package org.wlpiaoyi.server.demo.config.web.filter;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.wlpiaoyi.server.demo.test.utils.support.AccessSupport;
-import org.wlpiaoyi.server.demo.test.utils.support.AuthenticationSupport;
-import org.wlpiaoyi.server.demo.test.utils.support.CensorSupport;
-import org.wlpiaoyi.server.demo.test.utils.support.IdempotenceSupport;
+import org.wlpiaoyi.server.demo.config.web.support.AuthenticationSupport;
+import org.wlpiaoyi.server.demo.config.web.support.CensorSupport;
+import org.wlpiaoyi.server.demo.config.web.support.IdempotenceSupport;
+import org.wlpiaoyi.server.demo.config.web.support.AccessSupport;
 import org.wlpiaoyi.server.demo.utils.SpringUtils;
 import org.wlpiaoyi.server.demo.utils.web.filter.WebBaseFilter;
 import org.wlpiaoyi.server.demo.utils.web.support.WebSupport;

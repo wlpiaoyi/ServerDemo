@@ -560,3 +560,174 @@ org.wlpiaoyi.framework.utils.exception.BusinessException: token censor failed
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
 23:59:52.994 [SpringApplicationShutdownHook] INFO  o.w.s.d.ApplicationListens - [destroy,34] - 应用正在关闭，清理相关数据
+16:34:50.984 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 8.0.1.Final
+16:34:51.594 [restartedMain] INFO  o.w.s.d.Application - [logStartupProfileInfo,644] - The following 1 profile is active: "dev"
+16:34:53.504 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8180"]
+16:34:53.506 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:34:53.506 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.20]
+16:34:53.574 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:34:55.481 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8180"]
+16:34:55.511 [restartedMain] INFO  o.w.s.d.Application - [logStarted,57] - Started Application in 4.874 seconds (process running for 5.994)
+16:34:55.514 [restartedMain] INFO  o.w.s.d.ApplicationListens - [run,24] - 应用启动成功，预相关加载数据
+16:35:12.756 [http-nio-8180-exec-2] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:35:12.772 [http-nio-8180-exec-2] WARN  o.s.w.s.PageNotFound - [noHandlerFound,1292] - No mapping for GET /favicon.ico
+16:35:13.680 [http-nio-8180-exec-4] INFO  o.s.a.AbstractOpenApiResource - [getOpenApi,390] - Init duration for springdoc-openapi is: 832 ms
+16:43:57.907 [SpringApplicationShutdownHook] INFO  o.w.s.d.ApplicationListens - [destroy,34] - 应用正在关闭，清理相关数据
+16:44:12.652 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 8.0.1.Final
+16:44:13.172 [restartedMain] INFO  o.w.s.d.Application - [logStartupProfileInfo,644] - The following 1 profile is active: "dev"
+16:44:14.816 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8180"]
+16:44:14.818 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:44:14.818 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.20]
+16:44:14.905 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:44:16.850 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8180"]
+16:44:16.878 [restartedMain] INFO  o.w.s.d.Application - [logStarted,57] - Started Application in 4.549 seconds (process running for 5.343)
+16:44:16.882 [restartedMain] INFO  o.w.s.d.ApplicationListens - [run,24] - 应用启动成功，预相关加载数据
+16:44:35.359 [http-nio-8180-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:44:36.830 [http-nio-8180-exec-3] INFO  o.s.a.AbstractOpenApiResource - [getOpenApi,390] - Init duration for springdoc-openapi is: 858 ms
+16:48:27.274 [SpringApplicationShutdownHook] INFO  o.w.s.d.ApplicationListens - [destroy,34] - 应用正在关闭，清理相关数据
+16:48:50.597 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 8.0.1.Final
+16:48:51.142 [restartedMain] INFO  o.w.s.d.Application - [logStartupProfileInfo,644] - The following 1 profile is active: "dev"
+16:48:52.848 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8180"]
+16:48:52.851 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:48:52.852 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.20]
+16:48:52.919 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:48:54.696 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8180"]
+16:48:54.725 [restartedMain] INFO  o.w.s.d.Application - [logStarted,57] - Started Application in 4.455 seconds (process running for 5.254)
+16:48:54.727 [restartedMain] INFO  o.w.s.d.ApplicationListens - [run,24] - 应用启动成功，预相关加载数据
+16:49:18.813 [http-nio-8180-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:49:20.186 [http-nio-8180-exec-3] INFO  o.s.a.AbstractOpenApiResource - [getOpenApi,390] - Init duration for springdoc-openapi is: 718 ms
+16:54:58.117 [SpringApplicationShutdownHook] INFO  o.w.s.d.ApplicationListens - [destroy,34] - 应用正在关闭，清理相关数据
+16:55:03.588 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 8.0.1.Final
+16:55:04.103 [restartedMain] INFO  o.w.s.d.Application - [logStartupProfileInfo,644] - The following 1 profile is active: "dev"
+16:55:05.908 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8180"]
+16:55:05.910 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:55:05.911 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.20]
+16:55:06.007 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:55:07.899 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8180"]
+16:55:07.936 [restartedMain] INFO  o.w.s.d.Application - [logStarted,57] - Started Application in 4.717 seconds (process running for 5.61)
+16:55:07.939 [restartedMain] INFO  o.w.s.d.ApplicationListens - [run,24] - 应用启动成功，预相关加载数据
+16:55:16.506 [http-nio-8180-exec-3] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:55:17.946 [http-nio-8180-exec-2] INFO  o.s.a.AbstractOpenApiResource - [getOpenApi,390] - Init duration for springdoc-openapi is: 874 ms
+16:55:42.580 [SpringApplicationShutdownHook] INFO  o.w.s.d.ApplicationListens - [destroy,34] - 应用正在关闭，清理相关数据
+16:55:44.753 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 8.0.1.Final
+16:55:45.292 [restartedMain] INFO  o.w.s.d.Application - [logStartupProfileInfo,644] - The following 1 profile is active: "dev"
+16:55:46.951 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8180"]
+16:55:46.953 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:55:46.953 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.20]
+16:55:47.029 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:55:48.761 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8180"]
+16:55:48.788 [restartedMain] INFO  o.w.s.d.Application - [logStarted,57] - Started Application in 4.349 seconds (process running for 5.181)
+16:55:48.801 [restartedMain] INFO  o.w.s.d.ApplicationListens - [run,24] - 应用启动成功，预相关加载数据
+16:55:55.066 [http-nio-8180-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:55:55.841 [http-nio-8180-exec-1] INFO  o.s.a.AbstractOpenApiResource - [getOpenApi,390] - Init duration for springdoc-openapi is: 741 ms
+16:57:57.948 [SpringApplicationShutdownHook] INFO  o.w.s.d.ApplicationListens - [destroy,34] - 应用正在关闭，清理相关数据
+16:58:01.849 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 8.0.1.Final
+16:58:02.393 [restartedMain] INFO  o.w.s.d.Application - [logStartupProfileInfo,644] - The following 1 profile is active: "dev"
+16:58:04.047 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8180"]
+16:58:04.050 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:58:04.050 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.20]
+16:58:04.131 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:58:05.977 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8180"]
+16:58:06.004 [restartedMain] INFO  o.w.s.d.Application - [logStarted,57] - Started Application in 4.481 seconds (process running for 5.362)
+16:58:06.007 [restartedMain] INFO  o.w.s.d.ApplicationListens - [run,24] - 应用启动成功，预相关加载数据
+16:58:15.175 [SpringApplicationShutdownHook] INFO  o.w.s.d.ApplicationListens - [destroy,34] - 应用正在关闭，清理相关数据
+16:58:18.896 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 8.0.1.Final
+16:58:19.419 [restartedMain] INFO  o.w.s.d.Application - [logStartupProfileInfo,644] - The following 1 profile is active: "dev"
+16:58:21.140 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8180"]
+16:58:21.142 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:58:21.142 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.20]
+16:58:21.210 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:58:23.034 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8180"]
+16:58:23.065 [restartedMain] INFO  o.w.s.d.Application - [logStarted,57] - Started Application in 4.509 seconds (process running for 5.336)
+16:58:23.068 [restartedMain] INFO  o.w.s.d.ApplicationListens - [run,24] - 应用启动成功，预相关加载数据
+16:58:36.155 [http-nio-8180-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:58:37.146 [http-nio-8180-exec-2] INFO  o.s.a.AbstractOpenApiResource - [getOpenApi,390] - Init duration for springdoc-openapi is: 763 ms
+16:59:42.084 [SpringApplicationShutdownHook] INFO  o.w.s.d.ApplicationListens - [destroy,34] - 应用正在关闭，清理相关数据
+16:59:46.945 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 8.0.1.Final
+16:59:47.465 [restartedMain] INFO  o.w.s.d.Application - [logStartupProfileInfo,644] - The following 1 profile is active: "dev"
+16:59:49.077 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8180"]
+16:59:49.079 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:59:49.080 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.20]
+16:59:49.152 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:59:50.935 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8180"]
+16:59:50.961 [restartedMain] INFO  o.w.s.d.Application - [logStarted,57] - Started Application in 4.329 seconds (process running for 5.149)
+16:59:50.965 [restartedMain] INFO  o.w.s.d.ApplicationListens - [run,24] - 应用启动成功，预相关加载数据
+16:59:53.809 [http-nio-8180-exec-4] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:59:54.728 [http-nio-8180-exec-3] INFO  o.s.a.AbstractOpenApiResource - [getOpenApi,390] - Init duration for springdoc-openapi is: 728 ms
+17:03:38.802 [SpringApplicationShutdownHook] INFO  o.w.s.d.ApplicationListens - [destroy,34] - 应用正在关闭，清理相关数据
+17:03:42.973 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 8.0.1.Final
+17:03:43.512 [restartedMain] INFO  o.w.s.d.Application - [logStartupProfileInfo,644] - The following 1 profile is active: "dev"
+17:03:45.145 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8180"]
+17:03:45.147 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+17:03:45.147 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.20]
+17:03:45.227 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+17:03:47.053 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8180"]
+17:03:47.080 [restartedMain] INFO  o.w.s.d.Application - [logStarted,57] - Started Application in 4.43 seconds (process running for 5.238)
+17:03:47.082 [restartedMain] INFO  o.w.s.d.ApplicationListens - [run,24] - 应用启动成功，预相关加载数据
+17:03:51.375 [http-nio-8180-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+17:03:52.307 [http-nio-8180-exec-3] INFO  o.s.a.AbstractOpenApiResource - [getOpenApi,390] - Init duration for springdoc-openapi is: 779 ms
+17:05:22.352 [SpringApplicationShutdownHook] INFO  o.w.s.d.ApplicationListens - [destroy,34] - 应用正在关闭，清理相关数据
+17:05:26.087 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 8.0.1.Final
+17:05:26.615 [restartedMain] INFO  o.w.s.d.Application - [logStartupProfileInfo,644] - The following 1 profile is active: "dev"
+17:05:28.251 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8180"]
+17:05:28.253 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+17:05:28.253 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.20]
+17:05:28.322 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+17:05:30.096 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8180"]
+17:05:30.124 [restartedMain] INFO  o.w.s.d.Application - [logStarted,57] - Started Application in 4.349 seconds (process running for 5.182)
+17:05:30.126 [restartedMain] INFO  o.w.s.d.ApplicationListens - [run,24] - 应用启动成功，预相关加载数据
+17:05:40.424 [http-nio-8180-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+17:05:41.391 [http-nio-8180-exec-3] INFO  o.s.a.AbstractOpenApiResource - [getOpenApi,390] - Init duration for springdoc-openapi is: 791 ms
+17:15:31.311 [Thread-8] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Pausing ProtocolHandler ["http-nio-8180"]
+17:15:31.311 [Thread-8] INFO  o.a.c.c.StandardService - [log,173] - Stopping service [Tomcat]
+17:15:31.313 [Thread-8] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+17:15:31.318 [Thread-8] WARN  o.a.c.l.WebappClassLoaderBase - [log,173] - The web application [ROOT] appears to have started a thread named [lettuce-timer-3-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/java.lang.Thread.sleep0(Native Method)
+ java.base/java.lang.Thread.sleep(Thread.java:509)
+ io.netty.util.HashedWheelTimer$Worker.waitForNextTick(HashedWheelTimer.java:591)
+ io.netty.util.HashedWheelTimer$Worker.run(HashedWheelTimer.java:487)
+ io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+17:15:31.320 [Thread-8] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Stopping ProtocolHandler ["http-nio-8180"]
+17:15:31.322 [Thread-8] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Destroying ProtocolHandler ["http-nio-8180"]
+17:15:31.327 [Thread-8] INFO  o.w.s.d.ApplicationListens - [destroy,34] - 应用正在关闭，清理相关数据
+17:15:31.613 [restartedMain] INFO  o.w.s.d.Application - [logStartupProfileInfo,644] - The following 1 profile is active: "dev"
+17:15:32.352 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8180"]
+17:15:32.353 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+17:15:32.353 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.20]
+17:15:32.385 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+17:15:33.259 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8180"]
+17:15:33.265 [restartedMain] INFO  o.w.s.d.Application - [logStarted,57] - Started Application in 1.831 seconds (process running for 608.324)
+17:15:33.267 [restartedMain] INFO  o.w.s.d.ApplicationListens - [run,24] - 应用启动成功，预相关加载数据
+17:15:35.725 [Thread-10] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Pausing ProtocolHandler ["http-nio-8180"]
+17:15:35.725 [Thread-10] INFO  o.a.c.c.StandardService - [log,173] - Stopping service [Tomcat]
+17:15:35.727 [Thread-10] WARN  o.a.c.l.WebappClassLoaderBase - [log,173] - The web application [ROOT] appears to have started a thread named [lettuce-timer-5-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/java.lang.Thread.sleep0(Native Method)
+ java.base/java.lang.Thread.sleep(Thread.java:509)
+ io.netty.util.HashedWheelTimer$Worker.waitForNextTick(HashedWheelTimer.java:591)
+ io.netty.util.HashedWheelTimer$Worker.run(HashedWheelTimer.java:487)
+ io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+17:15:35.729 [Thread-10] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Stopping ProtocolHandler ["http-nio-8180"]
+17:15:35.730 [Thread-10] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Destroying ProtocolHandler ["http-nio-8180"]
+17:15:35.732 [Thread-10] INFO  o.w.s.d.ApplicationListens - [destroy,34] - 应用正在关闭，清理相关数据
+17:15:35.940 [restartedMain] INFO  o.w.s.d.Application - [logStartupProfileInfo,644] - The following 1 profile is active: "dev"
+17:15:36.462 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8180"]
+17:15:36.463 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+17:15:36.463 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.20]
+17:15:36.489 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+17:15:37.167 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8180"]
+17:15:37.174 [restartedMain] INFO  o.w.s.d.Application - [logStarted,57] - Started Application in 1.359 seconds (process running for 612.232)
+17:15:37.176 [restartedMain] INFO  o.w.s.d.ApplicationListens - [run,24] - 应用启动成功，预相关加载数据
+17:22:52.771 [SpringApplicationShutdownHook] INFO  o.w.s.d.ApplicationListens - [destroy,34] - 应用正在关闭，清理相关数据
+17:22:58.483 [background-preinit] INFO  o.h.v.i.util.Version - [<clinit>,21] - HV000001: Hibernate Validator 8.0.1.Final
+17:22:59.002 [restartedMain] INFO  o.w.s.d.Application - [logStartupProfileInfo,644] - The following 1 profile is active: "dev"
+17:23:00.619 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8180"]
+17:23:00.622 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+17:23:00.622 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.20]
+17:23:00.690 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+17:23:02.464 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8180"]
+17:23:02.492 [restartedMain] INFO  o.w.s.d.Application - [logStarted,57] - Started Application in 4.33 seconds (process running for 5.116)
+17:23:02.494 [restartedMain] INFO  o.w.s.d.ApplicationListens - [run,24] - 应用启动成功，预相关加载数据
+17:23:07.679 [http-nio-8180-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+17:23:08.654 [http-nio-8180-exec-3] INFO  o.s.a.AbstractOpenApiResource - [getOpenApi,390] - Init duration for springdoc-openapi is: 739 ms

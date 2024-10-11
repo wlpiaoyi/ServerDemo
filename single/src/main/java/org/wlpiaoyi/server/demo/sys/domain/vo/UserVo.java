@@ -34,4 +34,5 @@ public class UserVo extends User implements Serializable {
 	 */
 	private List<RoleVo> roles;
 
+
 }

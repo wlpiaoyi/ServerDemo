@@ -3,8 +3,8 @@ package org.wlpiaoyi.server.demo.utils.response;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.HttpHeaders;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.http.HttpHeaders;
 import org.wlpiaoyi.framework.utils.gson.GsonBuilder;
 
 import java.io.IOException;

@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.ClientAbortException;
-import org.apache.http.HttpHeaders;
+import org.springframework.http.HttpHeaders;
 import org.wlpiaoyi.framework.utils.MapUtils;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;

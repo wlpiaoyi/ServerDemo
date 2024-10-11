@@ -7,23 +7,21 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import java.io.Serializable;
-import org.wlpiaoyi.server.demo.domain.entity.BaseEntity;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 
 /**
- * {@code @author:} 		wlpia:WLPIAOYI-PC
+ * {@code @author:} 		wlpiaoyi:WLPIAOYI-DELL
  * {@code @description:} 	菜单 请求包装类
- * {@code @date:} 			2024-10-10 23:41:53
+ * {@code @date:} 			2024-10-11 17:17:25
  * {@code @version:}: 		1.0
  */
 public class MenuRo {
     @Data
     @Schema(description = "菜单 请求实例")
-	public static class Query extends org.wlpiaoyi.server.demo.utils.request.Query implements Serializable {
+	public static class MenuQuery extends org.wlpiaoyi.server.demo.utils.request.Query implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
@@ -31,33 +29,33 @@ public class MenuRo {
 		@Schema(description = "主键id")
 		@TableId(value = "id", type = IdType.ASSIGN_ID)
 		private Long id;
-		/** parentId **/
-		@Schema(description = "parentId")
+		/** 上级ID,如果为空就是顶级节点 **/
+		@Schema(name = "parentId" , description = "上级ID:如果为空就是顶级节点")
 		@JsonSerialize(using = ToStringSerializer.class)
 		private Long parentId;
-		/** 菜单名称 **/
-		@Schema(description = "菜单名称")
-		@NotBlank(message = "菜单名称不能为空")
+		/** 名称 **/
+		@Schema(name = "name" , description = "名称")
+		@NotBlank(message = "名称不能为空")
 		private String name;
-		/** 菜单编码 **/
-		@Schema(description = "菜单编码")
-		@NotBlank(message = "菜单编码不能为空")
+		/** 编码 **/
+		@Schema(name = "code" , description = "编码")
+		@NotBlank(message = "编码不能为空")
 		private String code;
-		/** action **/
-		@Schema(description = "action")
+		/** 事件响应 **/
+		@Schema(name = "action" , description = "事件响应")
 		private String action;
 		/** icon **/
-		@Schema(description = "icon")
+		@Schema(name = "icon" , description = "icon")
 		private String icon;
 		/** 菜单类型=(0:未知类型, 1:菜单, 2:按钮) **/
-		@Schema(description = "菜单类型=(0:未知类型, 1:菜单, 2:按钮)")
-		@NotNull(message = "菜单类型=(0:未知类型, 1:菜单, 2:按钮)不能为空")
+		@Schema(name = "type" , description = "菜单类型 enums(0:未知类型, 1:菜单, 2:按钮)" , examples = {"0:未知类型"," 1:菜单"," 2:按钮"})
+		@NotNull(message = "菜单类型不能为空")
 		private Integer type;
     }
 
     @Data
     @Schema(description = "菜单 请求实例")
-    public static class Submit implements Serializable {
+    public static class MenuSubmit implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
@@ -65,27 +63,27 @@ public class MenuRo {
 		@Schema(description = "主键id")
 		@TableId(value = "id", type = IdType.ASSIGN_ID)
 		private Long id;
-		/** parentId **/
-		@Schema(description = "parentId")
+		/** 上级ID,如果为空就是顶级节点 **/
+		@Schema(name = "parentId" , description = "上级ID:如果为空就是顶级节点")
 		@JsonSerialize(using = ToStringSerializer.class)
 		private Long parentId;
-		/** 菜单名称 **/
-		@Schema(description = "菜单名称")
-		@NotBlank(message = "菜单名称不能为空")
+		/** 名称 **/
+		@Schema(name = "name" , description = "名称")
+		@NotBlank(message = "名称不能为空")
 		private String name;
-		/** 菜单编码 **/
-		@Schema(description = "菜单编码")
-		@NotBlank(message = "菜单编码不能为空")
+		/** 编码 **/
+		@Schema(name = "code" , description = "编码")
+		@NotBlank(message = "编码不能为空")
 		private String code;
-		/** action **/
-		@Schema(description = "action")
+		/** 事件响应 **/
+		@Schema(name = "action" , description = "事件响应")
 		private String action;
 		/** icon **/
-		@Schema(description = "icon")
+		@Schema(name = "icon" , description = "icon")
 		private String icon;
 		/** 菜单类型=(0:未知类型, 1:菜单, 2:按钮) **/
-		@Schema(description = "菜单类型=(0:未知类型, 1:菜单, 2:按钮)")
-		@NotNull(message = "菜单类型=(0:未知类型, 1:菜单, 2:按钮)不能为空")
+		@Schema(name = "type" , description = "菜单类型 enums(0:未知类型, 1:菜单, 2:按钮)" , examples = {"0:未知类型"," 1:菜单"," 2:按钮"})
+		@NotNull(message = "菜单类型不能为空")
 		private Integer type;
     }
-}
+}

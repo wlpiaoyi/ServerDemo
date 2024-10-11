@@ -7,20 +7,20 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import java.io.Serializable;
-import org.wlpiaoyi.server.demo.domain.entity.BaseEntity;
+
 import jakarta.validation.constraints.NotBlank;
 
 
 /**
- * {@code @author:} 		wlpia:WLPIAOYI-PC
+ * {@code @author:} 		wlpiaoyi:WLPIAOYI-DELL
  * {@code @description:} 	数据权限 请求包装类
- * {@code @date:} 			2024-10-10 23:41:53
+ * {@code @date:} 			2024-10-11 17:17:25
  * {@code @version:}: 		1.0
  */
 public class AccessRo {
     @Data
     @Schema(description = "数据权限 请求实例")
-	public static class Query extends org.wlpiaoyi.server.demo.utils.request.Query implements Serializable {
+	public static class AccessQuery extends org.wlpiaoyi.server.demo.utils.request.Query implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
@@ -29,18 +29,18 @@ public class AccessRo {
 		@TableId(value = "id", type = IdType.ASSIGN_ID)
 		private Long id;
 		/** value **/
-		@Schema(description = "value")
+		@Schema(name = "value" , description = "value")
 		@NotBlank(message = "value不能为空")
 		private String value;
 		/** path **/
-		@Schema(description = "path")
+		@Schema(name = "path" , description = "path")
 		@NotBlank(message = "path不能为空")
 		private String path;
     }
 
     @Data
     @Schema(description = "数据权限 请求实例")
-    public static class Submit implements Serializable {
+    public static class AccessSubmit implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
@@ -49,12 +49,12 @@ public class AccessRo {
 		@TableId(value = "id", type = IdType.ASSIGN_ID)
 		private Long id;
 		/** value **/
-		@Schema(description = "value")
+		@Schema(name = "value" , description = "value")
 		@NotBlank(message = "value不能为空")
 		private String value;
 		/** path **/
-		@Schema(description = "path")
+		@Schema(name = "path" , description = "path")
 		@NotBlank(message = "path不能为空")
 		private String path;
     }
-}
+}

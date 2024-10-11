@@ -38,13 +38,28 @@ public class UserController {
 
 	private final IUserService userService;
 
+
+
+//	/**
+//	 * 用户表 分页
+//	 */
+//	@PostMapping("/login")
+//	@ApiOperationSupport(order = 0)
+//	@Operation(summary = "用户登录")
+//	public R<UserVo> login(@RequestHeader String token, @RequestBody UserRo.Auth body) {
+//		QueryWrapper<User> wrapper = Condition.getQueryWrapper(ModelWrapper.parseOne(body, User.class));
+//		wrapper.orderByDesc("create_time");
+//		IPage<User> pages = userService.page(Condition.getPage(body), wrapper);
+//		return R.success(ModelWrapper.parseForPage(pages, UserVo.class));
+//	}
+
 	/**
 	 * 用户表 详情
 	 */
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "用户表 详情")
-	public R<UserVo> detail(UserRo.Query body) {
+	public R<UserVo> detail(UserRo.UserQuery body) {
 		UserVo user = ModelWrapper.parseOne(
 				this.userService.getOne(
 						Condition.getQueryWrapper(ModelWrapper.parseOne(body, User.class))
@@ -61,7 +76,7 @@ public class UserController {
 	@PostMapping("/page")
 	@ApiOperationSupport(order = 2)
 	@Operation(summary = "用户表 分页")
-	public R<IPage<UserVo>> page(@RequestBody UserRo.Query body){
+	public R<IPage<UserVo>> page(@RequestBody UserRo.UserQuery body){
 		LambdaQueryWrapper<User> wrapper = Wrappers.<User>lambdaQuery();
 		wrapper.orderByDesc(User::getCreateTime);
 		IPage<User> pages = userService.page(Condition.getPage(body), wrapper);
@@ -74,7 +89,7 @@ public class UserController {
 	@PostMapping("/list")
 	@ApiOperationSupport(order = 3)
 	@Operation(summary = "用户表 分页")
-	public R<IPage<UserVo>> list(@RequestBody UserRo.Query body) {
+	public R<IPage<UserVo>> list(@RequestBody UserRo.UserQuery body) {
 		QueryWrapper<User> wrapper = Condition.getQueryWrapper(ModelWrapper.parseOne(body, User.class));
 		wrapper.orderByDesc("create_time");
 		IPage<User> pages = userService.page(Condition.getPage(body), wrapper);
@@ -87,7 +102,7 @@ public class UserController {
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
 	@Operation(summary = "用户表 新增")
-	public R<Boolean> save(@Valid @RequestBody UserRo.Submit body) {
+	public R<Boolean> save(@Valid @RequestBody UserRo.UserSubmit body) {
 		return R.success(userService.save(ModelWrapper.parseOne(body, User.class)));
 	}
 
@@ -97,7 +112,7 @@ public class UserController {
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
 	@Operation(summary = "用户表 修改")
-	public R<Boolean> update(@RequestBody UserRo.Submit body) {
+	public R<Boolean> update(@RequestBody UserRo.UserSubmit body) {
 		return R.success(userService.updateById(ModelWrapper.parseOne(body, User.class)));
 	}
 
@@ -107,7 +122,7 @@ public class UserController {
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
 	@Operation(summary = "用户表 新增或修改")
-	public R<Boolean> submit(@Valid @RequestBody UserRo.Submit body) {
+	public R<Boolean> submit(@Valid @RequestBody UserRo.UserSubmit body) {
 		return R.success(userService.saveOrUpdate(ModelWrapper.parseOne(body, User.class)));
 	}
 

@@ -20,8 +20,13 @@ public class RoleVo extends Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 当前角色菜单
+	 * 当前角色菜单权限
 	 */
 	private List<MenuVo> menus;
+
+	/**
+	 * 单圈角色数据权限
+	 */
+	private List<AccessVo> accesses;
 
 }

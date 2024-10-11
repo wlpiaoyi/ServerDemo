@@ -13,9 +13,9 @@ import jakarta.validation.constraints.NotBlank;
 
 
 /**
- * {@code @author:} 		wlpia:WLPIAOYI-PC
+ * {@code @author:} 		wlpiaoyi:WLPIAOYI-DELL
  * {@code @description:} 	数据权限 实体类
- * {@code @date:} 			2024-10-10 23:41:53
+ * {@code @date:} 			2024-10-11 17:17:25
  * {@code @version:}: 		1.0
  */
 @Data
@@ -23,19 +23,19 @@ import jakarta.validation.constraints.NotBlank;
 @TableName("sys_access")
 @Schema(description = "数据权限")
 @EqualsAndHashCode(callSuper = true)
-public class Access extends BaseEntity implements Serializable {
+public class Access extends CommonEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
 
     /** value **/
-    @Schema(description = "value")
+    @Schema(name = "value" , description = "value")
     @NotBlank(message = "value不能为空")
     private String value;
 
     /** path **/
-    @Schema(description = "path")
+    @Schema(name = "path" , description = "path")
     @NotBlank(message = "path不能为空")
     private String path;
 
-}
+}

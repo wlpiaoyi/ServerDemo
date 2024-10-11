@@ -44,7 +44,7 @@ public class DeptController {
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "部门 详情")
-	public R<DeptVo> detail(DeptRo.Query body) {
+	public R<DeptVo> detail(DeptRo.DeptQuery body) {
 		DeptVo dept = ModelWrapper.parseOne(
 				this.deptService.getOne(
 						Condition.getQueryWrapper(ModelWrapper.parseOne(body, Dept.class))
@@ -61,7 +61,7 @@ public class DeptController {
 	@PostMapping("/page")
 	@ApiOperationSupport(order = 2)
 	@Operation(summary = "部门 分页")
-	public R<IPage<DeptVo>> page(@RequestBody DeptRo.Query body){
+	public R<IPage<DeptVo>> page(@RequestBody DeptRo.DeptQuery body){
 		LambdaQueryWrapper<Dept> wrapper = Wrappers.<Dept>lambdaQuery();
 		wrapper.orderByDesc(Dept::getCreateTime);
 		IPage<Dept> pages = deptService.page(Condition.getPage(body), wrapper);
@@ -74,7 +74,7 @@ public class DeptController {
 	@PostMapping("/list")
 	@ApiOperationSupport(order = 3)
 	@Operation(summary = "部门 分页")
-	public R<IPage<DeptVo>> list(@RequestBody DeptRo.Query body) {
+	public R<IPage<DeptVo>> list(@RequestBody DeptRo.DeptQuery body) {
 		QueryWrapper<Dept> wrapper = Condition.getQueryWrapper(ModelWrapper.parseOne(body, Dept.class));
 		wrapper.orderByDesc("create_time");
 		IPage<Dept> pages = deptService.page(Condition.getPage(body), wrapper);
@@ -87,7 +87,7 @@ public class DeptController {
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
 	@Operation(summary = "部门 新增")
-	public R<Boolean> save(@Valid @RequestBody DeptRo.Submit body) {
+	public R<Boolean> save(@Valid @RequestBody DeptRo.DeptSubmit body) {
 		return R.success(deptService.save(ModelWrapper.parseOne(body, Dept.class)));
 	}
 
@@ -97,7 +97,7 @@ public class DeptController {
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
 	@Operation(summary = "部门 修改")
-	public R<Boolean> update(@RequestBody DeptRo.Submit body) {
+	public R<Boolean> update(@RequestBody DeptRo.DeptSubmit body) {
 		return R.success(deptService.updateById(ModelWrapper.parseOne(body, Dept.class)));
 	}
 
@@ -107,7 +107,7 @@ public class DeptController {
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
 	@Operation(summary = "部门 新增或修改")
-	public R<Boolean> submit(@Valid @RequestBody DeptRo.Submit body) {
+	public R<Boolean> submit(@Valid @RequestBody DeptRo.DeptSubmit body) {
 		return R.success(deptService.saveOrUpdate(ModelWrapper.parseOne(body, Dept.class)));
 	}
 
@@ -121,4 +121,4 @@ public class DeptController {
 		return R.success(deptService.deleteLogic(ValueUtils.toLongList(ids)));
 	}
 
-}
+}
