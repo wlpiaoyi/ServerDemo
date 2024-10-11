@@ -14,11 +14,11 @@
 	
 	<!-- 系统日志输出 -->
 	<appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
-	    <file>${log.path}/resource-info.log</file>
+	    <file>${log.path}/server-demo-info.log</file>
         <!-- 循环政策：基于时间创建日志文件 -->
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件名格式 -->
-			<fileNamePattern>${log.path}/resource-info.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>${log.path}/server-demo-info.%d{yyyy-MM-dd}.log</fileNamePattern>
 			<!-- 日志最大的历史 60天 -->
 			<maxHistory>60</maxHistory>
 		</rollingPolicy>
@@ -36,11 +36,11 @@
 	</appender>
 	
 	<appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-	    <file>${log.path}/resource-error.log</file>
+	    <file>${log.path}/server-demo-error.log</file>
         <!-- 循环政策：基于时间创建日志文件 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 日志文件名格式 -->
-            <fileNamePattern>${log.path}/resource-error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${log.path}/server-demo-error.%d{yyyy-MM-dd}.log</fileNamePattern>
 			<!-- 日志最大的历史 60天 -->
 			<maxHistory>60</maxHistory>
         </rollingPolicy>
@@ -57,7 +57,7 @@
         </filter>
     </appender>
 	<!-- 系统模块日志级别控制  -->
-	<logger name="org.wlpiaoyi.framework.ee.resource" level="info" />
+	<logger name="org.wlpiaoyi.server.demo" level="info" />
 	<!-- Spring日志级别控制  -->
 	<logger name="org.springframework" level="warn" />
 
