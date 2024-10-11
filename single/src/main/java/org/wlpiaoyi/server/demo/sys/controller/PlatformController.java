@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Platform;
 import org.wlpiaoyi.server.demo.sys.service.IPlatformService;
 import org.wlpiaoyi.server.demo.sys.domain.vo.PlatformVo;
-import org.wlpiaoyi.server.demo.sys.domain.ro.PlatformRo;
+import org.wlpiaoyi.server.demo.sys.domain.ro.PlatformRo.*;
 import org.wlpiaoyi.server.demo.utils.tools.ModelWrapper;
 import org.wlpiaoyi.server.demo.utils.response.R;
 import org.wlpiaoyi.server.demo.utils.request.Condition;
@@ -25,9 +25,9 @@ import jakarta.validation.Valid;
 
 
 /**
- * {@code @author:} 		wlpia:WLPIAOYI-PC
+ * {@code @author:} 		wlpiaoyi:WLPIAOYI-DELL
  * {@code @description:} 	平台 控制器
- * {@code @date:} 			2024-10-10 23:05:43
+ * {@code @date:} 			2024-10-11 17:34:53
  * {@code @version:}: 		1.0
  */
 @RestController
@@ -44,7 +44,7 @@ public class PlatformController {
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "平台 详情")
-	public R<PlatformVo> detail(PlatformRo.PlatformQuery body) {
+	public R<PlatformVo> detail(PlatformQuery body) {
 		PlatformVo platform = ModelWrapper.parseOne(
 				this.platformService.getOne(
 						Condition.getQueryWrapper(ModelWrapper.parseOne(body, Platform.class))
@@ -61,7 +61,7 @@ public class PlatformController {
 	@PostMapping("/page")
 	@ApiOperationSupport(order = 2)
 	@Operation(summary = "平台 分页")
-	public R<IPage<PlatformVo>> page(@RequestBody PlatformRo.PlatformQuery body){
+	public R<IPage<PlatformVo>> page(@RequestBody PlatformQuery body){
 		LambdaQueryWrapper<Platform> wrapper = Wrappers.<Platform>lambdaQuery();
 		wrapper.orderByDesc(Platform::getCreateTime);
 		IPage<Platform> pages = platformService.page(Condition.getPage(body), wrapper);
@@ -74,7 +74,7 @@ public class PlatformController {
 	@PostMapping("/list")
 	@ApiOperationSupport(order = 3)
 	@Operation(summary = "平台 分页")
-	public R<IPage<PlatformVo>> list(@RequestBody PlatformRo.PlatformQuery body) {
+	public R<IPage<PlatformVo>> list(@RequestBody PlatformQuery body) {
 		QueryWrapper<Platform> wrapper = Condition.getQueryWrapper(ModelWrapper.parseOne(body, Platform.class));
 		wrapper.orderByDesc("create_time");
 		IPage<Platform> pages = platformService.page(Condition.getPage(body), wrapper);
@@ -87,7 +87,7 @@ public class PlatformController {
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
 	@Operation(summary = "平台 新增")
-	public R<Boolean> save(@Valid @RequestBody PlatformRo.PlatformSubmit body) {
+	public R<Boolean> save(@Valid @RequestBody PlatformSubmit body) {
 		return R.success(platformService.save(ModelWrapper.parseOne(body, Platform.class)));
 	}
 
@@ -97,7 +97,7 @@ public class PlatformController {
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
 	@Operation(summary = "平台 修改")
-	public R<Boolean> update(@RequestBody PlatformRo.PlatformSubmit body) {
+	public R<Boolean> update(@RequestBody PlatformSubmit body) {
 		return R.success(platformService.updateById(ModelWrapper.parseOne(body, Platform.class)));
 	}
 
@@ -107,7 +107,7 @@ public class PlatformController {
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
 	@Operation(summary = "平台 新增或修改")
-	public R<Boolean> submit(@Valid @RequestBody PlatformRo.PlatformSubmit body) {
+	public R<Boolean> submit(@Valid @RequestBody PlatformSubmit body) {
 		return R.success(platformService.saveOrUpdate(ModelWrapper.parseOne(body, Platform.class)));
 	}
 
@@ -121,4 +121,4 @@ public class PlatformController {
 		return R.success(platformService.deleteLogic(ValueUtils.toLongList(ids)));
 	}
 
-}
+}

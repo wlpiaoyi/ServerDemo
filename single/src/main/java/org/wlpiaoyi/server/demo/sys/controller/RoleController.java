@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Role;
 import org.wlpiaoyi.server.demo.sys.service.IRoleService;
 import org.wlpiaoyi.server.demo.sys.domain.vo.RoleVo;
-import org.wlpiaoyi.server.demo.sys.domain.ro.RoleRo;
+import org.wlpiaoyi.server.demo.sys.domain.ro.RoleRo.*;
 import org.wlpiaoyi.server.demo.utils.tools.ModelWrapper;
 import org.wlpiaoyi.server.demo.utils.response.R;
 import org.wlpiaoyi.server.demo.utils.request.Condition;
@@ -25,9 +25,9 @@ import jakarta.validation.Valid;
 
 
 /**
- * {@code @author:} 		wlpia:WLPIAOYI-PC
+ * {@code @author:} 		wlpiaoyi:WLPIAOYI-DELL
  * {@code @description:} 	角色 控制器
- * {@code @date:} 			2024-10-10 23:05:43
+ * {@code @date:} 			2024-10-11 17:34:54
  * {@code @version:}: 		1.0
  */
 @RestController
@@ -44,7 +44,7 @@ public class RoleController {
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "角色 详情")
-	public R<RoleVo> detail(RoleRo.RoleQuery body) {
+	public R<RoleVo> detail(RoleQuery body) {
 		RoleVo role = ModelWrapper.parseOne(
 				this.roleService.getOne(
 						Condition.getQueryWrapper(ModelWrapper.parseOne(body, Role.class))
@@ -61,7 +61,7 @@ public class RoleController {
 	@PostMapping("/page")
 	@ApiOperationSupport(order = 2)
 	@Operation(summary = "角色 分页")
-	public R<IPage<RoleVo>> page(@RequestBody RoleRo.RoleQuery body){
+	public R<IPage<RoleVo>> page(@RequestBody RoleQuery body){
 		LambdaQueryWrapper<Role> wrapper = Wrappers.<Role>lambdaQuery();
 		wrapper.orderByDesc(Role::getCreateTime);
 		IPage<Role> pages = roleService.page(Condition.getPage(body), wrapper);
@@ -74,7 +74,7 @@ public class RoleController {
 	@PostMapping("/list")
 	@ApiOperationSupport(order = 3)
 	@Operation(summary = "角色 分页")
-	public R<IPage<RoleVo>> list(@RequestBody RoleRo.RoleQuery body) {
+	public R<IPage<RoleVo>> list(@RequestBody RoleQuery body) {
 		QueryWrapper<Role> wrapper = Condition.getQueryWrapper(ModelWrapper.parseOne(body, Role.class));
 		wrapper.orderByDesc("create_time");
 		IPage<Role> pages = roleService.page(Condition.getPage(body), wrapper);
@@ -87,7 +87,7 @@ public class RoleController {
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
 	@Operation(summary = "角色 新增")
-	public R<Boolean> save(@Valid @RequestBody RoleRo.RoleSubmit body) {
+	public R<Boolean> save(@Valid @RequestBody RoleSubmit body) {
 		return R.success(roleService.save(ModelWrapper.parseOne(body, Role.class)));
 	}
 
@@ -97,7 +97,7 @@ public class RoleController {
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
 	@Operation(summary = "角色 修改")
-	public R<Boolean> update(@RequestBody RoleRo.RoleSubmit body) {
+	public R<Boolean> update(@RequestBody RoleSubmit body) {
 		return R.success(roleService.updateById(ModelWrapper.parseOne(body, Role.class)));
 	}
 
@@ -107,7 +107,7 @@ public class RoleController {
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
 	@Operation(summary = "角色 新增或修改")
-	public R<Boolean> submit(@Valid @RequestBody RoleRo.RoleSubmit body) {
+	public R<Boolean> submit(@Valid @RequestBody RoleSubmit body) {
 		return R.success(roleService.saveOrUpdate(ModelWrapper.parseOne(body, Role.class)));
 	}
 
@@ -121,4 +121,4 @@ public class RoleController {
 		return R.success(roleService.deleteLogic(ValueUtils.toLongList(ids)));
 	}
 
-}
+}

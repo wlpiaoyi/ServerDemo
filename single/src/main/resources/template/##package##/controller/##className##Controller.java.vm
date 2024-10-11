@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 import ##package##.##bizTag##.domain.entity.##className##;
 import ##package##.##bizTag##.service.I##className##Service;
 import ##package##.##bizTag##.domain.vo.##className##Vo;
-import ##package##.##bizTag##.domain.ro.##className##Ro;
+import ##package##.##bizTag##.domain.ro.##className##Ro.*;
 import ##package##.utils.tools.ModelWrapper;
 import ##package##.utils.response.R;
 import ##package##.utils.request.Condition;
@@ -44,7 +44,7 @@ public class ##className##Controller {
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "##tableComment## 详情")
-	public R<##className##Vo> detail(##className##Ro.Query body) {
+	public R<##className##Vo> detail(##className##Query body) {
 		##className##Vo ##varClassName## = ModelWrapper.parseOne(
 				this.##varClassName##Service.getOne(
 						Condition.getQueryWrapper(ModelWrapper.parseOne(body, ##className##.class))
@@ -61,7 +61,7 @@ public class ##className##Controller {
 	@PostMapping("/page")
 	@ApiOperationSupport(order = 2)
 	@Operation(summary = "##tableComment## 分页")
-	public R<IPage<##className##Vo>> page(@RequestBody ##className##Ro.Query body){
+	public R<IPage<##className##Vo>> page(@RequestBody ##className##Query body){
 		LambdaQueryWrapper<##className##> wrapper = Wrappers.<##className##>lambdaQuery();
 		wrapper.orderByDesc(##className##::getCreateTime);
 		IPage<##className##> pages = ##varClassName##Service.page(Condition.getPage(body), wrapper);
@@ -74,7 +74,7 @@ public class ##className##Controller {
 	@PostMapping("/list")
 	@ApiOperationSupport(order = 3)
 	@Operation(summary = "##tableComment## 分页")
-	public R<IPage<##className##Vo>> list(@RequestBody ##className##Ro.Query body) {
+	public R<IPage<##className##Vo>> list(@RequestBody ##className##Query body) {
 		QueryWrapper<##className##> wrapper = Condition.getQueryWrapper(ModelWrapper.parseOne(body, ##className##.class));
 		wrapper.orderByDesc("create_time");
 		IPage<##className##> pages = ##varClassName##Service.page(Condition.getPage(body), wrapper);
@@ -87,7 +87,7 @@ public class ##className##Controller {
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
 	@Operation(summary = "##tableComment## 新增")
-	public R<Boolean> save(@Valid @RequestBody ##className##Ro.Submit body) {
+	public R<Boolean> save(@Valid @RequestBody ##className##Submit body) {
 		return R.success(##varClassName##Service.save(ModelWrapper.parseOne(body, ##className##.class)));
 	}
 
@@ -97,7 +97,7 @@ public class ##className##Controller {
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
 	@Operation(summary = "##tableComment## 修改")
-	public R<Boolean> update(@RequestBody ##className##Ro.Submit body) {
+	public R<Boolean> update(@RequestBody ##className##Submit body) {
 		return R.success(##varClassName##Service.updateById(ModelWrapper.parseOne(body, ##className##.class)));
 	}
 
@@ -107,7 +107,7 @@ public class ##className##Controller {
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
 	@Operation(summary = "##tableComment## 新增或修改")
-	public R<Boolean> submit(@Valid @RequestBody ##className##Ro.Submit body) {
+	public R<Boolean> submit(@Valid @RequestBody ##className##Submit body) {
 		return R.success(##varClassName##Service.saveOrUpdate(ModelWrapper.parseOne(body, ##className##.class)));
 	}
 

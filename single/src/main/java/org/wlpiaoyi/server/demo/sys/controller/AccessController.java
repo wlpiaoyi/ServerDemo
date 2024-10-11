@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Access;
 import org.wlpiaoyi.server.demo.sys.service.IAccessService;
 import org.wlpiaoyi.server.demo.sys.domain.vo.AccessVo;
-import org.wlpiaoyi.server.demo.sys.domain.ro.AccessRo;
+import org.wlpiaoyi.server.demo.sys.domain.ro.AccessRo.*;
 import org.wlpiaoyi.server.demo.utils.tools.ModelWrapper;
 import org.wlpiaoyi.server.demo.utils.response.R;
 import org.wlpiaoyi.server.demo.utils.request.Condition;
@@ -25,9 +25,9 @@ import jakarta.validation.Valid;
 
 
 /**
- * {@code @author:} 		wlpia:WLPIAOYI-PC
+ * {@code @author:} 		wlpiaoyi:WLPIAOYI-DELL
  * {@code @description:} 	数据权限 控制器
- * {@code @date:} 			2024-10-10 23:05:43
+ * {@code @date:} 			2024-10-11 17:34:53
  * {@code @version:}: 		1.0
  */
 @RestController
@@ -44,7 +44,7 @@ public class AccessController {
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "数据权限 详情")
-	public R<AccessVo> detail(AccessRo.AccessQuery body) {
+	public R<AccessVo> detail(AccessQuery body) {
 		AccessVo access = ModelWrapper.parseOne(
 				this.accessService.getOne(
 						Condition.getQueryWrapper(ModelWrapper.parseOne(body, Access.class))
@@ -61,8 +61,9 @@ public class AccessController {
 	@PostMapping("/page")
 	@ApiOperationSupport(order = 2)
 	@Operation(summary = "数据权限 分页")
-	public R<IPage<AccessVo>> page(@RequestBody AccessRo.AccessQuery body){
+	public R<IPage<AccessVo>> page(@RequestBody AccessQuery body){
 		LambdaQueryWrapper<Access> wrapper = Wrappers.<Access>lambdaQuery();
+		wrapper.orderByDesc(Access::getCreateTime);
 		IPage<Access> pages = accessService.page(Condition.getPage(body), wrapper);
 		return R.success(ModelWrapper.parseForPage(pages, AccessVo.class));
 	}
@@ -73,8 +74,9 @@ public class AccessController {
 	@PostMapping("/list")
 	@ApiOperationSupport(order = 3)
 	@Operation(summary = "数据权限 分页")
-	public R<IPage<AccessVo>> list(@RequestBody AccessRo.AccessQuery body) {
+	public R<IPage<AccessVo>> list(@RequestBody AccessQuery body) {
 		QueryWrapper<Access> wrapper = Condition.getQueryWrapper(ModelWrapper.parseOne(body, Access.class));
+		wrapper.orderByDesc("create_time");
 		IPage<Access> pages = accessService.page(Condition.getPage(body), wrapper);
 		return R.success(ModelWrapper.parseForPage(pages, AccessVo.class));
 	}
@@ -85,7 +87,7 @@ public class AccessController {
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
 	@Operation(summary = "数据权限 新增")
-	public R<Boolean> save(@Valid @RequestBody AccessRo.AccessSubmit body) {
+	public R<Boolean> save(@Valid @RequestBody AccessSubmit body) {
 		return R.success(accessService.save(ModelWrapper.parseOne(body, Access.class)));
 	}
 
@@ -95,7 +97,7 @@ public class AccessController {
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
 	@Operation(summary = "数据权限 修改")
-	public R<Boolean> update(@RequestBody AccessRo.AccessSubmit body) {
+	public R<Boolean> update(@RequestBody AccessSubmit body) {
 		return R.success(accessService.updateById(ModelWrapper.parseOne(body, Access.class)));
 	}
 
@@ -105,7 +107,7 @@ public class AccessController {
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
 	@Operation(summary = "数据权限 新增或修改")
-	public R<Boolean> submit(@Valid @RequestBody AccessRo.AccessSubmit body) {
+	public R<Boolean> submit(@Valid @RequestBody AccessSubmit body) {
 		return R.success(accessService.saveOrUpdate(ModelWrapper.parseOne(body, Access.class)));
 	}
 
@@ -119,4 +121,4 @@ public class AccessController {
 		return R.success(accessService.deleteLogic(ValueUtils.toLongList(ids)));
 	}
 
-}
+}

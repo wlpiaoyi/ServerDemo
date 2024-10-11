@@ -71,7 +71,7 @@ public class UserRo {
 
 	@Data
 	@Schema(description = "用户认证 请求实例")
-	public static class Auth implements Serializable {
+	public static class UserAuth implements Serializable {
 
 		private static final long serialVersionUID = 1L;
 

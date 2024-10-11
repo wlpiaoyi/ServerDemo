@@ -19,7 +19,7 @@ import ##package##.domain.entity.BaseEntity;
 public class ##className##Ro {
     @Data
     @Schema(description = "##tableComment## 请求实例")
-	public static class Query extends ##package##.utils.request.Query implements Serializable {
+	public static class ##className##Query extends ##package##.utils.request.Query implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class ##className##Ro {
 
     @Data
     @Schema(description = "##tableComment## 请求实例")
-    public static class Submit implements Serializable {
+    public static class ##className##Submit implements Serializable {
 
         private static final long serialVersionUID = 1L;
 

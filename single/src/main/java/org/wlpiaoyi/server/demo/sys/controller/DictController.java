@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Dict;
 import org.wlpiaoyi.server.demo.sys.service.IDictService;
 import org.wlpiaoyi.server.demo.sys.domain.vo.DictVo;
-import org.wlpiaoyi.server.demo.sys.domain.ro.DictRo;
+import org.wlpiaoyi.server.demo.sys.domain.ro.DictRo.*;
 import org.wlpiaoyi.server.demo.utils.tools.ModelWrapper;
 import org.wlpiaoyi.server.demo.utils.response.R;
 import org.wlpiaoyi.server.demo.utils.request.Condition;
@@ -25,9 +25,9 @@ import jakarta.validation.Valid;
 
 
 /**
- * {@code @author:} 		wlpia:WLPIAOYI-PC
+ * {@code @author:} 		wlpiaoyi:WLPIAOYI-DELL
  * {@code @description:} 	数据字典 控制器
- * {@code @date:} 			2024-10-10 23:05:43
+ * {@code @date:} 			2024-10-11 17:34:54
  * {@code @version:}: 		1.0
  */
 @RestController
@@ -44,7 +44,7 @@ public class DictController {
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "数据字典 详情")
-	public R<DictVo> detail(DictRo.DictQuery body) {
+	public R<DictVo> detail(DictQuery body) {
 		DictVo dict = ModelWrapper.parseOne(
 				this.dictService.getOne(
 						Condition.getQueryWrapper(ModelWrapper.parseOne(body, Dict.class))
@@ -61,7 +61,7 @@ public class DictController {
 	@PostMapping("/page")
 	@ApiOperationSupport(order = 2)
 	@Operation(summary = "数据字典 分页")
-	public R<IPage<DictVo>> page(@RequestBody DictRo.DictQuery body){
+	public R<IPage<DictVo>> page(@RequestBody DictQuery body){
 		LambdaQueryWrapper<Dict> wrapper = Wrappers.<Dict>lambdaQuery();
 		wrapper.orderByDesc(Dict::getCreateTime);
 		IPage<Dict> pages = dictService.page(Condition.getPage(body), wrapper);
@@ -74,7 +74,7 @@ public class DictController {
 	@PostMapping("/list")
 	@ApiOperationSupport(order = 3)
 	@Operation(summary = "数据字典 分页")
-	public R<IPage<DictVo>> list(@RequestBody DictRo.DictQuery body) {
+	public R<IPage<DictVo>> list(@RequestBody DictQuery body) {
 		QueryWrapper<Dict> wrapper = Condition.getQueryWrapper(ModelWrapper.parseOne(body, Dict.class));
 		wrapper.orderByDesc("create_time");
 		IPage<Dict> pages = dictService.page(Condition.getPage(body), wrapper);
@@ -87,7 +87,7 @@ public class DictController {
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
 	@Operation(summary = "数据字典 新增")
-	public R<Boolean> save(@Valid @RequestBody DictRo.DictSubmit body) {
+	public R<Boolean> save(@Valid @RequestBody DictSubmit body) {
 		return R.success(dictService.save(ModelWrapper.parseOne(body, Dict.class)));
 	}
 
@@ -97,7 +97,7 @@ public class DictController {
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
 	@Operation(summary = "数据字典 修改")
-	public R<Boolean> update(@RequestBody DictRo.DictSubmit body) {
+	public R<Boolean> update(@RequestBody DictSubmit body) {
 		return R.success(dictService.updateById(ModelWrapper.parseOne(body, Dict.class)));
 	}
 
@@ -107,7 +107,7 @@ public class DictController {
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 6)
 	@Operation(summary = "数据字典 新增或修改")
-	public R<Boolean> submit(@Valid @RequestBody DictRo.DictSubmit body) {
+	public R<Boolean> submit(@Valid @RequestBody DictSubmit body) {
 		return R.success(dictService.saveOrUpdate(ModelWrapper.parseOne(body, Dict.class)));
 	}
 
@@ -121,4 +121,4 @@ public class DictController {
 		return R.success(dictService.deleteLogic(ValueUtils.toLongList(ids)));
 	}
 
-}
+}
