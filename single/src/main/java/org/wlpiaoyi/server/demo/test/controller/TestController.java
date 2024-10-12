@@ -15,6 +15,7 @@ import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 import org.wlpiaoyi.server.demo.utils.web.annotation.Idempotence;
 import org.wlpiaoyi.server.demo.utils.web.annotation.PreAuthorize;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -50,8 +51,16 @@ public class TestController {
     @ApiOperationSupport(order = 2)
     @PreAuthorize("path1")
     @Operation(summary = "审查令牌1")
-    public R censorList(@RequestHeader String token) {
-        return R.success(System.currentTimeMillis());
+    public R censorList(@RequestHeader String token, @RequestHeader String salt, @RequestParam String n1) {
+        if(n1.equals("error")){
+            throw new BusinessException("n1 error, 拉都拉空间");
+        }
+        Map res = new HashMap<>();
+        res.put("token", token);
+        res.put("salt", salt);
+        res.put("n1", n1);
+        res.put("currentTimeMillis", System.currentTimeMillis());
+        return R.success(res);
     }
 
     @PostMapping("/common/list")

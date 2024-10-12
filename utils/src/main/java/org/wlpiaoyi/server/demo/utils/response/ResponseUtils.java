@@ -84,7 +84,7 @@ public class ResponseUtils {
                 ){
                     repStr = data.toString();
                 }else{
-                    repStr = GsonBuilder.gsonDefault().toJson(data);
+                    repStr = GsonBuilder.gsonDefault().toJsonTree(data).toString();
                 }
             }else{
                 repStr = "";
