@@ -94,7 +94,8 @@ public interface WebSupport<REQ,RES> {
      * <p><b>{@code @author:}</b>wlpiaoyi</p>
      */
     int doFilter(REQ request, RES response, Map obj) throws Exception;
-    
+
+
     /**
      * <p><b>{@code @description:}</b> 
      * TODO
@@ -108,12 +109,44 @@ public interface WebSupport<REQ,RES> {
      * {@link RES}
      * </p>
      * 
-     * <p><b>@param</b> <b>filterChain</b>
+     * <p><b>@param</b> <b>obj</b>
      * {@link Map}
      * </p>
      *
-     * <p><b>{@code @date:}</b>2024/10/12 0:45</p>
+     * <p><b>{@code @date:}</b>2024/10/12 14:39</p>
+     * <p><b>{@code @return:}</b>{@link int}</p>
      * <p><b>{@code @author:}</b>wlpiaoyi</p>
      */
-    default void afterDoFilter(REQ request, RES response, Map obj) {} ;
+    default int isSupportExecResponse(REQ request, RES response, Map obj){return -1;}
+
+    /**
+     * <p><b>{@code @description:}</b>
+     * TODO
+     * </p>
+     *
+     * <p><b>@param</b> <b>request</b>
+     * {@link REQ}
+     * </p>
+     *
+     * <p><b>@param</b> <b>response</b>
+     * {@link RES}
+     * </p>
+     *
+     * <p><b>@param</b> <b>obj</b>
+     * {@link Map}
+     * </p>
+     *
+     * <p><b>@param</b> <b>indexSupport</b>
+     * {@link int}
+     * </p>
+     *
+     * <p><b>@param</b> <b>totalSupports</b>
+     * {@link int}
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2024/10/12 14:36</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    default void execResponse(REQ request, RES response, Map obj, int indexSupport, int totalSupports){}
+
 }

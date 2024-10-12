@@ -1,6 +1,9 @@
 package org.wlpiaoyi.server.demo.config.web.support;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
+import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 
 /**
  * <p><b>{@code @author:}</b>wlpiaoyi</p>
@@ -14,6 +17,12 @@ public class AuthenticationSupport extends org.wlpiaoyi.server.demo.utils.web.su
     @Override
     protected boolean authenticationToken(String token) {
         return token.startsWith("wl");
+    }
+
+    @Override
+    protected String getSalt(HttpServletRequest request, HttpServletResponse response) {
+        String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
+        return "salt" + token;
     }
 
     @Override

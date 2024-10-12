@@ -29,7 +29,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     @Autowired
     private RedisTemplate redisTemplate;
 
-    @Value("${org.wlpiaoyi.auth.duri_minutes}")
+    @Value("${wlpiaoyi.ee.auth.duri_minutes}")
     private int authDuriMinutes;
 
     @Override

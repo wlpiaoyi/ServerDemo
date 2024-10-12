@@ -10,17 +10,18 @@ import org.wlpiaoyi.framework.utils.security.RsaCipher;
 /**
  * <p><b>{@code @author:}</b> wlpia</p>
  * <p><b>{@code @description:}</b> </p>
- * <p><b>{@code @date:}</b> 2024-10-12 09:57:11</p>
+ * <p><b>{@code @date:}</b> 2024-10-12 15:44:40</p>
  * <p><b>{@code @version:}:</b> 1.0</p>
  */
 @Component
-public class EncryptSupport extends org.wlpiaoyi.server.demo.utils.web.support.impl.encrypt.EncryptSupport {
+public class DecryptSupport extends org.wlpiaoyi.server.demo.utils.web.support.impl.encrypt.DecryptSupport {
+
 
     @Resource(name = "encrypt.aes")
     private Aes aes;
 
-    @Resource(name = "encrypt.rsae")
-    private RsaCipher rsaEncrypt;
+    @Resource(name = "encrypt.rsad")
+    private RsaCipher rsaDecrypt;
 
     @Override
     protected Aes getAes(HttpServletRequest request, HttpServletResponse response) {
@@ -28,8 +29,8 @@ public class EncryptSupport extends org.wlpiaoyi.server.demo.utils.web.support.i
     }
 
     @Override
-    protected RsaCipher getRsaEncrypt(HttpServletRequest request, HttpServletResponse response) {
-        return this.rsaEncrypt;
+    protected RsaCipher getRsaDecrypt(HttpServletRequest request, HttpServletResponse response) {
+        return this.rsaDecrypt;
     }
 
     @Override

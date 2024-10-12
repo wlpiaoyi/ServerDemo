@@ -10,7 +10,8 @@ import org.wlpiaoyi.framework.utils.snowflake.IdWorker;
  */
 public class IdUtils {
 
-    private static final IdWorker idWorker = new IdWorker((byte) 0, (byte) 0, 1694767192413L);
+    protected static IdWorker idWorker = new IdWorker((byte) 0, (byte) 0, 1694767192413L);
+
     public static long nextId(){
         return idWorker.nextId();
     }

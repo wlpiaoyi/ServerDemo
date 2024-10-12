@@ -2,10 +2,14 @@ package org.wlpiaoyi.server.demo.test.controller;
 
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+import org.wlpiaoyi.framework.utils.MapUtils;
+import org.wlpiaoyi.framework.utils.ValueUtils;
+import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.server.demo.utils.response.R;
 import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 import org.wlpiaoyi.server.demo.utils.web.annotation.Idempotence;
@@ -32,9 +36,13 @@ public class TestController {
     @Idempotence
     @ApiOperationSupport(order = 1)
     @Operation(summary = "授权令牌")
-    public R authLogin(@RequestHeader String token, @RequestBody Map body) {
+    public R authLogin(@RequestHeader String token, @RequestBody Map body, HttpServletResponse response) {
         this.redisTemplate.opsForValue().set(token, System.currentTimeMillis() + "", 5, TimeUnit.MINUTES);
         body.put("currentTimeMillis", System.currentTimeMillis());
+        if(body.containsKey("error")){
+            throw new BusinessException(body.get("error").toString());
+        }
+        response.setHeader("abc","123");
         return R.success(body);
     }
 
@@ -50,8 +58,13 @@ public class TestController {
     @Operation(summary = "审查令牌2")
     @PreAuthorize("path2")
     @ApiOperationSupport(order = 3)
-    public R commonList(@RequestHeader String token) {
-        return R.success(System.currentTimeMillis());
+    public R commonList(@RequestHeader String token, @RequestHeader String salt, @RequestBody Map body) {
+        if(ValueUtils.isBlank(body)){
+            throw new BusinessException("error test,中文测试");
+        }
+        body.put("currentTimeMillis", System.currentTimeMillis());
+        body.put("salt", salt);
+        return R.success(body);
     }
 
     @GetMapping("/common/do")

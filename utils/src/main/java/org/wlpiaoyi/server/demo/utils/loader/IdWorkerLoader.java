@@ -3,6 +3,7 @@ package org.wlpiaoyi.server.demo.utils.loader;
 import org.springframework.context.ApplicationContext;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.snowflake.IdWorker;
+import org.wlpiaoyi.server.demo.utils.IdUtils;
 import org.wlpiaoyi.server.demo.utils.web.ConfigModel;
 
 /**
@@ -13,7 +14,13 @@ import org.wlpiaoyi.server.demo.utils.web.ConfigModel;
  */
 public class IdWorkerLoader {
 
-    protected static IdWorker ID_WORKER = null;
+    private class IdUtilsInit extends IdUtils{
+
+         static void setIdWork(IdWorker idWorker){
+            IdUtils.idWorker = idWorker;
+        }
+
+    }
 
     public static void load(ApplicationContext applicationContext, long timerEpoch){
         ConfigModel configModel = applicationContext.getBean(ConfigModel.class);
@@ -22,6 +29,6 @@ public class IdWorkerLoader {
         if(workerId < 0 || datacenterId < 0){
             throw new BusinessException("机器Id必须介于0~31之间");
         }
-        ID_WORKER = new IdWorker(workerId, datacenterId, timerEpoch);
+        IdUtilsInit.setIdWork(new IdWorker(workerId, datacenterId, timerEpoch));
     }
 }

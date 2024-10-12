@@ -1,4 +1,4 @@
-package org.wlpiaoyi.server.demo.utils.web.support.impl.encrypt;
+package org.wlpiaoyi.server.demo.utils.request;
 
 
 import jakarta.servlet.ReadListener;
@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequestWrapper;
 import org.springframework.http.HttpHeaders;
 import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 
-import javax.management.ValueExp;
 import java.io.*;
 import java.util.*;
 
@@ -18,7 +17,7 @@ import java.util.*;
  * {@code @date:}           2023/2/18 12:07
  * {@code @version:}:       1.0
  */
-class RequestWrapper extends HttpServletRequestWrapper {
+public class RequestWrapper extends HttpServletRequestWrapper {
 
     private byte[] body;
 
@@ -33,23 +32,32 @@ class RequestWrapper extends HttpServletRequestWrapper {
     }
 
 
-    public RequestWrapper(HttpServletRequest request) throws IOException {
+    public RequestWrapper(HttpServletRequest request, int type) throws IOException {
         super(request);
         this.headers = HashMap.newHashMap(4);
-        Enumeration<String> allEn = request.getHeaderNames();
-        while (allEn.hasMoreElements()){
-            String name = allEn.nextElement();
-            name = name.toUpperCase(Locale.ROOT);
-            if(name.equals(HttpHeaders.CONTENT_TYPE.toUpperCase())
-                    || name.equals(HttpHeaders.ACCEPT.toUpperCase())){
-                String value = request.getHeader(name);
-                if(value.startsWith(WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG)){
-                    value = value.substring(WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG.length());
+        switch (type){
+            case 1:{
+                Enumeration<String> allEn = request.getHeaderNames();
+                while (allEn.hasMoreElements()){
+                    String name = allEn.nextElement();
+                    name = name.toUpperCase(Locale.ROOT);
+                    if(name.equals(HttpHeaders.CONTENT_TYPE.toUpperCase())
+                            || name.equals(HttpHeaders.ACCEPT.toUpperCase())){
+                        String value = request.getHeader(name);
+                        if(value.startsWith(WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG)){
+                            value = value.substring(WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG.length());
+                        }
+                        headers.put(name, value);
+                    }
                 }
-                headers.put(name, value);
             }
+            break;
         }
         this.body = this.toByteArray(request.getInputStream());
+    }
+
+    public void setHeader(String key, String value){
+        this.headers.put(key.toUpperCase(Locale.ROOT), value);
     }
 
     @Override

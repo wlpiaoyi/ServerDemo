@@ -3,17 +3,23 @@ package org.wlpiaoyi.server.demo.utils.web.filter;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpHeaders;
 import org.wlpiaoyi.framework.utils.MapUtils;
+import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
+import org.wlpiaoyi.framework.utils.gson.GsonBuilder;
 import org.wlpiaoyi.server.demo.utils.response.R;
 import org.wlpiaoyi.server.demo.utils.response.ResponseUtils;
+import org.wlpiaoyi.server.demo.utils.response.ResponseWrapper;
 import org.wlpiaoyi.server.demo.utils.web.support.WebSupport;
 import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 import org.wlpiaoyi.server.demo.utils.web.domain.DoFilterEnum;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,30 +76,17 @@ public abstract class WebBaseFilter implements Filter{
                     else if(!webSupport.shouldInDo(goNext | undoChain))
                         continue;
                     res = webSupport.doFilter(request,response, obj);
-                    afterDos.add(webSupport);
+                    switch (webSupport.isSupportExecResponse(request, response, obj)){
+                        case 0: case 1:{
+                            afterDos.add(webSupport);
+                        }
+                        break;
+                    }
                     request = MapUtils.get(obj, "request", request);
                     response = MapUtils.get(obj, "response", response);
-                }catch (BusinessException e){
-                    log.error("Web base filter do filter biz error", e);
-                    ResponseUtils.writeResponseJson(
-                            e.getCode(),
-                            R.data(e.getCode(), e.getMessage()),
-                            response
-                    );
-                    undoChain = 0;
-                    closeReq = 0;
-                    closeResp = 0;
-                    goNext = 0;
-                    res = DoFilterEnum.ErrorResp.getValue() | DoFilterEnum.UndoChain.getValue();
-                    afterDos.clear();
-                    break;
                 }catch (Exception e){
                     log.error("Web base filter do filter unknown error", e);
-                    ResponseUtils.writeResponseJson(
-                            500,
-                            R.data(500, e.getMessage()),
-                            response
-                    );
+                    this.doFilterError((HttpServletRequest) servletRequest, (HttpServletResponse) servletResponse, request, response, webSupports, obj, e);
                     undoChain = 0;
                     closeReq = 0;
                     closeResp = 0;
@@ -109,21 +102,59 @@ public abstract class WebBaseFilter implements Filter{
                 }
             }
         }
+        if(undoChain != DoFilterEnum.UndoChain.getValue()){
+            try{
+                filterChain.doFilter(request, response);
+                int total = afterDos.size();
+                int index = 0;
+                if(afterDos != null && !afterDos.isEmpty()){
+                    for (WebSupport webSupport : afterDos){
+                        webSupport.execResponse(servletRequest, servletResponse, obj, index++, total);
+                    }
+                }
+            }catch (Exception e){
+                this.doFilterError((HttpServletRequest) servletRequest, (HttpServletResponse) servletResponse, request, response, webSupports, obj, e);
+            }
+        }
         if(closeResp == DoFilterEnum.CloseResp.getValue()){
             response.getOutputStream().close();
         }
         if(closeReq == DoFilterEnum.CloseReq.getValue()) {
             request.getInputStream().close();
         }
-        if(undoChain != DoFilterEnum.UndoChain.getValue()){
-            filterChain.doFilter(request, response);
-            if(afterDos != null && !afterDos.isEmpty()){
-                for (WebSupport webSupport : afterDos){
-                    webSupport.afterDoFilter(servletRequest, servletResponse, obj);
+    }
+
+    @SneakyThrows
+    protected void doFilterError(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
+                                 HttpServletRequest request, HttpServletResponse response,
+                                 List<WebSupport> webSupports, Map obj, Exception e){
+
+        ResponseUtils.prepareHeader(request, response);
+        int code;
+        if(e instanceof BusinessException){
+            code = ((BusinessException) e).getCode();
+        }else{
+            code = 500;
+        }
+        R r = R.data(code, e.getMessage());
+        boolean hasFinalSupport = false;
+        for (WebSupport temp : webSupports){
+            if(temp.isSupportExecResponse(request, response, obj) == 1){
+                if(!WebUtils.patternUri(temp.getRequestURI(request),temp.getURIRegexes())){
+                    continue;
                 }
+                ResponseWrapper respWrapper = new ResponseWrapper(response);
+                respWrapper.writeBuffer(GsonBuilder.gsonDefault().toJson(r).getBytes(StandardCharsets.UTF_8));
+                obj.put("response", respWrapper);
+                temp.execResponse(servletRequest, servletResponse, obj, 0, 1);
+                break;
             }
         }
+        if(!hasFinalSupport){
+            ResponseUtils.writeResponseData(code, r, servletResponse);
+        }
     }
+
 
     @Override
     public void destroy() {

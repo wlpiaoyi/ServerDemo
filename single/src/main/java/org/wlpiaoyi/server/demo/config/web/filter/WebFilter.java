@@ -22,6 +22,7 @@ public class WebFilter extends WebBaseFilter {
     public WebFilter(){
         this.webSupports = List.of(
                 SpringUtils.getBean(IdempotenceSupport.class),
+                SpringUtils.getBean(DecryptSupport.class),
                 SpringUtils.getBean(AuthenticationSupport.class),
                 SpringUtils.getBean(CensorSupport.class),
                 SpringUtils.getBean(AccessSupport.class),

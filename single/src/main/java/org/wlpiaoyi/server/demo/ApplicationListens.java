@@ -23,6 +23,7 @@ public class ApplicationListens implements CommandLineRunner, DisposableBean {
     @Override
     public void run(String... args) throws Exception {
         log.info("应用启动成功，预相关加载数据");
+        IdWorkerLoader.load(SpringUtils.getApplicationContext(), System.currentTimeMillis());
         AccessLoader.load(SpringUtils.getApplicationContext(), AccessSupport.ACCESS_URI_SET);
         IdWorkerLoader.load(SpringUtils.getApplicationContext(), System.currentTimeMillis());
         IdempotenceLoader.load(SpringUtils.getApplicationContext(), IdempotenceUriSetObj);

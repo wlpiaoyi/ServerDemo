@@ -6,11 +6,13 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -131,6 +133,7 @@ public class GlobalExceptionHandler {
                               HttpServletResponse resp,
                               Exception exception) throws IOException {
         try{
+            ResponseUtils.prepareHeader(req, resp);
             ResponseUtils.writeResponseJson(code, r, resp);
         }finally {
             printErrorLog(code, r, req, resp, exception);
@@ -466,6 +469,15 @@ public class GlobalExceptionHandler {
         doResponse(r.getCode(), r, req, resp, exception);
     }
 
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    public void httpMediaTypeNotSupportedExceptionHandler(HttpServletRequest req, HttpServletResponse resp, HttpRequestMethodNotSupportedException exception) throws IOException {
+        String message = String.format("请求数据类型异常:%s", exception.getMessage());
+        R<Object> r = R.data(406, null, message);
+        doResponse(r.getCode(), r, req, resp, exception);
+    }
+
+
+
     /**
      * <p><b>{@code @description:}</b>
      * 系统异常处理
@@ -522,12 +534,14 @@ public class GlobalExceptionHandler {
             code = (int) res[0];
             message = res[1].toString();
             doResponse(code, R.data(code, message), req, resp, exception);
+            return;
         }
         res = expandErrorHandler(req, resp, exception);
         if(res != null){
             code = (int) res[0];
             message = res[1].toString();
             doResponse(code, R.data(code, message), req, resp, exception);
+            return;
         }
         code = 500;
         message = "服务器错误[500]";

@@ -1,12 +1,33 @@
 package org.wlpiaoyi.server.demo.config.web;
 
+import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
+import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
+import org.wlpiaoyi.framework.utils.security.RsaCipher;
 import org.wlpiaoyi.server.demo.config.web.interceptor.Interceptor;
 
 
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
+
+    @SneakyThrows
+    @Bean("encrypt.aes")
+    public Aes initAes(@Value("${wlpiaoyi.ee.aes.key}") String key, @Value("${wlpiaoyi.ee.aes.iv}") String iv) {
+        return Aes.create().setKey(key).setIV(iv).load();
+    }
+    @SneakyThrows
+    @Bean("encrypt.rsae")
+    public RsaCipher initRsaEncrypt(@Value("${wlpiaoyi.ee.rsa.privateKey}") String privateKey) {
+        return RsaCipher.build(0).setPrivateKey(privateKey).loadConfig();
+    }
+    @SneakyThrows
+    @Bean("encrypt.rsad")
+    public RsaCipher initRsaDecrypt(@Value("${wlpiaoyi.ee.rsa.privateKey}") String privateKey) {
+        return RsaCipher.build(1).setPrivateKey(privateKey).loadConfig();
+    }
 
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -14,8 +35,6 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
-
-
     /**
      * 重写addCorsMappings()解决跨域问题
      * 配置：允许http请求进行跨域访问

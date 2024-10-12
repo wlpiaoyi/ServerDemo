@@ -1,29 +1,28 @@
 package org.wlpiaoyi.server.demo.utils.web.support.impl.encrypt;
 
-import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.wlpiaoyi.framework.utils.MapUtils;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.data.DataUtils;
 import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
-import org.wlpiaoyi.server.demo.utils.response.R;
+import org.wlpiaoyi.framework.utils.security.RsaCipher;
+import org.wlpiaoyi.server.demo.utils.request.RequestWrapper;
 import org.wlpiaoyi.server.demo.utils.response.ResponseUtils;
+import org.wlpiaoyi.server.demo.utils.response.ResponseWrapper;
 import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 import org.wlpiaoyi.server.demo.utils.web.domain.DoFilterEnum;
 import org.wlpiaoyi.server.demo.utils.web.support.WebSupport;
-import org.wlpiaoyi.server.demo.utils.web.support.impl.access.AccessUriSet;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
@@ -59,32 +58,25 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
      * <p><b>{@code @author:}</b>wlpiaoyi</p>
      */
     protected abstract Aes getAes(HttpServletRequest request, HttpServletResponse response);
-    
+
     /**
      * <p><b>{@code @description:}</b>
-     * 解密 Request Body
+     * 非对称加密
      * </p>
      *
-     * <p><b>@param</b> <b>reqWrapper</b>
-     * {@link RequestWrapper}
+     * <p><b>@param</b> <b>request</b>
+     * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>aes</b>
-     * {@link Aes}
+     * <p><b>@param</b> <b>response</b>
+     * {@link HttpServletResponse}
      * </p>
      *
-     * <p><b>{@code @date:}</b>2024/10/11 23:36</p>
+     * <p><b>{@code @date:}</b>2024/10/12 15:11</p>
+     * <p><b>{@code @return:}</b>{@link RsaCipher}</p>
      * <p><b>{@code @author:}</b>wlpiaoyi</p>
      */
-    protected void decryptRequestBody(RequestWrapper reqWrapper, Aes aes) throws IllegalBlockSizeException, BadPaddingException {
-        byte[] reqBody = reqWrapper.getBody();
-        if(!ValueUtils.isBlank(reqBody)){
-            //解密请求报文
-            reqBody = aes.decrypt(reqBody);
-        }
-        reqWrapper.setBody(reqBody);
-
-    }
+    protected abstract RsaCipher getRsaEncrypt(HttpServletRequest request, HttpServletResponse response);
 
     /**
      * <p><b>{@code @description:}</b>
@@ -132,12 +124,11 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
         }
 
         //响应处理 包装响应对象 res 并缓存响应数据
-        RequestWrapper reqWrapper = new RequestWrapper(request);
+//        RequestWrapper reqWrapper = new RequestWrapper(request);
         ResponseWrapper respWrapper = new ResponseWrapper(response);
-        this.decryptRequestBody(reqWrapper, aes);
-        obj.put("request", reqWrapper);
+//        this.decryptRequestBody(reqWrapper, aes);
+        obj.put("request", request);
         obj.put("response", respWrapper);
-        obj.put("aes", aes);
         //执行业务逻辑 交给下一个过滤器或servlet处理
 //        filterChain.doFilter(reqWrapper, respWrapper);
 //        this.encryptResponseBody(respWrapper, response, aes);
@@ -145,19 +136,40 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
     }
 
     @Override
-    public void afterDoFilter(HttpServletRequest request, HttpServletResponse response, Map obj) {
-        try {
-            Aes aes = MapUtils.get(obj, "aes");
+    public int isSupportExecResponse(HttpServletRequest request, HttpServletResponse response, Map obj) {
+        return 1;
+    }
+
+    @Override
+    public void execResponse(HttpServletRequest request, HttpServletResponse response, Map obj, int indexSupport, int totalSupports) {
+        if(indexSupport == totalSupports - 1){
             ResponseWrapper respWrapper = MapUtils.get(obj, "response");
-            this.encryptResponseBody(respWrapper, response, aes);
-        } catch (Exception e) {
-            log.error("afterDoFilter error", e);
-            try {
-                request.getInputStream().close();
-            } catch (Exception ex) {}
-            try {
-                response.getOutputStream().close();
-            } catch (Exception ex) {}
+            if(respWrapper != null){
+                try {;
+                    String salt = response.getHeader(WebUtils.HEADER_SALT_KEY);
+                    if(ValueUtils.isNotBlank(salt)){
+                        RsaCipher rsa = this.getRsaEncrypt(request, response);
+                        salt = new String(DataUtils.base64Encode(rsa.encrypt(salt.getBytes(StandardCharsets.UTF_8))));
+                        response.setHeader(WebUtils.HEADER_SALT_KEY, salt);
+                    }
+                    Aes aes = this.getAes(request, response);
+                    String resContentType = respWrapper.getContentType();
+                    if(ValueUtils.isBlank(resContentType)){
+                        resContentType = request.getHeader(HttpHeaders.ACCEPT);
+                        respWrapper.setContentType(resContentType);
+                    }
+                    ResponseUtils.prepareHeader(request, response);
+                    this.encryptResponseBody(respWrapper, response, aes);
+                } catch (Exception e) {
+                    try {
+                        request.getInputStream().close();
+                    } catch (Exception ex) {}
+                    try {
+                        response.getOutputStream().close();
+                    } catch (Exception ex) {}
+                    throw new BusinessException(e);
+                }
+            }
         }
     }
 }

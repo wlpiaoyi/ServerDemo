@@ -1,4 +1,4 @@
-package org.wlpiaoyi.server.demo.utils.web.support.impl.encrypt;
+package org.wlpiaoyi.server.demo.utils.response;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.WriteListener;
@@ -6,9 +6,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpServletResponseWrapper;
 import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.http.HttpHeaders;
-import org.wlpiaoyi.framework.utils.ValueUtils;
-import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -22,14 +19,13 @@ import java.util.*;
  * {@code @date:}           2023/2/18 10:39
  * {@code @version:}:       1.0
  */
-class ResponseWrapper extends HttpServletResponseWrapper {
+public class ResponseWrapper extends HttpServletResponseWrapper {
 
 
     private final ByteArrayOutputStream bufferStream;
     private final ServletOutputStream outputStream;
     private final PrintWriter writer;
 
-//    private Map<String, String> headers;
     /**
      *
      * @param response
@@ -39,7 +35,6 @@ class ResponseWrapper extends HttpServletResponseWrapper {
      */
     public ResponseWrapper(@NonNull HttpServletResponse response) throws IOException {
         super(response);
-        Collection<String> allEn = response.getHeaderNames();
         this.bufferStream = new ByteArrayOutputStream();
         this.outputStream = new WrappedOutputStream(bufferStream);
         this.writer = new PrintWriter(new OutputStreamWriter(
@@ -47,30 +42,6 @@ class ResponseWrapper extends HttpServletResponseWrapper {
         ));
     }
 
-//    @Override
-//    public Collection<String> getHeaders(String name) {
-//        return super.getHeaders(name);
-//    }
-//
-//    @Override
-//    public String getHeader(String name) {
-//        String value = super.getHeader(name);
-//        if(ValueUtils.isBlank(value)){
-//            return value;
-//        }
-//        if(name.toUpperCase(Locale.ROOT).equals(HttpHeaders.CONTENT_TYPE.toUpperCase())
-//                || name.toUpperCase(Locale.ROOT).equals(HttpHeaders.ACCEPT.toUpperCase())){
-//            if(value.startsWith(WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG)){
-//                value = value.substring(WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG.length());
-//            }
-//        }
-//        return value;
-//    }
-//
-//    @Override
-//    public Collection<String> getHeaderNames() {
-//        return super.getHeaderNames();
-//    }
 
     /** 重载父类获取outputstream的方法 */
     @Override
@@ -131,7 +102,7 @@ class ResponseWrapper extends HttpServletResponseWrapper {
 
         @Override
         public boolean isReady() {
-            return true;
+            return false;
         }
 
         @Override

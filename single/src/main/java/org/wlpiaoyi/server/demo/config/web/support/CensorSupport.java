@@ -1,5 +1,6 @@
 package org.wlpiaoyi.server.demo.config.web.support;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import org.wlpiaoyi.server.demo.utils.web.WebUtils;
  * <p><b>{@code @date:}</b>2024-10-10 10:07:34</p>
  * <p><b>{@code @version:}:</b>1.0</p>
  */
+@Slf4j
 @Component
 public class CensorSupport extends org.wlpiaoyi.server.demo.utils.web.support.impl.censor.CensorSupport {
 
@@ -19,16 +21,24 @@ public class CensorSupport extends org.wlpiaoyi.server.demo.utils.web.support.im
     private RedisTemplate<String, String> redisTemplate;
 
     @Override
-    protected boolean censor(String token) {
+    protected boolean censor(String token, String salt) {
         if(ValueUtils.isBlank(token)){
             return false;
         }
         String value = this.redisTemplate.opsForValue().get(token);
-        return  !ValueUtils.isBlank(value);
+        if(ValueUtils.isBlank(value)){
+            return false;
+        }
+        if(ValueUtils.isBlank(salt)){
+            return false;
+        }
+        log.info("request header(token:{}, salt:{})", token, salt);
+        return true;
     }
 
     @Override
     public String[] getURIRegexes() {
         return new String[]{"/test/censor/.*|/test/common/.*","(^(?!/test/common/do).*$)"};
     }
+
 }

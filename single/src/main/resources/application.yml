@@ -80,9 +80,6 @@ wlpiaoyi:
   ee:
     cors:
       data:
-        snowflake:
-          workerId: 1
-          datacenterId: 1
         get_token:
           patterns:
             /test/auth/login
@@ -90,8 +87,4 @@ wlpiaoyi:
           patterns: >
             (/sys/.*|/test/authorization/.*),
             (^(?!/test/kk/test2).*$)
-        idempotence:
-          patterns:
-          duriTime: 3
-          sectionTime: 1200
         charset_name: 'UTF-8'

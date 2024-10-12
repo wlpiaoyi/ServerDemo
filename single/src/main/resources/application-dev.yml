@@ -71,8 +71,33 @@ springdoc:
   # 默认开启wend
   api-docs:
     enabled: true
-
-org:
-  wlpiaoyi:
+wlpiaoyi:
+  ee:
+    rsa:
+      privateKey:
+        MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAL/WZ0qP04/DkrwzXYyZUYLsomm7
+        3OC7J9TiDjaJq90mSBju4vrUXiC8aZGHJ0gU32nTTsC4jTBWI/qpH2r3Nh6e4vYblx7duwHiLLEG
+        iyg/DWBs9FESplYJQPyuW6+qgdk2N3Bsd3HlIwvDC0XrEMbp0SrhWCuLC3ekY8QXtywJAgMBAAEC
+        gYACcXXvT9WfRxu0pJLUb5THg2wDcg5mGPwbjKV8XFSBWd4hMymrjXjaweDg/EUBI1g/vh6Kpc8R
+        MTJUHENM1sksT6x56ApEh0lCeyKDfiSo3lg025jKezsCOV0KX3ihr4uiT0vir/I5sAaGgUkc47Yz
+        iALftFNNYrdZejB9Q2TgYQJBAOvzdg8QepIbARMvrreSy2veZXoxPbdaSoDyUFZHr5DhNy2iw8Sl
+        HTF1u9tMDMiZkWvHlsN9N4b8J3KVtj89CWsCQQDQI1xP8taHMQu6pRkCCqjJCgLHUSkGMDMWBzBG
+        zH0u5ZWvKo7aqO9pLv1bL9WCB2PXrT57zvpZTdKVzWdwxDlbAkAzVhZCstAoR83VEdPOxxaRUqL7
+        kgkegnuhUJdgHlq5h/bMbBRyDYargzUrQoGph5gXPia0Q+M38FbY3G/5lFsfAkBwAdd3nrMb5aTu
+        OFKQ6rOSHLUKFf8BuYaEYDH2p6zmQ96deUWPHkJYVFU7cS5w3xE3y59IeUX4MQ0WWIdGBBLpAkB/
+        8nhUeo8eVsRBcIhtwPl7KcKDryPJ+NwuRdD92ArXbGNtqKUegdMbksjJzFJCglqR+f6yizSJSB10
+        pQpipaYj
+      publicKey:
+        MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/1mdKj9OPw5K8M12MmVGC7KJpu9zguyfU4g42
+        iavdJkgY7uL61F4gvGmRhydIFN9p007AuI0wViP6qR9q9zYenuL2G5ce3bsB4iyxBosoPw1gbPRR
+        EqZWCUD8rluvqoHZNjdwbHdx5SMLwwtF6xDG6dEq4Vgriwt3pGPEF7csCQIDAQAB
+    aes:
+      key: abcd567890ABCDEF1234567890ABCDEF
+      iv: abcd567890123456
     auth:
       duri_minutes: 10
+    cors:
+      data:
+        snowflake:
+          workerId: 1
+          datacenterId: 1
