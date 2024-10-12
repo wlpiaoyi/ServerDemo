@@ -1,10 +1,7 @@
 package org.wlpiaoyi.server.demo.config.web.filter;
 
 import org.springframework.stereotype.Component;
-import org.wlpiaoyi.server.demo.config.web.support.AuthenticationSupport;
-import org.wlpiaoyi.server.demo.config.web.support.CensorSupport;
-import org.wlpiaoyi.server.demo.config.web.support.IdempotenceSupport;
-import org.wlpiaoyi.server.demo.config.web.support.AccessSupport;
+import org.wlpiaoyi.server.demo.config.web.support.*;
 import org.wlpiaoyi.server.demo.utils.SpringUtils;
 import org.wlpiaoyi.server.demo.utils.web.filter.WebBaseFilter;
 import org.wlpiaoyi.server.demo.utils.web.support.WebSupport;
@@ -27,7 +24,8 @@ public class WebFilter extends WebBaseFilter {
                 SpringUtils.getBean(IdempotenceSupport.class),
                 SpringUtils.getBean(AuthenticationSupport.class),
                 SpringUtils.getBean(CensorSupport.class),
-                SpringUtils.getBean(AccessSupport.class)
+                SpringUtils.getBean(AccessSupport.class),
+                SpringUtils.getBean(EncryptSupport.class)
         );
     }
 

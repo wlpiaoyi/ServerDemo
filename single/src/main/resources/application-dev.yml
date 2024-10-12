@@ -71,3 +71,8 @@ springdoc:
   # 默认开启wend
   api-docs:
     enabled: true
+
+org:
+  wlpiaoyi:
+    auth:
+      duri_minutes: 10

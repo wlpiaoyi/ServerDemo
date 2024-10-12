@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.wlpiaoyi.server.demo.utils.web.domain.DoFilterEnum;
 import org.wlpiaoyi.server.demo.utils.web.support.WebSupport;
 
+import java.util.Map;
+
 /**
  * <p><b>{@code @author:}</b>wlpiaoyi</p>
  * <p><b>{@code @description:}</b></p>
@@ -55,7 +57,7 @@ public abstract class IdempotenceSupport implements WebSupport<HttpServletReques
     }
 
     @Override
-    public int doFilter(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public int doFilter(HttpServletRequest request, HttpServletResponse response, Map obj) throws Exception {
         String uri = this.getRequestURI(request);
         log.debug("IdempotenceFilter.doFilter uri:{}", uri);
         IdempotenceUriSet uriSet = this.getIdempotenceUriSet();

@@ -1,6 +1,8 @@
 package org.wlpiaoyi.server.demo.sys.service.impl;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.wlpiaoyi.server.demo.sys.service.IUserService;
 import org.wlpiaoyi.server.demo.sys.domain.entity.User;
@@ -10,6 +12,8 @@ import org.wlpiaoyi.server.demo.sys.domain.ro.UserRo;
 import org.wlpiaoyi.server.demo.service.impl.BaseServiceImpl;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -25,9 +29,12 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Value("${org.wlpiaoyi.auth.duri_minutes}")
+    private int authDuriMinutes;
 
     @Override
-    public UserVo login(UserRo.UserAuth auth) {
+    public UserVo login(String token, UserRo.UserAuth auth) {
+        this.redisTemplate.opsForValue().set(token, System.currentTimeMillis() + "", this.authDuriMinutes, TimeUnit.MINUTES);
         return null;
     }
 }

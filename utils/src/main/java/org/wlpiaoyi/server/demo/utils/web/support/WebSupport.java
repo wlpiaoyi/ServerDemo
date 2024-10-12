@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.wlpiaoyi.server.demo.utils.web.domain.DoFilterEnum;
 
+import java.util.Map;
+
 /**
  * <p><b>{@code @author:}</b>wlpiaoyi</p>
  * <p><b>{@code @description:}</b></p>
@@ -91,5 +93,27 @@ public interface WebSupport<REQ,RES> {
      * </p>
      * <p><b>{@code @author:}</b>wlpiaoyi</p>
      */
-    int doFilter(REQ request, RES response) throws Exception;
+    int doFilter(REQ request, RES response, Map obj) throws Exception;
+    
+    /**
+     * <p><b>{@code @description:}</b> 
+     * TODO
+     * </p>
+     * 
+     * <p><b>@param</b> <b>request</b>
+     * {@link REQ}
+     * </p>
+     * 
+     * <p><b>@param</b> <b>response</b>
+     * {@link RES}
+     * </p>
+     * 
+     * <p><b>@param</b> <b>filterChain</b>
+     * {@link Map}
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2024/10/12 0:45</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    default void afterDoFilter(REQ request, RES response, Map obj) {} ;
 }

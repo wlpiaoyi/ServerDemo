@@ -12,7 +12,8 @@ import java.util.regex.Pattern;
  */
 public class WebUtils {
 
-    public static final String headerTokenKey = "token";
+    public static final String HEADER_TOKEN_KEY = "token";
+    public static final String ENCRYPT_CONTENT_TYPE_HEAD_TAG = "#ENCRYPT#";
 
 
     /**

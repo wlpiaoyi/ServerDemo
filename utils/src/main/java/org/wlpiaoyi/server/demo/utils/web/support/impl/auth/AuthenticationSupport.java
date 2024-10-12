@@ -1,6 +1,5 @@
 package org.wlpiaoyi.server.demo.utils.web.support.impl.auth;
 
-import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,6 +11,7 @@ import org.wlpiaoyi.server.demo.utils.web.domain.DoFilterEnum;
 import org.wlpiaoyi.server.demo.utils.web.support.WebSupport;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * <p><b>{@code @author:}</b>wlpiaoyi</p>
@@ -42,8 +42,8 @@ public abstract class AuthenticationSupport implements WebSupport<HttpServletReq
     protected abstract boolean authenticationToken(String token);
 
     @Override
-    public int doFilter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String token = request.getHeader(WebUtils.headerTokenKey);
+    public int doFilter(HttpServletRequest request, HttpServletResponse response, Map obj) throws ServletException, IOException {
+        String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
         if(ValueUtils.isBlank(token)){
             return DoFilterEnum.CloseReq.getValue() | DoFilterEnum.CloseResp.getValue() | DoFilterEnum.UndoChain.getValue();
         }

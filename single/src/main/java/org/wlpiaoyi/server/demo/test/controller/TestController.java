@@ -29,12 +29,13 @@ public class TestController {
     private RedisTemplate<String, String> redisTemplate;
 
     @PostMapping("/auth/login")
-    @Idempotence(10000)
+    @Idempotence
     @ApiOperationSupport(order = 1)
     @Operation(summary = "授权令牌")
     public R authLogin(@RequestHeader String token, @RequestBody Map body) {
         this.redisTemplate.opsForValue().set(token, System.currentTimeMillis() + "", 5, TimeUnit.MINUTES);
-        return R.success(System.currentTimeMillis());
+        body.put("currentTimeMillis", System.currentTimeMillis());
+        return R.success(body);
     }
 
     @GetMapping("/censor/list")

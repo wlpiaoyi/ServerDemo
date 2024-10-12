@@ -1,6 +1,5 @@
 package org.wlpiaoyi.server.demo.utils.web.support.impl.access;
 
-import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +7,8 @@ import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 import org.wlpiaoyi.server.demo.utils.web.domain.DoFilterEnum;
 import org.wlpiaoyi.server.demo.utils.web.support.WebSupport;
+
+import java.util.Map;
 
 /**
  * <p><b>{@code @author:}</b>wlpiaoyi</p>
@@ -35,7 +36,7 @@ public abstract class AccessSupport implements WebSupport<HttpServletRequest, Ht
     }
 
     @Override
-    public int doFilter(HttpServletRequest request, HttpServletResponse response) throws BusinessException {
+    public int doFilter(HttpServletRequest request, HttpServletResponse response, Map obj) throws BusinessException {
         AccessUriSet accessUriSet = this.getAccessUriSet();
         if(accessUriSet == null){
             return DoFilterEnum.GoNext.getValue();
@@ -45,7 +46,7 @@ public abstract class AccessSupport implements WebSupport<HttpServletRequest, Ht
         if(value == null || value.isEmpty()){
             return DoFilterEnum.GoNext.getValue();
         }
-        String token = request.getHeader(WebUtils.headerTokenKey);
+        String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
         if(token == null || token.isEmpty()){
             return DoFilterEnum.CloseReq.getValue() | DoFilterEnum.CloseResp.getValue() | DoFilterEnum.UndoChain.getValue();
         }
