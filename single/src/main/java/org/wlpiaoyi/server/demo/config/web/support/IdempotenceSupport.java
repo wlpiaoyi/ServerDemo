@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.wlpiaoyi.framework.utils.data.DataUtils;
 import org.wlpiaoyi.server.demo.utils.web.support.impl.idempotence.IdempotenceUriSet;
@@ -26,15 +27,20 @@ public class IdempotenceSupport extends org.wlpiaoyi.server.demo.utils.web.suppo
     @Getter
     private IdempotenceUriSet idempotenceUriSet = IdempotenceUriSetObj;
 
+
     @SneakyThrows
     @Override
     public String getIdempotenceKey(HttpServletRequest servletRequest) {
         return DataUtils.MD(servletRequest.getRequestURI() + servletRequest.getRemoteAddr() + servletRequest.getRemotePort(), DataUtils.KEY_MD5);
     }
 
+    @Value("${wlpiaoyi.ee.cors.data.patterns.idempotence}")
+    private String[] patterns;
+
     @Override
     public String[] getURIRegexes() {
-        return new String[]{"/test/.*"};
+        return this.patterns;
+//        return new String[]{"/test/.*"};
     }
 
     public static final IdempotenceUriSet IdempotenceUriSetObj = new IdempotenceUriSet() {

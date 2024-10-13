@@ -80,11 +80,24 @@ wlpiaoyi:
   ee:
     cors:
       data:
-        get_token:
-          patterns:
+        patterns:
+          # 幂等性
+          idempotence:
+            /test/.*
+          # 解密数据
+          decrypt:
+            /test/.*
+          # 加密数据
+          encrypt:
+            /test/.*
+          # 令牌认证
+          authentication:
             /test/auth/login
-        authorization:
-          patterns: >
-            (/sys/.*|/test/authorization/.*),
-            (^(?!/test/kk/test2).*$)
+          # 令牌审查
+          censor:
+            (/test/censor/.*|/test/common/.*),
+            (^(?!/test/common/do).*$)
+          # 数据权限
+          access:
+            /test/.*
         charset_name: 'UTF-8'

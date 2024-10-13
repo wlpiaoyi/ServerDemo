@@ -2,6 +2,7 @@ package org.wlpiaoyi.server.demo.config.web.support;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 
@@ -25,8 +26,12 @@ public class AuthenticationSupport extends org.wlpiaoyi.server.demo.utils.web.su
         return "salt" + token;
     }
 
+    @Value("${wlpiaoyi.ee.cors.data.patterns.authentication}")
+    private String[] patterns;
+
     @Override
     public String[] getURIRegexes() {
-        return new String[]{"/test/auth/login"};
+        return this.patterns;
+//        return new String[]{"/test/auth/login"};
     }
 }

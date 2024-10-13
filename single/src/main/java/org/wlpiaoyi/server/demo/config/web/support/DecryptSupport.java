@@ -3,6 +3,7 @@ package org.wlpiaoyi.server.demo.config.web.support;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
@@ -42,9 +43,13 @@ public class DecryptSupport extends org.wlpiaoyi.server.demo.utils.web.support.i
         return this.rsaDecrypt;
     }
 
+    @Value("${wlpiaoyi.ee.cors.data.patterns.decrypt}")
+    private String[] patterns;
+
     @Override
     public String[] getURIRegexes() {
-        return new String[]{"/test/.*"};
+        return this.patterns;
+//        return new String[]{"/test/.*"};
 //        return new String[]{"/abc"};
     }
 

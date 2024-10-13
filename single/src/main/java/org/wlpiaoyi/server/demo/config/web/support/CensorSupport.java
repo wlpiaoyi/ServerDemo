@@ -2,6 +2,7 @@ package org.wlpiaoyi.server.demo.config.web.support;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.wlpiaoyi.framework.utils.ValueUtils;
@@ -36,9 +37,13 @@ public class CensorSupport extends org.wlpiaoyi.server.demo.utils.web.support.im
         return true;
     }
 
+    @Value("${wlpiaoyi.ee.cors.data.patterns.censor}")
+    private String[] patterns;
+
     @Override
     public String[] getURIRegexes() {
-        return new String[]{"/test/censor/.*|/test/common/.*","(^(?!/test/common/do).*$)"};
+        return this.patterns;
+//        return new String[]{"/test/censor/.*|/test/common/.*","(^(?!/test/common/do).*$)"};
     }
 
 }

@@ -1,6 +1,7 @@
 package org.wlpiaoyi.server.demo.config.web.support;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.wlpiaoyi.server.demo.sys.service.IAccessService;
 import org.wlpiaoyi.server.demo.utils.web.support.impl.access.AccessUriSet;
@@ -37,9 +38,13 @@ public class AccessSupport extends org.wlpiaoyi.server.demo.utils.web.support.im
         return testMap.get(token).contains(value);
     }
 
+    @Value("${wlpiaoyi.ee.cors.data.patterns.access}")
+    private String[] patterns;
+
     @Override
     public String[] getURIRegexes() {
-        return new String[]{"/test/.*"};
+        return this.patterns;
+//        return new String[]{"/test/.*"};
     }
 
     public static final AccessUriSet ACCESS_URI_SET = new AccessUriSet() {
