@@ -14,6 +14,18 @@ import org.wlpiaoyi.server.demo.service.IBaseService;
  */
 public interface IAccessService extends IBaseService<Access> {
 
+    /**
+     * <p><b>{@code @description:}</b>
+     * TODO
+     * </p>
+     *
+     * <p><b>@param</b> <b></b>
+     * {@link }
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2024/10/13 21:50</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
     void mergeAll();
 
 }

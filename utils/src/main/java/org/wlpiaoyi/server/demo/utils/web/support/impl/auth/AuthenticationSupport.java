@@ -4,12 +4,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.wlpiaoyi.framework.utils.MapUtils;
 import org.wlpiaoyi.framework.utils.ValueUtils;
-import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
-import org.wlpiaoyi.server.demo.utils.request.RequestWrapper;
 import org.wlpiaoyi.server.demo.utils.response.ResponseUtils;
 import org.wlpiaoyi.server.demo.utils.response.ResponseWrapper;
 import org.wlpiaoyi.server.demo.utils.web.WebUtils;
@@ -54,19 +51,15 @@ public abstract class AuthenticationSupport implements WebSupport<HttpServletReq
      * TODO
      * </p>
      * 
-     * <p><b>@param</b> <b>request</b>
-     * {@link HttpServletRequest}
-     * </p>
-     * 
-     * <p><b>@param</b> <b>response</b>
-     * {@link HttpServletResponse}
+     * <p><b>@param</b> <b>token</b>
+     * {@link String}
      * </p>
      *
      * <p><b>{@code @date:}</b>2024/10/12 14:56</p>
      * <p><b>{@code @return:}</b>{@link String}</p>
      * <p><b>{@code @author:}</b>wlpiaoyi</p>
      */
-    protected abstract String getSalt(HttpServletRequest request, HttpServletResponse response);
+    protected abstract String loadSalt(String token);
 
     @Override
     public int doFilter(HttpServletRequest request, HttpServletResponse response, Map obj) throws ServletException, IOException {
@@ -100,7 +93,6 @@ public abstract class AuthenticationSupport implements WebSupport<HttpServletReq
 
     @Override
     public void execResponse(HttpServletRequest request, HttpServletResponse response, Map obj, int indexSupport, int totalSupports) {
-        response.setHeader(WebUtils.HEADER_SALT_KEY, this.getSalt(request, response));
         if(indexSupport == totalSupports - 1){
             ResponseWrapper respWrapper = MapUtils.get(obj, "response");
             if(respWrapper != null){
@@ -117,6 +109,10 @@ public abstract class AuthenticationSupport implements WebSupport<HttpServletReq
                     throw new BusinessException(e);
                 }
             }
+        }
+        if(response.getStatus() == 200){
+            String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
+            response.setHeader(WebUtils.HEADER_SALT_KEY, this.loadSalt(token));
         }
     }
 }

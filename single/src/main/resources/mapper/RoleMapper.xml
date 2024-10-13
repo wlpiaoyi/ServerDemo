@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--@author wlpiaoyi:WLPIAOYI-DELL-->
+<!--@since 2024-10-11 18:08:10-->
+<!--@desc 角色-->
+<mapper namespace="org.wlpiaoyi.server.demo.sys.domain.mapper.RoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="roleResultMap" type="org.wlpiaoyi.server.demo.sys.domain.entity.Role">
+        <id column="id" property="id"/>
+        <!-- 角色名称 -->
+        <result column="name" property="name"/>
+        <!-- 角色编码=(amdin:管理员,...) -->
+        <result column="code" property="code"/>
+        <!-- 状态 -->
+        <result column="status" property="status"/>
+        <!-- 是否删除 -->
+        <result column="is_deleted" property="isDeleted"/>
+        <!-- 创建人 -->
+        <result column="create_user" property="createUser"/>
+        <!-- 创建时间 -->
+        <result column="create_time" property="createTime"/>
+        <!-- 修改人 -->
+        <result column="update_user" property="updateUser"/>
+        <!-- 修改时间 -->
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="selectByUserIds" resultMap="roleResultMap">
+        SELECT r.* FROM sys_user_role_rela urr left join sys_role r on urr.role_id = r.id
+        where urr.user_id in (
+        <foreach item="userId" index="index" collection="userIds" separator=",">
+            #{userId}
+        </foreach>
+        )
+    </select>
+    <insert id="insertUserRelaBatch">
+        INSERT INTO `sys_user_role_rela` (`role_id`, `user_id`)
+        VALUES
+        <foreach item="roleId" index="index" collection="roleIds" separator=",">
+            (#{roleId}, #{userId})
+        </foreach>;
+    </insert>
+    <delete id="deleteUserRela">
+        DELETE FROM `sys_user_role_rela` WHERE (`role_id` = #{roleId}) and (`user_id` = #{user_id});
+    </delete>
+
+    <select id="selectByAccessIds" resultMap="roleResultMap">
+        SELECT r.* FROM `sys_access_role_rela` urr left join sys_role r on urr.role_id = r.id
+        where urr.access_id in (
+        <foreach item="accessId" index="index" collection="accessIds" separator=",">
+            #{accessId}
+        </foreach>
+        )
+    </select>
+    <insert id="insertAccessRela">
+        INSERT INTO `sys_access_role_rela` (`role_id`, `access_id`)
+        VALUES
+        (#{roleId}, #{accessId})
+    </insert>
+    <delete id="deleteAccessRela">
+        DELETE FROM `sys_user_role_rela` WHERE (`role_id` = #{roleId}) and (`access_id` = #{accessId});
+    </delete>
+
+</mapper>

@@ -1,6 +1,7 @@
 package org.wlpiaoyi.server.demo.sys.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,6 +38,7 @@ public class User extends CommonEntity implements Serializable {
     private String account;
 
     /** 密码 **/
+    @JsonIgnore
     @Schema(name = "password" , description = "密码")
     @NotBlank(message = "密码不能为空")
     private String password;
@@ -47,4 +49,4 @@ public class User extends CommonEntity implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long deptId;
 
-}
+}

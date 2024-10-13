@@ -1,14 +1,19 @@
 CREATE TABLE `sys_access` (
-  `id` bigint NOT NULL,
+  `id` bigint unsigned NOT NULL,
   `value` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `value_UNIQUE` (`value`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='数据权限';
 
 CREATE TABLE `sys_access_role_rela` (
   `role_id` bigint NOT NULL,
   `access_id` bigint NOT NULL,
-  PRIMARY KEY (`role_id`,`access_id`)
+  PRIMARY KEY (`role_id`,`access_id`),
+  UNIQUE KEY `access_role_access_id_uni` (`role_id`,`access_id`),
+  KEY `access_role_id_index` (`role_id`) /*!80000 INVISIBLE */,
+  KEY `access_access_id_index` (`access_id`) /*!80000 INVISIBLE */
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 CREATE TABLE `sys_dept` (
@@ -18,7 +23,6 @@ CREATE TABLE `sys_dept` (
   `code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '部门编码',
   `status` int DEFAULT '1' COMMENT '状态',
   `is_deleted` int DEFAULT '0' COMMENT '是否删除',
-  `create_dept` bigint DEFAULT NULL COMMENT '创建部门',
   `create_user` bigint DEFAULT NULL COMMENT '创建人',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_user` bigint DEFAULT NULL COMMENT '修改人',
@@ -40,7 +44,6 @@ CREATE TABLE `sys_dict` (
   `status` int DEFAULT '1' COMMENT '状态',
   `is_deleted` int DEFAULT '0' COMMENT '是否删除',
   `create_user` bigint DEFAULT NULL COMMENT '创建人',
-  `create_dept` bigint DEFAULT NULL COMMENT '创建部门',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_user` bigint DEFAULT NULL COMMENT '修改人',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
@@ -65,7 +68,6 @@ CREATE TABLE `sys_menu` (
   `status` int DEFAULT '1' COMMENT '状态',
   `is_deleted` int DEFAULT '0' COMMENT '是否删除',
   `create_user` bigint DEFAULT NULL COMMENT '创建人',
-  `create_dept` bigint DEFAULT NULL COMMENT '创建部门',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_user` bigint DEFAULT NULL COMMENT '修改人',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
@@ -94,7 +96,6 @@ CREATE TABLE `sys_role` (
   `status` int DEFAULT '1' COMMENT '状态',
   `is_deleted` int DEFAULT '0' COMMENT '是否删除',
   `create_user` bigint DEFAULT NULL COMMENT '创建人',
-  `create_dept` bigint DEFAULT NULL COMMENT '创建部门',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_user` bigint DEFAULT NULL COMMENT '修改人',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
@@ -112,7 +113,6 @@ CREATE TABLE `sys_user` (
   `status` int DEFAULT '1' COMMENT '状态',
   `is_deleted` int DEFAULT '0' COMMENT '是否删除',
   `create_user` bigint DEFAULT NULL COMMENT '创建人',
-  `create_dept` bigint DEFAULT NULL COMMENT '创建部门',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_user` bigint DEFAULT NULL COMMENT '修改人',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
@@ -123,5 +123,8 @@ CREATE TABLE `sys_user` (
 CREATE TABLE `sys_user_role_rela` (
   `role_id` bigint NOT NULL,
   `user_id` bigint NOT NULL,
-  PRIMARY KEY (`role_id`,`user_id`)
+  PRIMARY KEY (`role_id`,`user_id`),
+  UNIQUE KEY `surr_pk_un` (`role_id`,`user_id`) /*!80000 INVISIBLE */,
+  KEY `index_user_id` (`user_id`) /*!80000 INVISIBLE */,
+  KEY `index_role_id` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户角色';

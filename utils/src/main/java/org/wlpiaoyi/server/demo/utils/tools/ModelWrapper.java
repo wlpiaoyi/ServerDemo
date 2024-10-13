@@ -19,12 +19,21 @@ public class ModelWrapper {
     @SneakyThrows
     public static <T> T parseOne(Object orgObj, Class<T> resClazz) {
 //        T resObj = resClazz.newInstance();
+        if(orgObj == null){
+            return null;
+        }
         T resObj = resClazz.getDeclaredConstructor().newInstance();
         BeanUtils.copyProperties(orgObj, resObj);
         return resObj;
     }
 
     public static <T> List<T> parseForList(Collection orgObjs, Class<T> resClazz) {
+        if(orgObjs == null){
+            return null;
+        }
+        if(orgObjs.isEmpty()){
+            return new ArrayList<>();
+        }
         List<T> resList = new ArrayList<>(orgObjs.size());
         for (Object orgObj : orgObjs){
             resList.add(parseOne(orgObj, resClazz));
@@ -33,6 +42,12 @@ public class ModelWrapper {
     }
 
     public static <T> Set<T> parseForSet(Collection orgObjs, Class<T> resClazz) {
+        if(orgObjs == null){
+            return null;
+        }
+        if(orgObjs.isEmpty()){
+            return new HashSet<>();
+        }
         Set<T> resList = new HashSet<>(orgObjs.size());
         for (Object orgObj : orgObjs){
             resList.add(parseOne(orgObj, resClazz));
@@ -41,6 +56,12 @@ public class ModelWrapper {
     }
 
     public static <PK, T> Map<PK, T> parseForMap(Map<PK, ?> orgMap, Class<T> resClazz) {
+        if(orgMap == null){
+            return null;
+        }
+        if(orgMap.isEmpty()){
+            return new HashMap<>();
+        }
         Map<PK, T> resMap = new HashMap<>();
         for (Map.Entry<PK, ?> entry : orgMap.entrySet()){
             resMap.put(entry.getKey(), parseOne(entry.getValue(), resClazz));

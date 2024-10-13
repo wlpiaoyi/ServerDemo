@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.AllArgsConstructor;
+import org.wlpiaoyi.framework.utils.exception.SystemException;
 import org.wlpiaoyi.server.demo.sys.domain.entity.User;
 import org.wlpiaoyi.server.demo.sys.service.IUserService;
 import org.wlpiaoyi.server.demo.sys.domain.vo.UserVo;
@@ -22,6 +23,9 @@ import org.springframework.web.bind.annotation.*;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 
 import jakarta.validation.Valid;
+import org.wlpiaoyi.server.demo.utils.web.annotation.Decrypt;
+import org.wlpiaoyi.server.demo.utils.web.annotation.Encrypt;
+import org.wlpiaoyi.server.demo.utils.web.annotation.Idempotence;
 
 
 /**
@@ -32,7 +36,7 @@ import jakarta.validation.Valid;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/sys/user")
 @Tag(name = "用户表接口")
 public class UserController {
 
@@ -40,18 +44,30 @@ public class UserController {
 
 
 
-//	/**
-//	 * 用户表 分页
-//	 */
-//	@PostMapping("/login")
-//	@ApiOperationSupport(order = 0)
-//	@Operation(summary = "用户登录")
-//	public R<UserVo> login(@RequestHeader String token, @RequestBody UserAuth body) {
-//		QueryWrapper<User> wrapper = Condition.getQueryWrapper(ModelWrapper.parseOne(body, User.class));
-//		wrapper.orderByDesc("create_time");
-//		IPage<User> pages = userService.page(Condition.getPage(body), wrapper);
-//		return R.success(ModelWrapper.parseForPage(pages, UserVo.class));
-//	}
+	/**
+	 * 用户登录
+	 */
+	@Idempotence
+	@Encrypt
+	@Decrypt
+	@PostMapping("/login")
+	@ApiOperationSupport(order = 0)
+	@Operation(summary = "用户登录")
+	public R<UserVo> login(@RequestHeader String token, @RequestBody UserAuth body) {
+		return R.success(this.userService.login(token, body));
+	}
+
+	/**
+	 * token续期
+	 */
+	@Idempotence
+	@GetMapping("/expire")
+	@ApiOperationSupport(order = 0)
+	@Operation(summary = "token续期")
+	public R<Boolean> expire(@RequestHeader String token) throws SystemException {
+		this.userService.expire(token);
+		return R.success(true);
+	}
 
 	/**
 	 * 用户表 详情
@@ -59,14 +75,8 @@ public class UserController {
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "用户表 详情")
-	public R<UserVo> detail(UserQuery body) {
-		UserVo user = ModelWrapper.parseOne(
-				this.userService.getOne(
-						Condition.getQueryWrapper(ModelWrapper.parseOne(body, User.class))
-				),
-				UserVo.class
-		);
-		return R.success(user);
+	public R<UserVo> detail(@RequestParam Long id) {
+		return R.success(this.userService.getDetail(id));
 
 	}
 

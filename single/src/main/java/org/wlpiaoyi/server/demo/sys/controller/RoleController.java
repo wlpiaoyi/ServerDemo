@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 
 import jakarta.validation.Valid;
+import org.wlpiaoyi.server.demo.utils.web.annotation.PreAuthorize;
 
 
 /**
@@ -32,7 +33,7 @@ import jakarta.validation.Valid;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/role")
+@RequestMapping("/sys/role")
 @Tag(name = "角色接口")
 public class RoleController {
 
@@ -44,6 +45,7 @@ public class RoleController {
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "角色 详情")
+	@PreAuthorize("role_detail")
 	public R<RoleVo> detail(RoleQuery body) {
 		RoleVo role = ModelWrapper.parseOne(
 				this.roleService.getOne(
@@ -58,22 +60,10 @@ public class RoleController {
 	/**
 	 * 角色 分页
 	 */
-	@PostMapping("/page")
-	@ApiOperationSupport(order = 2)
-	@Operation(summary = "角色 分页")
-	public R<IPage<RoleVo>> page(@RequestBody RoleQuery body){
-		LambdaQueryWrapper<Role> wrapper = Wrappers.<Role>lambdaQuery();
-		wrapper.orderByDesc(Role::getCreateTime);
-		IPage<Role> pages = roleService.page(Condition.getPage(body), wrapper);
-		return R.success(ModelWrapper.parseForPage(pages, RoleVo.class));
-	}
-
-	/**
-	 * 角色 分页
-	 */
 	@PostMapping("/list")
 	@ApiOperationSupport(order = 3)
 	@Operation(summary = "角色 分页")
+	@PreAuthorize("role_list")
 	public R<IPage<RoleVo>> list(@RequestBody RoleQuery body) {
 		QueryWrapper<Role> wrapper = Condition.getQueryWrapper(ModelWrapper.parseOne(body, Role.class));
 		wrapper.orderByDesc("create_time");
@@ -87,6 +77,7 @@ public class RoleController {
 	@PostMapping("/save")
 	@ApiOperationSupport(order = 4)
 	@Operation(summary = "角色 新增")
+	@PreAuthorize("role_add")
 	public R<Boolean> save(@Valid @RequestBody RoleSubmit body) {
 		return R.success(roleService.save(ModelWrapper.parseOne(body, Role.class)));
 	}
@@ -97,18 +88,9 @@ public class RoleController {
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
 	@Operation(summary = "角色 修改")
+	@PreAuthorize("role_update")
 	public R<Boolean> update(@RequestBody RoleSubmit body) {
 		return R.success(roleService.updateById(ModelWrapper.parseOne(body, Role.class)));
-	}
-
-	/**
-	 * 角色 新增或修改
-	 */
-	@PostMapping("/submit")
-	@ApiOperationSupport(order = 6)
-	@Operation(summary = "角色 新增或修改")
-	public R<Boolean> submit(@Valid @RequestBody RoleSubmit body) {
-		return R.success(roleService.saveOrUpdate(ModelWrapper.parseOne(body, Role.class)));
 	}
 
 	/**
@@ -117,8 +99,9 @@ public class RoleController {
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
 	@Operation(summary = "角色 逻辑删除")
+	@PreAuthorize("role_remove")
 	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
 		return R.success(roleService.deleteLogic(ValueUtils.toLongList(ids)));
 	}
 
-}
+}

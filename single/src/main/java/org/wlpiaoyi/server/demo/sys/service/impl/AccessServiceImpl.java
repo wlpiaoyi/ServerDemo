@@ -37,6 +37,7 @@ public class AccessServiceImpl extends BaseServiceImpl<AccessMapper, Access> imp
         }
     }
 
+    @Transactional
     public void merge(String uri, String value) {
         Access access = this.getOne(Wrappers.<Access>lambdaQuery().eq(Access::getPath, uri).eq(Access::getValue, value));
         if(access == null){

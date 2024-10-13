@@ -2,9 +2,15 @@ package org.wlpiaoyi.server.demo.config.web.support;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import org.wlpiaoyi.framework.utils.StringUtils;
+import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.server.demo.utils.web.WebUtils;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p><b>{@code @author:}</b>wlpiaoyi</p>
@@ -15,15 +21,23 @@ import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 @Component
 public class AuthenticationSupport extends org.wlpiaoyi.server.demo.utils.web.support.impl.auth.AuthenticationSupport {
 
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
+
+    @Value("${wlpiaoyi.ee.auth.duri_minutes}")
+    private int authDuriMinutes;
+
     @Override
     protected boolean authenticationToken(String token) {
-        return token.startsWith("wl");
+        return true;
     }
 
     @Override
-    protected String getSalt(HttpServletRequest request, HttpServletResponse response) {
-        String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
-        return "salt" + token;
+    protected String loadSalt(String token) {
+        String saltKey = WebUtils.HEADER_SALT_KEY + token;
+        String saltValue = System.currentTimeMillis() + "#" + StringUtils.getUUID32();
+        this.redisTemplate.opsForValue().set(saltKey, saltValue, this.authDuriMinutes, TimeUnit.MINUTES);
+        return saltValue;
     }
 
     @Value("${wlpiaoyi.ee.cors.data.patterns.authentication}")

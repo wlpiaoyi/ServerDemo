@@ -1,9 +1,13 @@
 package org.wlpiaoyi.server.demo.sys.service;
 
+import org.wlpiaoyi.server.demo.sys.domain.entity.Access;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Role;
 import org.wlpiaoyi.server.demo.sys.domain.vo.RoleVo;
 import org.wlpiaoyi.server.demo.sys.domain.ro.RoleRo;
 import org.wlpiaoyi.server.demo.service.IBaseService;
+
+import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -14,5 +18,63 @@ import org.wlpiaoyi.server.demo.service.IBaseService;
  */
 public interface IRoleService extends IBaseService<Role> {
 
+    /**
+     * <p><b>{@code @description:}</b>
+     * 添加权限
+     * </p>
+     *
+     * <p><b>@param</b> <b>roleId</b>
+     * {@link Long}
+     * </p>
+     *
+     * <p><b>@param</b> <b>accessIds</b>
+     * {@link Collection< Long>}
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2024/10/13 22:03</p>
+     * <p><b>{@code @return:}</b>{@link int}</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    int addAccess(Long roleId, Collection<Long> accessIds);
 
+    /**
+     * <p><b>{@code @description:}</b>
+     * 删除数据权限
+     * </p>
+     *
+     * <p><b>@param</b> <b>roleId</b>
+     * {@link Long}
+     * </p>
+     *
+     * <p><b>@param</b> <b>accessIds</b>
+     * {@link Collection<Long>}
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2024/10/13 22:04</p>
+     * <p><b>{@code @return:}</b>{@link int}</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    int deleteAccess(Long roleId, Collection<Long> accessIds);
+
+    /**
+     * <p><b>{@code @description:}</b>
+     * 修改数据权限
+     * </p>
+     *
+     * <p><b>@param</b> <b>userId</b>
+     * {@link Long}
+     * </p>
+     *
+     * <p><b>@param</b> <b>addAccessIds</b>
+     * {@link Collection< Long>}
+     * </p>
+     *
+     * <p><b>@param</b> <b>delAccessId</b>
+     * {@link Collection< Long>}
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2024/10/13 22:05</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    void mergeAccesses(Long userId, Collection<Long> addAccessIds, Collection<Long> delAccessId);
 }

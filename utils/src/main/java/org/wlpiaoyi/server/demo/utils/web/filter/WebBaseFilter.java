@@ -129,7 +129,6 @@ public abstract class WebBaseFilter implements Filter{
                                  HttpServletRequest request, HttpServletResponse response,
                                  List<WebSupport> webSupports, Map obj, Exception e){
 
-        ResponseUtils.prepareHeader(request, response);
         int code;
         if(e instanceof BusinessException){
             code = ((BusinessException) e).getCode();
@@ -146,11 +145,13 @@ public abstract class WebBaseFilter implements Filter{
                 ResponseWrapper respWrapper = new ResponseWrapper(response);
                 respWrapper.writeBuffer(GsonBuilder.gsonDefault().toJson(r).getBytes(StandardCharsets.UTF_8));
                 obj.put("response", respWrapper);
+                ResponseUtils.prepareHeader(servletRequest, servletResponse);
                 temp.execResponse(servletRequest, servletResponse, obj, 0, 1);
                 break;
             }
         }
         if(!hasFinalSupport){
+            ResponseUtils.prepareHeader(servletRequest, servletResponse);
             ResponseUtils.writeResponseData(code, r, servletResponse);
         }
     }

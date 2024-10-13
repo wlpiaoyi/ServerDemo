@@ -83,21 +83,22 @@ wlpiaoyi:
         patterns:
           # 幂等性
           idempotence:
-            /test/.*
+            (/sys/.*)
           # 解密数据
           decrypt:
-            /test/.*
+            (/sys/.*)
           # 加密数据
           encrypt:
-            /test/.*
+            (/sys/.*)
           # 令牌认证
           authentication:
-            /test/auth/login
+            (/sys/user/login|/sys/user/expire)
           # 令牌审查
           censor:
-            (/test/censor/.*|/test/common/.*),
-            (^(?!/test/common/do).*$)
+            (/sys/*),
+            (^(?!/sys/user/login).*$),
+            (^(?!/sys/user/expire).*$)
           # 数据权限
           access:
-            /test/.*
+            (/sys/*)
         charset_name: 'UTF-8'

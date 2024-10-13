@@ -1,7 +1,10 @@
 package org.wlpiaoyi.server.demo.sys.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -35,4 +38,5 @@ public class Role extends CommonEntity implements Serializable {
     @Schema(name = "code" , description = "角色编码 enums(amdin:管理员,...)" , examples = {"amdin:管理员","..."})
     private String code;
 
-}
+
+}
