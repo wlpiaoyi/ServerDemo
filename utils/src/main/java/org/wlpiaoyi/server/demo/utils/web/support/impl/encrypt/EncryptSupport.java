@@ -34,6 +34,22 @@ import java.util.Map;
 @Slf4j
 public abstract class EncryptSupport implements WebSupport<HttpServletRequest, HttpServletResponse> {
 
+    /**
+     * <p><b>{@code @description:}</b>
+     * TODO
+     * </p>
+     *
+     * <p><b>@param</b> <b></b>
+     * {@link }
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2024/10/13 9:13</p>
+     * <p><b>{@code @return:}</b>{@link EncryptUriSet}</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    protected abstract EncryptUriSet getEncryptUriSet();
+
+
     @Override
     public String getRequestURI(HttpServletRequest servletRequest) {
         return servletRequest.getRequestURI();
@@ -100,7 +116,7 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
      */
     protected void encryptResponseBody(ResponseWrapper respWrapper, HttpServletResponse response, Aes aes) throws IOException, IllegalBlockSizeException, BadPaddingException {
         byte[] respData = respWrapper.getResponseData();
-        if(!ValueUtils.isBlank(respData)){
+        if(!ValueUtils.isBlank(respData) && aes != null){
             //加密响应报文
             respData = aes.encrypt(respData);
         }
@@ -108,15 +124,22 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
             response.setHeader(headerName, respWrapper.getHeader(headerName));
         }
         String contentType = respWrapper.getContentType();
-        if(!contentType.startsWith(WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG)){
-            contentType = WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG + contentType;
+        if(aes != null){
+            if(!contentType.startsWith(WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG)){
+                contentType = WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG + contentType;
+            }
+        }else{
+            if(contentType.startsWith(WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG)){
+                contentType = contentType.substring(WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG.length());
+            }
         }
         response.setContentType(contentType);
+        response.setHeader(HttpHeaders.CONTENT_TYPE, contentType);
         ResponseUtils.writeResponseData(response.getStatus(), respData, response);
     }
 
     @Override
-    public int doFilter(HttpServletRequest request, HttpServletResponse response, Map obj) throws BusinessException, IOException, IllegalBlockSizeException, BadPaddingException, ServletException {
+    public int doFilter(HttpServletRequest request, HttpServletResponse response, Map obj) throws BusinessException, IOException {
         Aes aes = this.getAes(request, response);
         if(aes == null){
             log.error("EncryptFilter.doFilter unfunded aes object");
@@ -152,11 +175,16 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
                         salt = new String(DataUtils.base64Encode(rsa.encrypt(salt.getBytes(StandardCharsets.UTF_8))));
                         response.setHeader(WebUtils.HEADER_SALT_KEY, salt);
                     }
-                    Aes aes = this.getAes(request, response);
-                    String resContentType = respWrapper.getContentType();
-                    if(ValueUtils.isBlank(resContentType)){
-                        resContentType = request.getHeader(HttpHeaders.ACCEPT);
-                        respWrapper.setContentType(resContentType);
+                    Aes aes = null;
+                    String uri = this.getRequestURI(request);
+                    EncryptUriSet uriSet = this.getEncryptUriSet();
+                    if(uriSet != null && uriSet.contains(uri)){
+                        aes = this.getAes(request, response);
+                        String resContentType = respWrapper.getContentType();
+                        if(ValueUtils.isBlank(resContentType)){
+                            resContentType = request.getHeader(HttpHeaders.ACCEPT);
+                            respWrapper.setContentType(resContentType);
+                        }
                     }
                     ResponseUtils.prepareHeader(request, response);
                     this.encryptResponseBody(respWrapper, response, aes);

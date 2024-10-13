@@ -6,6 +6,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
+import org.wlpiaoyi.server.demo.utils.web.support.impl.encrypt.DecryptUriSet;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * <p><b>{@code @author:}</b> wlpia</p>
@@ -24,6 +28,11 @@ public class DecryptSupport extends org.wlpiaoyi.server.demo.utils.web.support.i
     private RsaCipher rsaDecrypt;
 
     @Override
+    protected DecryptUriSet getDecryptUriSet() {
+        return DECRYPT_URI_SET;
+    }
+
+    @Override
     protected Aes getAes(HttpServletRequest request, HttpServletResponse response) {
         return this.aes;
     }
@@ -35,7 +44,22 @@ public class DecryptSupport extends org.wlpiaoyi.server.demo.utils.web.support.i
 
     @Override
     public String[] getURIRegexes() {
-        return new String[]{"/test/auth/login|/test/common/list"};
+        return new String[]{"/test/.*"};
 //        return new String[]{"/abc"};
     }
+
+    public static final DecryptUriSet DECRYPT_URI_SET = new DecryptUriSet() {
+
+        private Set<String> uriSet = new HashSet<>();
+
+        @Override
+        public boolean contains(String uri) {
+            return this.uriSet.contains(uri);
+        }
+
+        @Override
+        public void add(String uri) {
+            this.uriSet.add(uri);
+        }
+    };
 }

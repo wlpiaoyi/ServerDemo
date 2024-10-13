@@ -140,6 +140,47 @@ public class TestControllerTest {
         System.out.println(" ebody:" + ValueUtils.bytesToHex(buffers));
         System.out.println(" dbody:" + new String(this.aes.decrypt(buffers)));
         System.out.println("====================================>");
+
+
+
+        request = new Request<>(context, "http://127.0.0.1:8180/test/censor/list", Request.Method.Post);
+        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json;charset=utf-8");
+        request.setHeader(HttpHeaders.ACCEPT,"application/json");
+        request.setHeader(WebUtils.HEADER_SALT_KEY, new String(DataUtils.base64Encode(this.rsaEncrypt.encrypt(salt.getBytes()))));
+        request.setHeader("token", "wl12");
+        request.setParam("n1", "v1");
+        body = new HashMap(){{
+            put("v1", "0");
+            put("v4", "3");
+        }};
+        buffers = GsonBuilder.gsonDefault().toJson(body, Map.class).getBytes(StandardCharsets.UTF_8);
+//        buffers = this.aes.encrypt(buffers);
+        System.out.println("request:" + request.getUrl() + " body:" + new String(buffers));
+        request.setBody(buffers).setHttpProxy("127.0.0.1", 8888);
+        response = request.execute(byte[].class);
+        buffers = response.getBody();
+        System.out.println(" ebody:" + ValueUtils.bytesToHex(buffers));
+        System.out.println(" dbody:" + new String(this.aes.decrypt(buffers)));
+        System.out.println("====================================>");
+
+
+        request = new Request<>(context, "http://127.0.0.1:8180/test/common/do", Request.Method.Post);
+        request.setHeader(HttpHeaders.CONTENT_TYPE, WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG + "application/json;charset=utf-8");
+        request.setHeader(HttpHeaders.ACCEPT, WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG + "application/json");
+        request.setHeader(WebUtils.HEADER_SALT_KEY, new String(DataUtils.base64Encode(this.rsaEncrypt.encrypt(salt.getBytes()))));
+        request.setHeader("token", "wl12");
+        body = new HashMap(){{
+            put("v1", "0");
+            put("v4", "3");
+        }};
+        buffers = this.aes.encrypt(GsonBuilder.gsonDefault().toJson(body, Map.class).getBytes(StandardCharsets.UTF_8));
+        System.out.println("request:" + request.getUrl() + " body:" +ValueUtils.bytesToHex(buffers));
+        request.setBody(buffers).setHttpProxy("127.0.0.1", 8888);
+        response = request.execute(byte[].class);
+        buffers = response.getBody();
+        System.out.println(" ebody:" + new String(buffers));
+//        System.out.println(" dbody:" + new String(this.aes.decrypt(buffers)));
+        System.out.println("====================================>");
     }
 
     @After

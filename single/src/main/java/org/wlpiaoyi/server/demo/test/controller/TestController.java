@@ -12,6 +12,8 @@ import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.server.demo.utils.response.R;
 import org.wlpiaoyi.server.demo.utils.web.WebUtils;
+import org.wlpiaoyi.server.demo.utils.web.annotation.Decrypt;
+import org.wlpiaoyi.server.demo.utils.web.annotation.Encrypt;
 import org.wlpiaoyi.server.demo.utils.web.annotation.Idempotence;
 import org.wlpiaoyi.server.demo.utils.web.annotation.PreAuthorize;
 
@@ -35,6 +37,8 @@ public class TestController {
 
     @PostMapping("/auth/login")
     @Idempotence
+    @Encrypt
+    @Decrypt
     @ApiOperationSupport(order = 1)
     @Operation(summary = "授权令牌")
     public R authLogin(@RequestHeader String token, @RequestBody Map body, HttpServletResponse response) {
@@ -47,22 +51,24 @@ public class TestController {
         return R.success(body);
     }
 
-    @GetMapping("/censor/list")
+    @Encrypt
+    @PostMapping("/censor/list")
     @ApiOperationSupport(order = 2)
     @PreAuthorize("path1")
     @Operation(summary = "审查令牌1")
-    public R censorList(@RequestHeader String token, @RequestHeader String salt, @RequestParam String n1) {
+    public R censorList(@RequestHeader String token, @RequestHeader String salt, @RequestParam String n1, @RequestBody Map body) {
         if(n1.equals("error")){
             throw new BusinessException("n1 error, 拉都拉空间");
         }
-        Map res = new HashMap<>();
-        res.put("token", token);
-        res.put("salt", salt);
-        res.put("n1", n1);
-        res.put("currentTimeMillis", System.currentTimeMillis());
-        return R.success(res);
+        body.put("token", token);
+        body.put("salt", salt);
+        body.put("n1", n1);
+        body.put("currentTimeMillis", System.currentTimeMillis());
+        return R.success(body);
     }
 
+    @Encrypt
+    @Decrypt
     @PostMapping("/common/list")
     @Operation(summary = "审查令牌2")
     @PreAuthorize("path2")
@@ -76,10 +82,12 @@ public class TestController {
         return R.success(body);
     }
 
-    @GetMapping("/common/do")
+    @Decrypt
+    @PostMapping("/common/do")
     @Operation(summary = "无审查令牌")
     @ApiOperationSupport(order = 4)
-    public R commonDo(@RequestHeader String token) {
-        return R.success(System.currentTimeMillis());
+    public R commonDo(@RequestHeader String token, @RequestBody Map body) {
+        body.put("currentTimeMillis", System.currentTimeMillis());
+        return R.success(body);
     }
 }
