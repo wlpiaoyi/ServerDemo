@@ -54,7 +54,7 @@ public class TestController {
     @Encrypt
     @PostMapping("/censor/list")
     @ApiOperationSupport(order = 2)
-    @PreAuthorize("path1")
+//    @PreAuthorize("path1")
     @Operation(summary = "审查令牌1")
     public R censorList(@RequestHeader String token, @RequestHeader String salt, @RequestParam String n1, @RequestBody Map body) {
         if(n1.equals("error")){
@@ -71,7 +71,7 @@ public class TestController {
     @Decrypt
     @PostMapping("/common/list")
     @Operation(summary = "审查令牌2")
-    @PreAuthorize("path2")
+//    @PreAuthorize("path2")
     @ApiOperationSupport(order = 3)
     public R commonList(@RequestHeader String token, @RequestHeader String salt, @RequestBody Map body) {
         if(ValueUtils.isBlank(body)){
