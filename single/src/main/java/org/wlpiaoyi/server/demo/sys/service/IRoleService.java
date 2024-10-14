@@ -20,6 +20,21 @@ public interface IRoleService extends IBaseService<Role> {
 
     /**
      * <p><b>{@code @description:}</b>
+     * 角色详情
+     * </p>
+     *
+     * <p><b>@param</b> <b>id</b>
+     * {@link Long}
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2024/10/14 14:45</p>
+     * <p><b>{@code @return:}</b>{@link RoleVo}</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    RoleVo getDetail(Long id);
+
+    /**
+     * <p><b>{@code @description:}</b>
      * 添加权限
      * </p>
      *

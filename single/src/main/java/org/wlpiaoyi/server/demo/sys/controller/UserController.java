@@ -27,7 +27,6 @@ import org.wlpiaoyi.server.demo.utils.web.annotation.Decrypt;
 import org.wlpiaoyi.server.demo.utils.web.annotation.Encrypt;
 import org.wlpiaoyi.server.demo.utils.web.annotation.Idempotence;
 
-
 /**
  * {@code @author:} 		wlpia:WLPIAOYI-PC
  * {@code @description:} 	用户表 控制器

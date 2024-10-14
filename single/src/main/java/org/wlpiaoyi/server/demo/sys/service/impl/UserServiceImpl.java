@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.exception.SystemException;
+import org.wlpiaoyi.server.demo.cache.UserCachesService;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Role;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.DeptMapper;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.RoleMapper;
@@ -45,14 +46,14 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     @Autowired
     private RedisTemplate redisTemplate;
 
-    @Value("${wlpiaoyi.ee.auth.duri_minutes}")
-    private int authDuriMinutes;
-
     @Autowired
     private RoleMapper roleMapper;
 
     @Autowired
     private DeptMapper deptMapper;
+
+    @Autowired
+    private UserCachesService userCachesService;
 
     @Override
     public UserVo login(String token, UserRo.UserAuth auth) {
@@ -62,20 +63,14 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         }
         User user = users.getFirst();
         UserVo detail = this.getDetail(user.getId());
-        this.redisTemplate.opsForValue().set(token, detail, this.authDuriMinutes, TimeUnit.MINUTES);
+        this.userCachesService.setAuthUser(token, detail);
         return detail;
     }
 
     @Override
     public void expire(String token) throws SystemException {
-        if(!this.redisTemplate.hasKey(token)){
-            throw new SystemException(500, "token已过期!");
-        }
-        if(!this.redisTemplate.expire(token, this.authDuriMinutes, TimeUnit.MINUTES)){
-            throw new SystemException(500, "token续期失败!");
-        }
-        if(!this.redisTemplate.hasKey(token)){
-            throw new SystemException(500, "token为即使响应!");
+        if(!this.userCachesService.expireAuthUser(token)){
+            throw new BusinessException("token 续期失败");
         }
     }
 

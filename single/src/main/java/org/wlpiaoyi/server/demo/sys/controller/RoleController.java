@@ -46,15 +46,8 @@ public class RoleController {
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "角色 详情")
 	@PreAuthorize("role_detail")
-	public R<RoleVo> detail(RoleQuery body) {
-		RoleVo role = ModelWrapper.parseOne(
-				this.roleService.getOne(
-						Condition.getQueryWrapper(ModelWrapper.parseOne(body, Role.class))
-				),
-				RoleVo.class
-		);
-		return R.success(role);
-
+	public R<RoleVo> detail(@RequestParam Long id) {
+		return R.success(this.roleService.getDetail(id));
 	}
 
 	/**

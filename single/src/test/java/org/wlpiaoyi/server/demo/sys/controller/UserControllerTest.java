@@ -62,7 +62,7 @@ public class UserControllerTest {
     @Test
     public void login() throws IOException {
         HttpClientContext context = HttpClientContext.create();
-        Request<byte[]> request = new Request<>(context, "http://127.0.0.1:8180/user/login", Request.Method.Post);
+        Request<byte[]> request = new Request<>(context, "http://127.0.0.1:8180/sys/user/login", Request.Method.Post);
         request.setHeader(HttpHeaders.CONTENT_TYPE, WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG + "application/json;charset=utf-8");
         request.setHeader(HttpHeaders.ACCEPT, WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG + "application/json");
         request.setHeader("token", this.token);
@@ -96,7 +96,7 @@ public class UserControllerTest {
         byte[] buffers;
         String salt;
 
-        request = new Request<>(context, "http://127.0.0.1:8180/user/expire", Request.Method.Get);
+        request = new Request<>(context, "http://127.0.0.1:8180/sys/user/expire", Request.Method.Get);
         request.setHeader(HttpHeaders.ACCEPT, "application/json");
         request.setHeader("token", this.token);
         request.setHttpProxy("127.0.0.1", 8888);

@@ -96,6 +96,8 @@ wlpiaoyi:
       iv: abcd567890123456
     auth:
       duri_minutes: 10
+    cache:
+      duri_minutes: 100
     cors:
       data:
         snowflake:
