@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpServletResponseWrapper;
 import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
+import org.wlpiaoyi.framework.utils.gson.GsonBuilder;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -109,6 +110,34 @@ public class ResponseWrapper extends HttpServletResponseWrapper {
         public void setWriteListener(WriteListener writeListener) {
 
         }
+
     }
+
+    /**
+     * The default behavior of this method is to call sendError(int sc, String msg) on the wrapped response object.
+     */
+    @Override
+    public void sendError(int sc, String msg) throws IOException {
+        this.setStatus(sc);
+        this.outputStream.write(GsonBuilder.gsonDefault().toJson(R.data(sc, msg)).getBytes());
+    }
+
+    /**
+     * The default behavior of this method is to call sendError(int sc) on the wrapped response object.
+     */
+    @Override
+    public void sendError(int sc) throws IOException {
+        this.setStatus(sc);
+        this.outputStream.write(GsonBuilder.gsonDefault().toJson(R.data(sc)).getBytes());
+    }
+//
+//    /**
+//     * The default behavior of this method is to call sendRedirect(String location) on the wrapped response object.
+//     */
+//    @Override
+//    public void sendRedirect(String location) throws IOException {
+//        System.out.println();
+////        this._getHttpServletResponse().sendRedirect(location);
+//    }
 
 }

@@ -140,8 +140,60 @@ public class SpringUtils {
      * @return 当前的配置文件的值
      *
      */
-    public static String getRequiredProperty(String key)
-    {
+    public static String getRequiredProperty(String key){
         return applicationContext.getEnvironment().getRequiredProperty(key);
     }
+
+    /**
+     * <p><b>{@code @description:}</b>
+     * 获取当前登录用户信息
+     * </p>
+     *
+     * <p><b>@param</b> <b></b>
+     * {@link }
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2024/10/14 19:54</p>
+     * <p><b>{@code @return:}</b>{@link Object}</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    public static <U> U getAuthUser(){
+        Object res = utilsExpand.getSpringUtilsAuthUser();
+        if(res == null){
+            return null;
+        }
+        return (U) res;
+    }
+
+    /**
+     * <p><b>{@code @description:}</b>
+     * 获取当前用户角色
+     * </p>
+     *
+     * <p><b>@param</b> <b></b>
+     * {@link }
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2024/10/14 19:57</p>
+     * <p><b>{@code @return:}</b>{@link R}</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    public static <R> R getAuthRole(){
+        Object res = utilsExpand.getSpringUtilsAuthRole();
+        if(res == null){
+            return null;
+        }
+        return (R) res;
+    }
+
+
+    protected static SpringUtilsExpand utilsExpand = null;
+
+    public interface SpringUtilsExpand<U,R>{
+
+        U getSpringUtilsAuthUser();
+        R getSpringUtilsAuthRole();
+
+    }
+
 }

@@ -63,6 +63,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         }
         User user = users.getFirst();
         UserVo detail = this.getDetail(user.getId());
+        detail.setCurRole(detail.getRoles().get(0));
         this.userCachesService.setAuthUser(token, detail);
         return detail;
     }

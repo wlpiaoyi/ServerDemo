@@ -167,6 +167,7 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
     public void execResponse(HttpServletRequest request, HttpServletResponse response, Map obj, int indexSupport, int totalSupports) {
         if(indexSupport == totalSupports - 1){
             ResponseWrapper respWrapper = MapUtils.get(obj, "response");
+            RequestWrapper reqWrapper = MapUtils.get(obj, "request");
             if(respWrapper != null){
                 try {;
                     String salt = response.getHeader(WebUtils.HEADER_SALT_KEY);
@@ -186,7 +187,7 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
                             respWrapper.setContentType(resContentType);
                         }
                     }
-                    ResponseUtils.prepareHeader(request, response);
+                    ResponseUtils.prepareHeader(reqWrapper, response);
                     this.encryptResponseBody(respWrapper, response, aes);
                 } catch (Exception e) {
                     try {

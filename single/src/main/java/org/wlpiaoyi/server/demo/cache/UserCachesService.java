@@ -1,16 +1,21 @@
 package org.wlpiaoyi.server.demo.cache;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import org.bouncycastle.math.raw.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Role;
 import org.wlpiaoyi.server.demo.sys.domain.entity.User;
 import org.wlpiaoyi.server.demo.sys.domain.vo.RoleVo;
 import org.wlpiaoyi.server.demo.sys.domain.vo.UserVo;
+import org.wlpiaoyi.server.demo.utils.SpringUtils;
 import org.wlpiaoyi.server.demo.utils.tools.ModelWrapper;
+import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -37,33 +42,6 @@ public class UserCachesService extends CachesService<User>{
     @Autowired
     private DeptCachesService deptCachesService;
 
-//    @Override
-//    public void setCache(User entity) {
-//        User user = entity;
-//        UserVo userVo = null;
-//        if(entity instanceof UserVo){
-//            user = ModelWrapper.parseOne(entity, User.class);
-//            userVo = (UserVo) entity;
-//        }
-//        super.setCache(user);
-//        if(userVo == null){
-//            return;
-//        }
-//        if(userVo.getCurRole() != null){
-//            this.roleCachesService.setCache(userVo.getCurRole());
-//        }
-//        if(ValueUtils.isNotBlank(userVo.getRoles())){
-//            for(RoleVo roleVo : userVo.getRoles()){
-//                if(userVo.getCurRole() != null && userVo.getCurRole().getId().longValue() == roleVo.getId().longValue()){
-//                    continue;
-//                }
-//                this.roleCachesService.setCache(userVo.getCurRole());
-//            }
-//        }
-//        if(userVo.getDept() != null){
-//            this.deptCachesService.setCache(userVo.getDept());
-//        }
-//    }
 
     public UserVo getAuthUser(String token){
         String key = "auth_user:" + token;
@@ -114,5 +92,31 @@ public class UserCachesService extends CachesService<User>{
     @Override
     protected long getCacheDuriMinutes() {
         return this.cacheDuriMinutes;
+    }
+
+    public User getSpringUtilsAuthUser() {
+        HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
+        String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
+        if(ValueUtils.isBlank(token)){
+            return null;
+        }
+        String key = "auth_user:" + token;
+        Object res = this.redisTemplate.opsForValue().get(key);
+        if(res == null){
+            return null;
+        }
+        return this.getCache((Long) res);
+    }
+
+    public Role getSpringUtilsAuthRole() {
+        HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
+        String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
+        String key = "token_cache_role:" + token;
+        Object res = super.redisTemplate.opsForValue().get(key);
+        if(res == null){
+            return null;
+        }
+        Object[] ids = (Object[]) res;
+        return this.roleCachesService.getCache((Long) ids[0]);
     }
 }
