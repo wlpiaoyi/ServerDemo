@@ -120,6 +120,7 @@ public class UserControllerTest {
         this.login();
         this.save();
         this.expire();
+        this.delete();
     }
 
 
@@ -190,7 +191,7 @@ public class UserControllerTest {
         HttpClientContext context = HttpClientContext.create();
         Request<byte[]> request;
         Response<byte[]> response;
-        request = new Request<>(context, "http://127.0.0.1:8180/sys/user/delete", Request.Method.Get);
+        request = new Request<>(context, "http://127.0.0.1:8180/sys/user/remove", Request.Method.Get);
         request.setHeader(HttpHeaders.ACCEPT, "application/json");
         request.setHeader("token", this.token);
         request.setHttpProxy("127.0.0.1", 8888);

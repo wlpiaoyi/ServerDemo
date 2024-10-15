@@ -31,7 +31,7 @@ public class IdempotenceSupport extends org.wlpiaoyi.server.demo.utils.web.suppo
     @SneakyThrows
     @Override
     public String getIdempotenceKey(HttpServletRequest servletRequest) {
-        return DataUtils.MD(servletRequest.getRequestURI() + servletRequest.getRemoteAddr() + servletRequest.getRemotePort(), DataUtils.KEY_MD5);
+        return DataUtils.MD(servletRequest.getRequestURI() + servletRequest.getRemoteAddr(), DataUtils.KEY_MD5);
     }
 
     @Value("${wlpiaoyi.ee.cors.data.patterns.idempotence}")

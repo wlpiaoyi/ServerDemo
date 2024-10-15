@@ -41,10 +41,10 @@ public abstract class IdempotenceSupport implements WebSupport<HttpServletReques
      */
     public boolean isIdempotence(String key, String uri){
         IdempotenceMoonMap idempotenceMoonMap = this.getIdempotenceMoon();
-        Long timer = idempotenceMoonMap.get(key);
+        Long count = idempotenceMoonMap.get(key);
         IdempotenceUriSet uriSet = this.getIdempotenceUriSet();
         Integer duriTime = uriSet.get(uri);
-        if(timer == null){
+        if(count == null){
             idempotenceMoonMap.put(key, System.currentTimeMillis(), duriTime);
             return true;
         }
