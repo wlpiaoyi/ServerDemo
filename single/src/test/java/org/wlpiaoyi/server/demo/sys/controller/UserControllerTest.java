@@ -10,10 +10,12 @@ import org.wlpiaoyi.framework.utils.StringUtils;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.data.DataUtils;
 import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
+import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.gson.GsonBuilder;
 import org.wlpiaoyi.framework.utils.http.request.Request;
 import org.wlpiaoyi.framework.utils.http.response.Response;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
+import org.wlpiaoyi.framework.utils.security.SignVerify;
 import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 
 import java.io.IOException;
@@ -34,8 +36,21 @@ public class UserControllerTest {
             "iavdJkgY7uL61F4gvGmRhydIFN9p007AuI0wViP6qR9q9zYenuL2G5ce3bsB4iyxBosoPw1gbPRR\n" +
             "EqZWCUD8rluvqoHZNjdwbHdx5SMLwwtF6xDG6dEq4Vgriwt3pGPEF7csCQIDAQAB";
 
+    private String signPublicKey = "MIIBtzCCASwGByqGSM44BAEwggEfAoGBAP1/U4EddRIpUt9KnC7s5Of2EbdSPO9EAMMeP4C2USZp\n" +
+            "RV1AIlH7WT2NWPq/xfW6MPbLm1Vs14E7gB00b/JmYLdrmVClpJ+f6AR7ECLCT7up1/63xhv4O1fn\n" +
+            "xqimFQ8E+4P208UewwI1VBNaFpEy9nXzrith1yrv8iIDGZ3RSAHHAhUAl2BQjxUjC8yykrmCouuE\n" +
+            "C/BYHPUCgYEA9+GghdabPd7LvKtcNrhXuXmUr7v6OuqC+VdMCz0HgmdRWVeOutRZT+ZxBxCBgLRJ\n" +
+            "FnEj6EwoFhO3zwkyjMim4TwWeotUfI0o4KOuHiuzpnWRbqN/C/ohNWLx+2J6ASQ7zKTxvqhRkImo\n" +
+            "g9/hWuWfBpKLZl6Ae1UlZAFMO/7PSSoDgYQAAoGAW2KjsxHHfm1igOPrP//mfptfS5/2qdRw+okO\n" +
+            "u5txFnQtTsXSEV1A7+/rj9E/nxCgoyQzpVSaJajhpz/DU20qtFtVkf8HzBmhFniO5SEJRwlziFrf\n" +
+            "Yxvy7H2C17T7ccGulfzN2jns1ZWfn9B4cYj4LidpeSuucNJinyIWGr01GU4=";
+
+
+
     private RsaCipher rsaEncrypt = RsaCipher.build(1).setPublicKey(publicKey).loadConfig();
     private RsaCipher rsaDecrypt = RsaCipher.build(0).setPublicKey(publicKey).loadConfig();
+
+    private SignVerify verify = SignVerify.build().setPublicKey(this.signPublicKey).loadConfig();
 
     @Before
     public void setUp() throws Exception {}
@@ -79,6 +94,14 @@ public class UserControllerTest {
             String eSalt = response.getHeaders().get(WebUtils.HEADER_SALT_KEY);
             String args[] =  new String(this.rsaDecrypt.decrypt(DataUtils.base64Decode(eSalt.getBytes()))).split(",");
             Aes aes = Aes.create().setKey(args[0]).setIV(args[1]).load();
+            byte[] dBody = aes.decrypt(body);
+            String sign = response.getHeaders().get(WebUtils.HEADER_SIGN_KEY);
+            if(ValueUtils.isNotBlank(sign)){
+                System.out.println("response sign:" + sign);
+                if(this.verify.verify(dBody, DataUtils.base64Decode(sign.getBytes()))){
+                    System.out.println("response sign verify: true");
+                }else throw new BusinessException("sign verify failed");
+            }
             System.out.println("response dbody:[\n" + new String(aes.decrypt(body)) + "\n]");
         }else{
             System.out.println("response body:[\n" + new String(body) + "\n]");
@@ -154,6 +177,24 @@ public class UserControllerTest {
         request.setHeader(HttpHeaders.ACCEPT, "application/json");
         request.setHeader("token", this.token);
         request.setHttpProxy("127.0.0.1", 8888);
+        System.out.println("request:" + request.getUrl() + "\n]");
+        this.checkRequestBody(request, false);
+        response = request.execute(byte[].class);
+        this.checkResponseBody(response);
+        System.out.println("====================================>");
+    }
+
+    @SneakyThrows
+    @Test
+    public void delete() throws IOException {
+        HttpClientContext context = HttpClientContext.create();
+        Request<byte[]> request;
+        Response<byte[]> response;
+        request = new Request<>(context, "http://127.0.0.1:8180/sys/user/delete", Request.Method.Get);
+        request.setHeader(HttpHeaders.ACCEPT, "application/json");
+        request.setHeader("token", this.token);
+        request.setHttpProxy("127.0.0.1", 8888);
+        request.setParam("ids", "1");
         System.out.println("request:" + request.getUrl() + "\n]");
         this.checkRequestBody(request, false);
         response = request.execute(byte[].class);

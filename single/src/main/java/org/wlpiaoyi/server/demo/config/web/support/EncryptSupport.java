@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.wlpiaoyi.framework.utils.StringUtils;
 import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
+import org.wlpiaoyi.framework.utils.security.SignVerify;
 import org.wlpiaoyi.server.demo.utils.web.support.impl.encrypt.EncryptUriSet;
 
 import java.util.HashSet;
@@ -25,6 +26,8 @@ public class EncryptSupport extends org.wlpiaoyi.server.demo.utils.web.support.i
 
     @Resource(name = "encrypt.rsae")
     private RsaCipher rsaEncrypt;
+    @Resource(name = "signature.sign")
+    private SignVerify signVerify;
 
     @Override
     protected EncryptUriSet getEncryptUriSet() {
@@ -34,6 +37,11 @@ public class EncryptSupport extends org.wlpiaoyi.server.demo.utils.web.support.i
     @Override
     protected RsaCipher getRsaEncrypt(HttpServletRequest request, HttpServletResponse response) {
         return this.rsaEncrypt;
+    }
+
+    @Override
+    protected SignVerify getSignVerify(HttpServletRequest request, HttpServletResponse response) {
+        return this.signVerify;
     }
 
     @Override

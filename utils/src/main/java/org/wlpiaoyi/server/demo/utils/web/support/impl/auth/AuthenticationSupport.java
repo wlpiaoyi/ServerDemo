@@ -17,6 +17,7 @@ import org.wlpiaoyi.server.demo.utils.response.ResponseWrapper;
 import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 import org.wlpiaoyi.server.demo.utils.web.domain.DoFilterEnum;
 import org.wlpiaoyi.server.demo.utils.web.support.WebSupport;
+import org.wlpiaoyi.server.demo.utils.web.support.impl.encrypt.EncryptUriSet;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -60,6 +61,17 @@ public abstract class AuthenticationSupport implements WebSupport<HttpServletReq
         }
         response.setStatus(respWrapper.getStatus());
         ResponseUtils.writeResponseData(response.getStatus(), respData, response);
+    }
+
+
+    @Override
+    public int isSupportExecResponse(HttpServletRequest request, HttpServletResponse response, Map obj) {
+        String uri = this.getRequestURI(request);
+        if(WebUtils.patternUri(uri, this.getURIRegexes())){
+            return 0;
+        }else{
+            return WebSupport.super.isSupportExecResponse(request, response, obj);
+        }
     }
 
     @Override

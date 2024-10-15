@@ -4,6 +4,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.wlpiaoyi.framework.utils.MapUtils;
@@ -12,6 +13,7 @@ import org.wlpiaoyi.framework.utils.data.DataUtils;
 import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
+import org.wlpiaoyi.framework.utils.security.SignVerify;
 import org.wlpiaoyi.server.demo.utils.request.RequestWrapper;
 import org.wlpiaoyi.server.demo.utils.response.ResponseUtils;
 import org.wlpiaoyi.server.demo.utils.response.ResponseWrapper;
@@ -76,6 +78,25 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
 
     /**
      * <p><b>{@code @description:}</b>
+     * 数据签名
+     * </p>
+     *
+     * <p><b>@param</b> <b>request</b>
+     * {@link HttpServletRequest}
+     * </p>
+     *
+     * <p><b>@param</b> <b>response</b>
+     * {@link HttpServletResponse}
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2024/10/15 15:54</p>
+     * <p><b>{@code @return:}</b>{@link SignVerify}</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    protected abstract SignVerify getSignVerify(HttpServletRequest request, HttpServletResponse response);
+
+    /**
+     * <p><b>{@code @description:}</b>
      * TODO
      * </p>
      *
@@ -109,9 +130,12 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
      * <p><b>{@code @date:}</b>2024/10/11 23:51</p>
      * <p><b>{@code @author:}</b>wlpiaoyi</p>
      */
-    protected void encryptResponseBody(ResponseWrapper respWrapper, HttpServletResponse response, Aes aes) throws IOException, IllegalBlockSizeException, BadPaddingException {
+    @SneakyThrows
+    protected void encryptResponseBody(ResponseWrapper respWrapper, HttpServletResponse response, Aes aes, SignVerify signVerify) throws IOException, IllegalBlockSizeException, BadPaddingException {
         byte[] respData = respWrapper.getResponseData();
+        String sign = null;
         if(!ValueUtils.isBlank(respData) && aes != null){
+            sign = new String(DataUtils.base64Encode(signVerify.sign(respData)));
             //加密响应报文
             respData = aes.encrypt(respData);
         }
@@ -130,6 +154,9 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
         }
         response.setContentType(contentType);
         response.setHeader(HttpHeaders.CONTENT_TYPE, contentType);
+        if(ValueUtils.isNotBlank(sign)){
+            response.setHeader(WebUtils.HEADER_SIGN_KEY, sign);
+        }
         ResponseUtils.writeResponseData(response.getStatus(), respData, response);
     }
 
@@ -171,6 +198,7 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
             try {
                 String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
                 Aes aes = null;
+                SignVerify signVerify = null;
                 if(obj.containsKey("encrypt_tag")){
                     String dSalt = this.loadSalt(token);
                     if(ValueUtils.isNotBlank(dSalt)){
@@ -184,11 +212,12 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
                             resContentType = request.getHeader(HttpHeaders.ACCEPT);
                             respWrapper.setContentType(resContentType);
                         }
+                        signVerify = this.getSignVerify(request, response);
                     }
                 }
                 HttpServletRequest servletRequest = MapUtils.get(obj, "request", request);
                 ResponseUtils.prepareHeader(servletRequest, response);
-                this.encryptResponseBody(respWrapper, response, aes);
+                this.encryptResponseBody(respWrapper, response, aes, signVerify);
             } catch (Exception e) {
                 try {
                     request.getInputStream().close();

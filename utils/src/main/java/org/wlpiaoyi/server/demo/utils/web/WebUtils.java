@@ -14,6 +14,7 @@ public class WebUtils {
 
     public static final String HEADER_TOKEN_KEY = "token";
     public static final String HEADER_SALT_KEY = "salt";
+    public static final String HEADER_SIGN_KEY = "sign";
     public static final String ENCRYPT_CONTENT_TYPE_HEAD_TAG = "#ENCRYPT#";
 
     /**

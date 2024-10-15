@@ -62,8 +62,15 @@ public abstract class WebBaseFilter implements Filter{
         int goNext = -1;
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        List<WebSupport> afterDos = new ArrayList<>();
         Map obj = new HashMap<>();
+        List<WebSupport> afterDos = new ArrayList<>();
+        WebSupport finalDo = null;
+        for (WebSupport webSupport : webSupports){
+            if(webSupport.isSupportExecResponse(request, response, obj) == 1){
+                finalDo = webSupport;
+                break;
+            }
+        }
         if(webSupports != null && !webSupports.isEmpty()){
             for (WebSupport webSupport : webSupports){
                 if(!WebUtils.patternUri(webSupport.getRequestURI(request),webSupport.getURIRegexes())){
@@ -77,7 +84,7 @@ public abstract class WebBaseFilter implements Filter{
                         continue;
                     res = webSupport.doFilter(request,response, obj);
                     switch (webSupport.isSupportExecResponse(request, response, obj)){
-                        case 0: case 1:{
+                        case 0:{
                             afterDos.add(webSupport);
                         }
                         break;
@@ -86,7 +93,10 @@ public abstract class WebBaseFilter implements Filter{
                     response = MapUtils.get(obj, "response", response);
                 }catch (Exception e){
                     log.error("Web base filter do filter unknown error", e);
-                    this.doFilterError((HttpServletRequest) servletRequest, (HttpServletResponse) servletResponse, request, response, webSupports, obj, e);
+                    this.doFilterError(
+                            (HttpServletRequest) servletRequest,
+                            (HttpServletResponse) servletResponse,
+                            request, response, finalDo, obj, e);
                     undoChain = 0;
                     closeReq = 0;
                     closeResp = 0;
@@ -105,15 +115,21 @@ public abstract class WebBaseFilter implements Filter{
         if(undoChain != DoFilterEnum.UndoChain.getValue()){
             try{
                 filterChain.doFilter(request, response);
-                int total = afterDos.size();
+                int total = afterDos.size() + (finalDo != null ? 1 : 0);
                 int index = 0;
                 if(afterDos != null && !afterDos.isEmpty()){
                     for (WebSupport webSupport : afterDos){
                         webSupport.execResponse(servletRequest, servletResponse, obj, index++, total);
                     }
                 }
+                if(finalDo != null){
+                    finalDo.execResponse(servletRequest, servletResponse, obj, total - 1, total);
+                }
             }catch (Exception e){
-                this.doFilterError((HttpServletRequest) servletRequest, (HttpServletResponse) servletResponse, request, response, webSupports, obj, e);
+                this.doFilterError(
+                        (HttpServletRequest) servletRequest,
+                        (HttpServletResponse) servletResponse,
+                        request, response, finalDo, obj, e);
             }
         }
         if(closeResp == DoFilterEnum.CloseResp.getValue()){
@@ -127,7 +143,7 @@ public abstract class WebBaseFilter implements Filter{
     @SneakyThrows
     protected void doFilterError(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
                                  HttpServletRequest request, HttpServletResponse response,
-                                 List<WebSupport> webSupports, Map obj, Exception e){
+                                 WebSupport finalDos, Map obj, Exception e){
 
         int code;
         if(e instanceof BusinessException){
@@ -136,25 +152,18 @@ public abstract class WebBaseFilter implements Filter{
             code = 500;
         }
         R r = R.data(code, e.getMessage());
-        boolean hasFinalSupport = false;
-        for (WebSupport temp : webSupports){
-            if(temp.isSupportExecResponse(request, response, obj) == 1){
-                if(!WebUtils.patternUri(temp.getRequestURI(request),temp.getURIRegexes())){
-                    continue;
-                }
-                ResponseWrapper respWrapper = new ResponseWrapper(response);
-                respWrapper.writeBuffer(GsonBuilder.gsonDefault().toJson(r).getBytes(StandardCharsets.UTF_8));
-                obj.put("response", respWrapper);
-                obj.put("encrypt_tag", true);
-                ResponseUtils.prepareHeader(servletRequest, servletResponse);
-                temp.execResponse(servletRequest, servletResponse, obj, 0, 1);
-                break;
-            }
-        }
-        if(!hasFinalSupport){
+
+        if(finalDos == null || !WebUtils.patternUri(finalDos.getRequestURI(request),finalDos.getURIRegexes())){
             ResponseUtils.prepareHeader(servletRequest, servletResponse);
             ResponseUtils.writeResponseData(code, r, servletResponse);
+            return;
         }
+        ResponseWrapper respWrapper = new ResponseWrapper(response);
+        respWrapper.writeBuffer(GsonBuilder.gsonDefault().toJson(r).getBytes(StandardCharsets.UTF_8));
+        obj.put("response", respWrapper);
+        obj.put("encrypt_tag", true);
+        ResponseUtils.prepareHeader(servletRequest, servletResponse);
+        finalDos.execResponse(servletRequest, servletResponse, obj, 0, 1);
     }
 
 

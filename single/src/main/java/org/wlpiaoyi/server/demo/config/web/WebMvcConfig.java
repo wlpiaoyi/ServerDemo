@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
+import org.wlpiaoyi.framework.utils.security.SignVerify;
 import org.wlpiaoyi.server.demo.config.web.interceptor.Interceptor;
 
 
@@ -18,6 +19,13 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 //    public Aes initAes(@Value("${wlpiaoyi.ee.aes.key}") String key, @Value("${wlpiaoyi.ee.aes.iv}") String iv) {
 //        return Aes.create().setKey(key).setIV(iv).load();
 //    }
+
+    @SneakyThrows
+    @Bean("signature.sign")
+    public SignVerify initSign(@Value("${wlpiaoyi.ee.sign.privateKey}") String privateKey, @Value("${wlpiaoyi.ee.sign.publicKey}") String publicKey){
+        return SignVerify.build().setPrivateKey(privateKey).setPublicKey(publicKey).loadConfig();
+    }
+
     @SneakyThrows
     @Bean("encrypt.rsae")
     public RsaCipher initRsaEncrypt(@Value("${wlpiaoyi.ee.rsa.privateKey}") String privateKey) {

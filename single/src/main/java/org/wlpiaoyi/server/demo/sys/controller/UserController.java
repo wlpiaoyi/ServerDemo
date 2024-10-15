@@ -86,7 +86,6 @@ public class UserController {
 	/**
 	 * 用户表 分页
 	 */
-	@Encrypt
 	@Decrypt
 	@PostMapping("/list")
 	@ApiOperationSupport(order = 3)
@@ -101,7 +100,6 @@ public class UserController {
 	/**
 	 * 用户表 新增
 	 */
-	@Encrypt
 	@Decrypt
 	@PostMapping("/save")
 	@PreAuthorize("user_add")
@@ -114,7 +112,6 @@ public class UserController {
 	/**
 	 * 用户表 修改
 	 */
-	@Encrypt
 	@Decrypt
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
@@ -127,7 +124,6 @@ public class UserController {
 	/**
 	 * 用户表 删除
 	 */
-	@Decrypt
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
 	@PreAuthorize("user_remove")
