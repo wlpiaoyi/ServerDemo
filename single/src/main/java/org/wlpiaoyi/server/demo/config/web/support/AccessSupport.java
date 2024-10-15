@@ -24,18 +24,10 @@ public class AccessSupport extends org.wlpiaoyi.server.demo.utils.web.support.im
         return ACCESS_URI_SET;
     }
 
-    private Map<String, String> testMap = new HashMap(){{
-        put("wl1", "path1");
-        put("wl2", "path2");
-        put("wl12", "path1,path2");
-    }};
 
     @Override
     protected boolean preAuthorize(String value, String token) {
-        if(!testMap.containsKey(token)){
-            return false;
-        }
-        return testMap.get(token).contains(value);
+        return true;
     }
 
     @Value("${wlpiaoyi.ee.cors.data.patterns.access}")

@@ -21,4 +21,9 @@ public class DeptCachesService extends CachesService<Dept>{
     protected long getCacheDuriMinutes() {
         return this.cacheDuriMinutes;
     }
+
+    @Override
+    protected String getKeyTag() {
+        return "dept";
+    }
 }

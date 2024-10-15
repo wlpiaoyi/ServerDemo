@@ -151,4 +151,9 @@ public class RoleCachesService extends CachesService<Role>{
     protected long getCacheDuriMinutes() {
         return this.cacheDuriMinutes;
     }
+
+    @Override
+    protected String getKeyTag() {
+        return "dept";
+    }
 }

@@ -11,7 +11,10 @@ import org.wlpiaoyi.framework.utils.reflect.ClassModel;
 import org.wlpiaoyi.server.demo.domain.entity.BaseEntity;
 import org.wlpiaoyi.server.demo.domain.entity.CommonEntity;
 import org.wlpiaoyi.server.demo.service.IBaseService;
+import org.wlpiaoyi.server.demo.sys.domain.entity.User;
 import org.wlpiaoyi.server.demo.utils.IdUtils;
+import org.wlpiaoyi.server.demo.utils.SpringUtils;
+import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -96,6 +99,10 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> exte
             if(entity instanceof CommonEntity){
                 ((CommonEntity) entity).setUpdateTime(new Date());
                 ((CommonEntity) entity).setStatus(status);
+                User user = SpringUtils.getAuthUser();
+                if(user != null && ValueUtils.isBlank(((CommonEntity) entity).getUpdateUser())){
+                    ((CommonEntity) entity).setUpdateUser(user.getId());
+                }
             }else{
                 throw new BusinessException("not support change status");
             }
@@ -112,6 +119,10 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> exte
             if(((CommonEntity) entity).getCreateTime() == null){
                 ((CommonEntity) entity).setCreateTime(new Date());
             }
+            User user = SpringUtils.getAuthUser();
+            if(user != null && ValueUtils.isBlank(((CommonEntity) entity).getCreateUser())){
+                ((CommonEntity) entity).setCreateUser(user.getId());
+            }
         }
     }
 
@@ -122,6 +133,10 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> exte
             if(entity instanceof CommonEntity){
                 if(((CommonEntity) entity).getUpdateTime() == null){
                     ((CommonEntity) entity).setUpdateTime(new Date());
+                }
+                User user = SpringUtils.getAuthUser();
+                if(user != null && ValueUtils.isBlank(((CommonEntity) entity).getUpdateUser())){
+                    ((CommonEntity) entity).setUpdateUser(user.getId());
                 }
             }
         }

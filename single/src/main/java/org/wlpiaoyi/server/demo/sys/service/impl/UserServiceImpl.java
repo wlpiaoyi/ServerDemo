@@ -68,10 +68,13 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         return detail;
     }
 
+    @Value("${wlpiaoyi.ee.auth.duri_minutes}")
+    private int authDuriMinutes;
+
     @Override
     public void expire(String token) throws SystemException {
         if(!this.userCachesService.expireAuthUser(token)){
-            throw new BusinessException("token 续期失败");
+            throw new BusinessException("Auth user 续期失败");
         }
     }
 

@@ -26,6 +26,7 @@ import jakarta.validation.Valid;
 import org.wlpiaoyi.server.demo.utils.web.annotation.Decrypt;
 import org.wlpiaoyi.server.demo.utils.web.annotation.Encrypt;
 import org.wlpiaoyi.server.demo.utils.web.annotation.Idempotence;
+import org.wlpiaoyi.server.demo.utils.web.annotation.PreAuthorize;
 
 /**
  * {@code @author:} 		wlpia:WLPIAOYI-PC
@@ -60,6 +61,7 @@ public class UserController {
 	 * token续期
 	 */
 	@Idempotence
+	@Encrypt
 	@GetMapping("/expire")
 	@ApiOperationSupport(order = 0)
 	@Operation(summary = "token续期")
@@ -71,6 +73,8 @@ public class UserController {
 	/**
 	 * 用户表 详情
 	 */
+	@Encrypt
+	@Decrypt
 	@GetMapping("/detail")
 	@ApiOperationSupport(order = 1)
 	@Operation(summary = "用户表 详情")
@@ -82,19 +86,8 @@ public class UserController {
 	/**
 	 * 用户表 分页
 	 */
-	@PostMapping("/page")
-	@ApiOperationSupport(order = 2)
-	@Operation(summary = "用户表 分页")
-	public R<IPage<UserVo>> page(@RequestBody UserQuery body){
-		LambdaQueryWrapper<User> wrapper = Wrappers.<User>lambdaQuery();
-		wrapper.orderByDesc(User::getCreateTime);
-		IPage<User> pages = userService.page(Condition.getPage(body), wrapper);
-		return R.success(ModelWrapper.parseForPage(pages, UserVo.class));
-	}
-
-	/**
-	 * 用户表 分页
-	 */
+	@Encrypt
+	@Decrypt
 	@PostMapping("/list")
 	@ApiOperationSupport(order = 3)
 	@Operation(summary = "用户表 分页")
@@ -108,7 +101,10 @@ public class UserController {
 	/**
 	 * 用户表 新增
 	 */
+	@Encrypt
+	@Decrypt
 	@PostMapping("/save")
+	@PreAuthorize("user_add")
 	@ApiOperationSupport(order = 4)
 	@Operation(summary = "用户表 新增")
 	public R<Boolean> save(@Valid @RequestBody UserSubmit body) {
@@ -118,28 +114,23 @@ public class UserController {
 	/**
 	 * 用户表 修改
 	 */
+	@Encrypt
+	@Decrypt
 	@PostMapping("/update")
 	@ApiOperationSupport(order = 5)
+	@PreAuthorize("user_update")
 	@Operation(summary = "用户表 修改")
 	public R<Boolean> update(@RequestBody UserSubmit body) {
 		return R.success(userService.updateById(ModelWrapper.parseOne(body, User.class)));
 	}
 
 	/**
-	 * 用户表 新增或修改
-	 */
-	@PostMapping("/submit")
-	@ApiOperationSupport(order = 6)
-	@Operation(summary = "用户表 新增或修改")
-	public R<Boolean> submit(@Valid @RequestBody UserSubmit body) {
-		return R.success(userService.saveOrUpdate(ModelWrapper.parseOne(body, User.class)));
-	}
-
-	/**
 	 * 用户表 删除
 	 */
+	@Decrypt
 	@GetMapping("/remove")
 	@ApiOperationSupport(order = 7)
+	@PreAuthorize("user_remove")
 	@Operation(summary = "用户表 逻辑删除")
 	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
 		return R.success(userService.deleteLogic(ValueUtils.toLongList(ids)));

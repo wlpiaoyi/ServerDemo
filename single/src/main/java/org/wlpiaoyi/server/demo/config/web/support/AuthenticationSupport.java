@@ -22,23 +22,10 @@ import java.util.concurrent.TimeUnit;
 public class AuthenticationSupport extends org.wlpiaoyi.server.demo.utils.web.support.impl.auth.AuthenticationSupport {
 
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate redisTemplate;
 
     @Value("${wlpiaoyi.ee.auth.duri_minutes}")
     private int authDuriMinutes;
-
-    @Override
-    protected boolean authenticationToken(String token) {
-        return true;
-    }
-
-    @Override
-    protected String loadSalt(String token) {
-        String saltKey = WebUtils.HEADER_SALT_KEY + token;
-        String saltValue = System.currentTimeMillis() + "#" + StringUtils.getUUID32();
-        this.redisTemplate.opsForValue().set(saltKey, saltValue, this.authDuriMinutes, TimeUnit.MINUTES);
-        return saltValue;
-    }
 
     @Value("${wlpiaoyi.ee.cors.data.patterns.authentication}")
     private String[] patterns;
@@ -47,5 +34,10 @@ public class AuthenticationSupport extends org.wlpiaoyi.server.demo.utils.web.su
     public String[] getURIRegexes() {
         return this.patterns;
 //        return new String[]{"/test/auth/login"};
+    }
+
+    @Override
+    protected void authSuccess(String token) {
+        this.redisTemplate.opsForValue().set(token, "1", this.authDuriMinutes, TimeUnit.MINUTES);
     }
 }

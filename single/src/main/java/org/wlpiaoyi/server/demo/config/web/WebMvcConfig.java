@@ -13,11 +13,11 @@ import org.wlpiaoyi.server.demo.config.web.interceptor.Interceptor;
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 
-    @SneakyThrows
-    @Bean("encrypt.aes")
-    public Aes initAes(@Value("${wlpiaoyi.ee.aes.key}") String key, @Value("${wlpiaoyi.ee.aes.iv}") String iv) {
-        return Aes.create().setKey(key).setIV(iv).load();
-    }
+//    @SneakyThrows
+//    @Bean("encrypt.aes")
+//    public Aes initAes(@Value("${wlpiaoyi.ee.aes.key}") String key, @Value("${wlpiaoyi.ee.aes.iv}") String iv) {
+//        return Aes.create().setKey(key).setIV(iv).load();
+//    }
     @SneakyThrows
     @Bean("encrypt.rsae")
     public RsaCipher initRsaEncrypt(@Value("${wlpiaoyi.ee.rsa.privateKey}") String privateKey) {

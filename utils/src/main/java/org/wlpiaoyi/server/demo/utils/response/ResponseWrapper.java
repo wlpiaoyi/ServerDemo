@@ -130,14 +130,7 @@ public class ResponseWrapper extends HttpServletResponseWrapper {
         this.setStatus(sc);
         this.outputStream.write(GsonBuilder.gsonDefault().toJson(R.data(sc)).getBytes());
     }
-//
-//    /**
-//     * The default behavior of this method is to call sendRedirect(String location) on the wrapped response object.
-//     */
-//    @Override
-//    public void sendRedirect(String location) throws IOException {
-//        System.out.println();
-////        this._getHttpServletResponse().sendRedirect(location);
-//    }
+
+
 
 }

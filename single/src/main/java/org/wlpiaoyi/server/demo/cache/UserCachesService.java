@@ -90,13 +90,16 @@ public class UserCachesService extends CachesService<User>{
     }
 
     @Override
+    protected String getKeyTag() {
+        return "user";
+    }
+
+    @Override
     protected long getCacheDuriMinutes() {
         return this.cacheDuriMinutes;
     }
 
-    public User getSpringUtilsAuthUser() {
-        HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
-        String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
+    public User getSpringUtilsAuthUser(String token) {
         if(ValueUtils.isBlank(token)){
             return null;
         }
@@ -108,9 +111,7 @@ public class UserCachesService extends CachesService<User>{
         return this.getCache((Long) res);
     }
 
-    public Role getSpringUtilsAuthRole() {
-        HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
-        String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
+    public Role getSpringUtilsAuthRole(String token) {
         String key = "token_cache_role:" + token;
         Object res = super.redisTemplate.opsForValue().get(key);
         if(res == null){

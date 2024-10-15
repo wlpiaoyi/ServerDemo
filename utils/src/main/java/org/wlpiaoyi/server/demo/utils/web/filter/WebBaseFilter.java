@@ -145,6 +145,7 @@ public abstract class WebBaseFilter implements Filter{
                 ResponseWrapper respWrapper = new ResponseWrapper(response);
                 respWrapper.writeBuffer(GsonBuilder.gsonDefault().toJson(r).getBytes(StandardCharsets.UTF_8));
                 obj.put("response", respWrapper);
+                obj.put("encrypt_tag", true);
                 ResponseUtils.prepareHeader(servletRequest, servletResponse);
                 temp.execResponse(servletRequest, servletResponse, obj, 0, 1);
                 break;

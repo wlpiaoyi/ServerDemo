@@ -1,10 +1,14 @@
 package org.wlpiaoyi.server.demo;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.wlpiaoyi.server.demo.cache.UserCachesService;
 import org.wlpiaoyi.server.demo.utils.SpringUtils;
+import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 
 
 @Slf4j
@@ -32,12 +36,16 @@ class ApplicationInitializer {
                 }
                 @Override
                 public Object getSpringUtilsAuthUser() {
-                    return this.getUserCachesService().getSpringUtilsAuthUser();
+                    HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
+                    String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
+                    return this.getUserCachesService().getSpringUtilsAuthUser(token);
                 }
 
                 @Override
                 public Object getSpringUtilsAuthRole() {
-                    return this.getUserCachesService().getSpringUtilsAuthRole();
+                    HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
+                    String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
+                    return this.getUserCachesService().getSpringUtilsAuthRole(token);
                 }
             };
             return this;

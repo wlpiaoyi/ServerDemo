@@ -91,9 +91,6 @@ wlpiaoyi:
         MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/1mdKj9OPw5K8M12MmVGC7KJpu9zguyfU4g42
         iavdJkgY7uL61F4gvGmRhydIFN9p007AuI0wViP6qR9q9zYenuL2G5ce3bsB4iyxBosoPw1gbPRR
         EqZWCUD8rluvqoHZNjdwbHdx5SMLwwtF6xDG6dEq4Vgriwt3pGPEF7csCQIDAQAB
-    aes:
-      key: abcd567890ABCDEF1234567890ABCDEF
-      iv: abcd567890123456
     auth:
       duri_minutes: 10
     cache:

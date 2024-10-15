@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
  */
 abstract class CachesService<T extends BaseEntity> {
 
+    protected abstract String getKeyTag();
 
     @Autowired
     protected RedisTemplate redisTemplate;
@@ -22,11 +23,11 @@ abstract class CachesService<T extends BaseEntity> {
 
 
     protected void set( T entity, long minutes){
-        this.redisTemplate.opsForValue().set("cache_db_" + entity.getId(), entity, minutes, TimeUnit.MINUTES);
+        this.redisTemplate.opsForValue().set("cache_db_" + this.getKeyTag() + entity.getId(), entity, minutes, TimeUnit.MINUTES);
     }
 
     protected T get(Long id){
-        Object res = this.redisTemplate.opsForValue().get("cache_db_" + id);
+        Object res = this.redisTemplate.opsForValue().get("cache_db_" + this.getKeyTag() + id);
         if(res == null){
             return null;
         }
@@ -35,7 +36,7 @@ abstract class CachesService<T extends BaseEntity> {
 
 
     protected boolean expire(Long id, long minutes){
-        return this.redisTemplate.expire("cache_db_" + id, minutes, TimeUnit.MINUTES);
+        return this.redisTemplate.expire("cache_db_" + this.getKeyTag() + id, minutes, TimeUnit.MINUTES);
     }
 
 
@@ -48,7 +49,7 @@ abstract class CachesService<T extends BaseEntity> {
     }
 
     public boolean remove(Long id){
-        return this.redisTemplate.delete("cache_db_" + id);
+        return this.redisTemplate.delete("cache_db_" + this.getKeyTag() + id);
     }
 
     public boolean expire(Long id){

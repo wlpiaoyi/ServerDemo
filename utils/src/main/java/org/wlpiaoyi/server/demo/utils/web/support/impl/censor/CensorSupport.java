@@ -32,10 +32,6 @@ public abstract class CensorSupport implements WebSupport<HttpServletRequest, Ht
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>salt</b>
-     * {@link String}
-     * </p>
-     *
      * <p><b>@param</b> <b>servletResponse</b>
      * {@link HttpServletResponse}
      * </p>
@@ -44,16 +40,15 @@ public abstract class CensorSupport implements WebSupport<HttpServletRequest, Ht
      * <p><b>{@code @return:}</b>{@link boolean}</p>
      * <p><b>{@code @author:}</b>wlpiaoyi</p>
      */
-    protected abstract boolean censor(String token, String salt);
+    protected abstract boolean censor(String token);
 
     @Override
     public int doFilter(HttpServletRequest request, HttpServletResponse response, Map obj) throws ServletException, IOException {
         String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
-        String salt = request.getHeader(WebUtils.HEADER_SALT_KEY);
         if(ValueUtils.isBlank(token)){
             return DoFilterEnum.CloseReq.getValue() | DoFilterEnum.CloseResp.getValue() | DoFilterEnum.UndoChain.getValue();
         }
-        if(!this.censor(token, salt)){
+        if(!this.censor(token)){
             throw new BusinessException(402, "token censor failed");
         }
         return DoFilterEnum.Unknown.getValue();

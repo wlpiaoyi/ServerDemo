@@ -6,10 +6,10 @@ import org.apache.hc.core5.http.HttpHeaders;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.wlpiaoyi.framework.utils.StringUtils;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.data.DataUtils;
 import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
-import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.gson.GsonBuilder;
 import org.wlpiaoyi.framework.utils.http.request.Request;
 import org.wlpiaoyi.framework.utils.http.response.Response;
@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * <p><b>{@code @author:}</b> wlpia</p>
@@ -39,25 +40,86 @@ public class UserControllerTest {
     @Before
     public void setUp() throws Exception {}
 
-    private Aes aes;
-    {
-        try {
-            aes = Aes.create().setKey("abcd567890ABCDEF1234567890ABCDEF").setIV("abcd567890123456").load();
-        } catch (Exception e) {
-            throw new BusinessException(e);
+    @SneakyThrows
+    public void checkRequestBody(Request<byte[]> request, boolean eFlag){
+        String contentType = request.getHeaders().get(HttpHeaders.CONTENT_TYPE);
+        if(eFlag){
+            if(request.getBody() != null){
+                System.out.println("request dbody:[\n" + new String(request.getBody()) + "\n]");
+            }
+            contentType = WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG + contentType;
+            String key = StringUtils.getUUID32();
+            String iv = StringUtils.getUUID32().substring(0, 16);
+            String dSalt = key + "," + iv;
+            String eSalt = new String(DataUtils.base64Encode(this.rsaEncrypt.encrypt(dSalt.getBytes())));
+            request.getHeaders().put(WebUtils.HEADER_SALT_KEY, eSalt);
+            if(request.getBody() != null){
+                Aes aes = Aes.create().setKey(key).setIV(iv).load();
+                request.setBody(aes.encrypt(request.getBody()));
+                System.out.println("request ebody:[\n" + ValueUtils.bytesToHex(request.getBody()) + "\n]");
+            }
+        }else{
+            if(request.getBody() != null){
+                System.out.println("request body:[\n" + new String(request.getBody()) + "\n]");
+            }
+        }
+        request.getHeaders().put(HttpHeaders.CONTENT_TYPE, contentType);
+    }
+
+    @SneakyThrows
+    public void checkResponseBody(Response<byte[]> response){
+        byte[] body = response.getBody();
+        String contentType = response.getHeaders().get(HttpHeaders.CONTENT_TYPE);
+        if(ValueUtils.isNotBlank(contentType) && contentType.startsWith(WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG)){
+            System.out.println("response ebody:[\n" + ValueUtils.bytesToHex(body) + "\n]");
+            String token = response.getHeaders().get(WebUtils.HEADER_TOKEN_KEY);
+            if(ValueUtils.isNotBlank(token)){
+                this.token = token;
+            }
+            String eSalt = response.getHeaders().get(WebUtils.HEADER_SALT_KEY);
+            String args[] =  new String(this.rsaDecrypt.decrypt(DataUtils.base64Decode(eSalt.getBytes()))).split(",");
+            Aes aes = Aes.create().setKey(args[0]).setIV(args[1]).load();
+            System.out.println("response dbody:[\n" + new String(aes.decrypt(body)) + "\n]");
+        }else{
+            System.out.println("response body:[\n" + new String(body) + "\n]");
         }
     }
 
-    private String token = "wl12";
-    private String salt = "";
+    private String token = StringUtils.getUUID32();
 
     @SneakyThrows
     @Test
     public void test() throws IOException {
         this.login404();
         this.logine();
+        this.loginer();
+        this.save();
         this.login();
+        this.save();
         this.expire();
+    }
+
+
+    @SneakyThrows
+    @Test
+    public void save() throws IOException {
+        HttpClientContext context = HttpClientContext.create();
+        Request<byte[]> request = new Request<>(context, "http://127.0.0.1:8180/sys/user/save", Request.Method.Post);
+        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json;charset=utf-8");
+        request.setHeader("token", this.token);
+        Map body = new HashMap(){{
+            put("account", new Random().nextInt() % 10000000);
+            put("password", DataUtils.MD(new Random().nextInt() % 10000 + "", DataUtils.KEY_SHA));
+            put("deptId", 1L);
+        }};
+        System.out.println("request:" + request.getUrl() + "\n]");
+        request.setBody(GsonBuilder.gsonDefault().toJson(body, Map.class).getBytes(StandardCharsets.UTF_8))
+                .setHttpProxy("127.0.0.1", 8888);
+        this.checkRequestBody(request, true);
+        request.setHeader(HttpHeaders.ACCEPT, "application/json");
+        Response<byte[]> response = request.execute(byte[].class);
+        this.checkResponseBody(response);
+        System.out.println("====================================>");
     }
 
 
@@ -66,27 +128,19 @@ public class UserControllerTest {
     public void login() throws IOException {
         HttpClientContext context = HttpClientContext.create();
         Request<byte[]> request = new Request<>(context, "http://127.0.0.1:8180/sys/user/login", Request.Method.Post);
-        request.setHeader(HttpHeaders.CONTENT_TYPE, WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG + "application/json;charset=utf-8");
-        request.setHeader(HttpHeaders.ACCEPT, WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG + "application/json");
+        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json;charset=utf-8");
         request.setHeader("token", this.token);
         Map body = new HashMap(){{
             put("account", "admin");
             put("password", "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=");
         }};
-        byte[] buffers = this.aes.encrypt(GsonBuilder.gsonDefault().toJson(body, Map.class).getBytes(StandardCharsets.UTF_8));
-        System.out.println("request:" + request.getUrl() + " body:[\n" + ValueUtils.bytesToHex(buffers) + "\n]");
-        request.setBody(buffers).setHttpProxy("127.0.0.1", 8888);
+        System.out.println("request:" + request.getUrl() + "\n]");
+        request.setBody(GsonBuilder.gsonDefault().toJson(body, Map.class).getBytes(StandardCharsets.UTF_8))
+                .setHttpProxy("127.0.0.1", 8888);
+        this.checkRequestBody(request, true);
+        request.setHeader(HttpHeaders.ACCEPT, "application/json");
         Response<byte[]> response = request.execute(byte[].class);
-        buffers = response.getBody();
-        String salt = response.getHeaders().get(WebUtils.HEADER_SALT_KEY);
-        System.out.println(" ebody:[\n" + ValueUtils.bytesToHex(buffers) + "\n]");
-        System.out.println(" dbody:[\n" + new String(this.aes.decrypt(buffers)) + "\n]");
-        if(ValueUtils.isNotBlank(salt))
-            System.out.println(" esalt:" + salt);
-        if(ValueUtils.isNotBlank(salt)){
-            this.salt = new String(this.rsaDecrypt.decrypt(DataUtils.base64Decode(salt.getBytes())));
-            System.out.println(" dsalt:[\n" + this.salt + "\n]");
-        }
+        this.checkResponseBody(response);
         System.out.println("====================================>");
     }
 
@@ -96,26 +150,15 @@ public class UserControllerTest {
         HttpClientContext context = HttpClientContext.create();
         Request<byte[]> request;
         Response<byte[]> response;
-        byte[] buffers;
-        String salt;
-
         request = new Request<>(context, "http://127.0.0.1:8180/sys/user/expire", Request.Method.Get);
         request.setHeader(HttpHeaders.ACCEPT, "application/json");
         request.setHeader("token", this.token);
         request.setHttpProxy("127.0.0.1", 8888);
-        System.out.println("request:" + request.getUrl());
+        System.out.println("request:" + request.getUrl() + "\n]");
+        this.checkRequestBody(request, false);
         response = request.execute(byte[].class);
-        buffers = response.getBody();
-        salt = response.getHeaders().get(WebUtils.HEADER_SALT_KEY);
-        System.out.println(" ebody:[\n" + ValueUtils.bytesToHex(buffers) + "\n]");
-        System.out.println(" dbody:[\n" + new String(buffers) + "\n]");
-        if(ValueUtils.isNotBlank(salt))
-            System.out.println(" esalt:" + salt);
-        if(ValueUtils.isNotBlank(salt)){
-            this.salt = new String(this.rsaDecrypt.decrypt(DataUtils.base64Decode(salt.getBytes())));
-            System.out.println(" dsalt:[\n" + this.salt + "\n]");
-        }
-
+        this.checkResponseBody(response);
+        System.out.println("====================================>");
     }
 
     @SneakyThrows
@@ -123,27 +166,19 @@ public class UserControllerTest {
     public void logine() throws IOException {
         HttpClientContext context = HttpClientContext.create();
         Request<byte[]> request = new Request<>(context, "http://127.0.0.1:8180/sys/user/login", Request.Method.Put);
-        request.setHeader(HttpHeaders.CONTENT_TYPE, WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG + "application/json;charset=utf-8");
-        request.setHeader(HttpHeaders.ACCEPT, WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG + "application/json");
+        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json;charset=utf-8");
         request.setHeader("token", this.token);
         Map body = new HashMap(){{
             put("account", "admin");
             put("password", "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=");
         }};
-        byte[] buffers = this.aes.encrypt(GsonBuilder.gsonDefault().toJson(body, Map.class).getBytes(StandardCharsets.UTF_8));
-        System.out.println("request:" + request.getUrl() + " body:[\n" + ValueUtils.bytesToHex(buffers) + "\n]");
-        request.setBody(buffers).setHttpProxy("127.0.0.1", 8888);
+        System.out.println("request:" + request.getUrl() + "\n]");
+        request.setBody(GsonBuilder.gsonDefault().toJson(body, Map.class).getBytes(StandardCharsets.UTF_8))
+                .setHttpProxy("127.0.0.1", 8888);
+        this.checkRequestBody(request, true);
+        request.setHeader(HttpHeaders.ACCEPT, "application/json");
         Response<byte[]> response = request.execute(byte[].class);
-        buffers = response.getBody();
-        String salt = response.getHeaders().get(WebUtils.HEADER_SALT_KEY);
-        System.out.println(" ebody:[\n" + ValueUtils.bytesToHex(buffers) + "\n]");
-        System.out.println(" dbody:[\n" + new String(this.aes.decrypt(buffers)) + "\n]");
-        if(ValueUtils.isNotBlank(salt))
-            System.out.println(" esalt:" + salt);
-        if(ValueUtils.isNotBlank(salt)){
-            this.salt = new String(this.rsaDecrypt.decrypt(DataUtils.base64Decode(salt.getBytes())));
-            System.out.println(" dsalt:[\n" + this.salt + "\n]");
-        }
+        this.checkResponseBody(response);
         System.out.println("====================================>");
     }
 
@@ -151,27 +186,41 @@ public class UserControllerTest {
     @Test
     public void login404() throws IOException {
         HttpClientContext context = HttpClientContext.create();
-        Request<byte[]> request = new Request<>(context, "http://127.0.0.1:8180/sys/user/login2", Request.Method.Post);
-        request.setHeader(HttpHeaders.CONTENT_TYPE, WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG + "application/json;charset=utf-8");
-        request.setHeader(HttpHeaders.ACCEPT, WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG + "application/json");
+        Request<byte[]> request = new Request<>(context, "http://127.0.0.1:8180/sys2/user/login2", Request.Method.Post);
+        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json;charset=utf-8");
         request.setHeader("token", this.token);
         Map body = new HashMap(){{
             put("account", "admin");
             put("password", "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=");
         }};
-        byte[] buffers = this.aes.encrypt(GsonBuilder.gsonDefault().toJson(body, Map.class).getBytes(StandardCharsets.UTF_8));
-        System.out.println("request:" + request.getUrl() + " body:[\n" + ValueUtils.bytesToHex(buffers) + "\n]");
-        request.setBody(buffers).setHttpProxy("127.0.0.1", 8888);
+        System.out.println("request:" + request.getUrl() + "\n]");
+        request.setBody(GsonBuilder.gsonDefault().toJson(body, Map.class).getBytes(StandardCharsets.UTF_8))
+                .setHttpProxy("127.0.0.1", 8888);
+        this.checkRequestBody(request, true);
+        request.setHeader(HttpHeaders.ACCEPT, "application/json");
         Response<byte[]> response = request.execute(byte[].class);
-        buffers = response.getBody();
-        String salt = response.getHeaders().get(WebUtils.HEADER_SALT_KEY);
-        System.out.println(" ebody:[\n" + new String(buffers) + "\n]");
-        if(ValueUtils.isNotBlank(salt))
-            System.out.println(" esalt:" + salt);
-        if(ValueUtils.isNotBlank(salt)){
-            this.salt = new String(this.rsaDecrypt.decrypt(DataUtils.base64Decode(salt.getBytes())));
-            System.out.println(" dsalt:[\n" + this.salt + "\n]");
-        }
+        this.checkResponseBody(response);
+        System.out.println("====================================>");
+    }
+
+    @SneakyThrows
+    @Test
+    public void loginer() throws IOException {
+        HttpClientContext context = HttpClientContext.create();
+        Request<byte[]> request = new Request<>(context, "http://127.0.0.1:8180/sys/user/login", Request.Method.Post);
+        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json;charset=utf-8");
+        request.setHeader("token", this.token);
+        Map body = new HashMap(){{
+            put("account", "admin1");
+            put("password", "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=");
+        }};
+        System.out.println("request:" + request.getUrl() + "\n]");
+        request.setBody(GsonBuilder.gsonDefault().toJson(body, Map.class).getBytes(StandardCharsets.UTF_8))
+                .setHttpProxy("127.0.0.1", 8888);
+        this.checkRequestBody(request, true);
+        request.setHeader(HttpHeaders.ACCEPT, "application/json");
+        Response<byte[]> response = request.execute(byte[].class);
+        this.checkResponseBody(response);
         System.out.println("====================================>");
     }
 

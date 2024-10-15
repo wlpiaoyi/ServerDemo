@@ -95,10 +95,9 @@ wlpiaoyi:
             (/sys/user/login|/sys/user/expire)
           # 令牌审查
           censor:
-            (/sys/*),
-            (^(?!/sys/user/login).*$),
-            (^(?!/sys/user/expire).*$)
+            (/sys/.*),
+            ^((?!(^/sys/user/login$|^/sys/user/expire$)).)*$
           # 数据权限
           access:
-            (/sys/*)
+            (/sys/.*)
         charset_name: 'UTF-8'

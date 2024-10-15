@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.wlpiaoyi.framework.utils.StringUtils;
 import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
 import org.wlpiaoyi.server.demo.utils.web.support.impl.encrypt.EncryptUriSet;
@@ -21,8 +22,6 @@ import java.util.Set;
 @Component
 public class EncryptSupport extends org.wlpiaoyi.server.demo.utils.web.support.impl.encrypt.EncryptSupport {
 
-    @Resource(name = "encrypt.aes")
-    private Aes aes;
 
     @Resource(name = "encrypt.rsae")
     private RsaCipher rsaEncrypt;
@@ -33,13 +32,16 @@ public class EncryptSupport extends org.wlpiaoyi.server.demo.utils.web.support.i
     }
 
     @Override
-    protected Aes getAes(HttpServletRequest request, HttpServletResponse response) {
-        return this.aes;
+    protected RsaCipher getRsaEncrypt(HttpServletRequest request, HttpServletResponse response) {
+        return this.rsaEncrypt;
     }
 
     @Override
-    protected RsaCipher getRsaEncrypt(HttpServletRequest request, HttpServletResponse response) {
-        return this.rsaEncrypt;
+    protected String loadSalt(String token) {
+        String key = StringUtils.getUUID32();
+        String iv = StringUtils.getUUID32().substring(0, 16);
+        String dSalt = key + "," + iv;
+        return dSalt;
     }
 
     @Value("${wlpiaoyi.ee.cors.data.patterns.encrypt}")

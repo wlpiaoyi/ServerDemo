@@ -1,6 +1,5 @@
 package org.wlpiaoyi.server.demo.utils.web.support.impl.encrypt;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -52,7 +51,7 @@ public abstract class DecryptSupport  implements WebSupport<HttpServletRequest, 
 
     /**
      * <p><b>{@code @description:}</b>
-     * 获取对称加密
+     * 构建对称加密
      * </p>
      *
      * <p><b>@param</b> <b>request</b>
@@ -67,7 +66,7 @@ public abstract class DecryptSupport  implements WebSupport<HttpServletRequest, 
      * <p><b>{@code @return:}</b>{@link Aes}</p>
      * <p><b>{@code @author:}</b>wlpiaoyi</p>
      */
-    protected abstract Aes getAes(HttpServletRequest request, HttpServletResponse response);
+    protected abstract Aes createAes(HttpServletRequest request, HttpServletResponse response);
 
     /**
      * <p><b>{@code @description:}</b>
@@ -120,7 +119,7 @@ public abstract class DecryptSupport  implements WebSupport<HttpServletRequest, 
         DecryptUriSet uriSet = this.getDecryptUriSet();
         Aes aes = null;
         if(uriSet != null && uriSet.contains(uri)){
-            aes = this.getAes(request, response);
+            aes = this.createAes(request, response);
             if(aes == null){
                 log.error("EncryptFilter.doFilter unfunded aes object");
                 return DoFilterEnum.GoNext.getValue();

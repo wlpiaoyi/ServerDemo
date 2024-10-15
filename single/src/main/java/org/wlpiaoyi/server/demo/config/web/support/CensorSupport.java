@@ -20,43 +20,17 @@ import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 public class CensorSupport extends org.wlpiaoyi.server.demo.utils.web.support.impl.censor.CensorSupport {
 
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate redisTemplate;
 
     @Value("${wlpiaoyi.ee.auth.duri_minutes}")
     private int authDuriMinutes;
 
     @Override
-    protected boolean censor(String token, String salt) {
+    protected boolean censor(String token) {
         if(ValueUtils.isBlank(token)){
             return false;
         }
-        String saltKey = WebUtils.HEADER_SALT_KEY + token;
-        if(!this.redisTemplate.hasKey(token)){
-            this.redisTemplate.delete(saltKey);
-            return false;
-        }
-        String value = this.redisTemplate.opsForValue().get(saltKey);
-        if(ValueUtils.isBlank(value)){
-            return false;
-        }
-        int i = value.indexOf("#");
-        if(i == -1){
-            return false;
-        }
-        String preTimeMillisStr = value.substring(0, i);
-        if(!PatternUtils.isNumber(preTimeMillisStr)){
-            return false;
-        }
-        Long preTimeMillis = Long.valueOf(preTimeMillisStr);
-        if(preTimeMillis + (this.authDuriMinutes * 60 * 1000) < System.currentTimeMillis()){
-            return false;
-        }
-        value = value.substring(i + 1);
-        if(!value.equals(salt)){
-            return false;
-        }
-        log.info("request header(token:{}, salt:{})", token, salt);
-        return true;
+        return this.redisTemplate.hasKey(token);
     }
 
     @Value("${wlpiaoyi.ee.cors.data.patterns.censor}")

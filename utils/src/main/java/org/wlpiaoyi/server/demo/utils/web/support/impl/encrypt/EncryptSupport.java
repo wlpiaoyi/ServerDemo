@@ -55,26 +55,6 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
         return servletRequest.getRequestURI();
     }
 
-
-    /**
-     * <p><b>{@code @description:}</b> 
-     * 获取对称加密
-     * </p>
-     * 
-     * <p><b>@param</b> <b>request</b>
-     * {@link HttpServletRequest}
-     * </p>
-     * 
-     * <p><b>@param</b> <b>response</b>
-     * {@link HttpServletResponse}
-     * </p>
-     *
-     * <p><b>{@code @date:}</b>2024/10/11 23:48</p>
-     * <p><b>{@code @return:}</b>{@link Aes}</p>
-     * <p><b>{@code @author:}</b>wlpiaoyi</p>
-     */
-    protected abstract Aes getAes(HttpServletRequest request, HttpServletResponse response);
-
     /**
      * <p><b>{@code @description:}</b>
      * 非对称加密
@@ -93,6 +73,21 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
      * <p><b>{@code @author:}</b>wlpiaoyi</p>
      */
     protected abstract RsaCipher getRsaEncrypt(HttpServletRequest request, HttpServletResponse response);
+
+    /**
+     * <p><b>{@code @description:}</b>
+     * TODO
+     * </p>
+     *
+     * <p><b>@param</b> <b>token</b>
+     * {@link String}
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2024/10/12 14:56</p>
+     * <p><b>{@code @return:}</b>{@link String}</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    protected abstract String loadSalt(String token);
 
     /**
      * <p><b>{@code @description:}</b>
@@ -140,64 +135,68 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
 
     @Override
     public int doFilter(HttpServletRequest request, HttpServletResponse response, Map obj) throws BusinessException, IOException {
-        Aes aes = this.getAes(request, response);
-        if(aes == null){
-            log.error("EncryptFilter.doFilter unfunded aes object");
-            return DoFilterEnum.GoNext.getValue();
-        }
 
-        //响应处理 包装响应对象 res 并缓存响应数据
-//        RequestWrapper reqWrapper = new RequestWrapper(request);
-        ResponseWrapper respWrapper = new ResponseWrapper(response);
-//        this.decryptRequestBody(reqWrapper, aes);
-        obj.put("request", request);
-        obj.put("response", respWrapper);
-        //执行业务逻辑 交给下一个过滤器或servlet处理
-//        filterChain.doFilter(reqWrapper, respWrapper);
-//        this.encryptResponseBody(respWrapper, response, aes);
+        String uri = this.getRequestURI(request);
+        EncryptUriSet uriSet = this.getEncryptUriSet();
+        if(uriSet != null && uriSet.contains(uri)){
+            ResponseWrapper respWrapper = new ResponseWrapper(response);
+            obj.put("response", respWrapper);
+            obj.put("encrypt_tag", true);
+        }
         return DoFilterEnum.GoNext.getValue();
     }
 
     @Override
     public int isSupportExecResponse(HttpServletRequest request, HttpServletResponse response, Map obj) {
-        return 1;
+        String uri = this.getRequestURI(request);
+        EncryptUriSet uriSet = this.getEncryptUriSet();
+        if(uriSet != null && uriSet.contains(uri)){
+            return 1;
+        }else{
+            return WebSupport.super.isSupportExecResponse(request, response, obj);
+        }
     }
 
     @Override
     public void execResponse(HttpServletRequest request, HttpServletResponse response, Map obj, int indexSupport, int totalSupports) {
         if(indexSupport == totalSupports - 1){
-            ResponseWrapper respWrapper = MapUtils.get(obj, "response");
-            RequestWrapper reqWrapper = MapUtils.get(obj, "request");
-            if(respWrapper != null){
-                try {;
-                    String salt = response.getHeader(WebUtils.HEADER_SALT_KEY);
-                    if(ValueUtils.isNotBlank(salt)){
+            Object resp = MapUtils.get(obj, "response");
+            if(resp == null){
+                return;
+            }
+            if(!(resp instanceof ResponseWrapper)){
+                return;
+            }
+            ResponseWrapper respWrapper = (ResponseWrapper) resp;
+            try {
+                String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
+                Aes aes = null;
+                if(obj.containsKey("encrypt_tag")){
+                    String dSalt = this.loadSalt(token);
+                    if(ValueUtils.isNotBlank(dSalt)){
                         RsaCipher rsa = this.getRsaEncrypt(request, response);
-                        salt = new String(DataUtils.base64Encode(rsa.encrypt(salt.getBytes(StandardCharsets.UTF_8))));
-                        response.setHeader(WebUtils.HEADER_SALT_KEY, salt);
-                    }
-                    Aes aes = null;
-                    String uri = this.getRequestURI(request);
-                    EncryptUriSet uriSet = this.getEncryptUriSet();
-                    if(uriSet != null && uriSet.contains(uri)){
-                        aes = this.getAes(request, response);
+                        String eSalt = new String(DataUtils.base64Encode(rsa.encrypt(dSalt.getBytes(StandardCharsets.UTF_8))));
+                        response.setHeader(WebUtils.HEADER_SALT_KEY, eSalt);
+                        String[] keys = dSalt.split(",");
+                        aes = Aes.create().setKey(keys[0]).setIV(keys[1]).load();
                         String resContentType = respWrapper.getContentType();
                         if(ValueUtils.isBlank(resContentType)){
                             resContentType = request.getHeader(HttpHeaders.ACCEPT);
                             respWrapper.setContentType(resContentType);
                         }
                     }
-                    ResponseUtils.prepareHeader(reqWrapper, response);
-                    this.encryptResponseBody(respWrapper, response, aes);
-                } catch (Exception e) {
-                    try {
-                        request.getInputStream().close();
-                    } catch (Exception ex) {}
-                    try {
-                        response.getOutputStream().close();
-                    } catch (Exception ex) {}
-                    throw new BusinessException(e);
                 }
+                HttpServletRequest servletRequest = MapUtils.get(obj, "request", request);
+                ResponseUtils.prepareHeader(servletRequest, response);
+                this.encryptResponseBody(respWrapper, response, aes);
+            } catch (Exception e) {
+                try {
+                    request.getInputStream().close();
+                } catch (Exception ex) {}
+                try {
+                    response.getOutputStream().close();
+                } catch (Exception ex) {}
+                throw new BusinessException(e);
             }
         }
     }

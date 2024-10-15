@@ -5,8 +5,10 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.server.demo.utils.web.domain.DoFilterEnum;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -118,6 +120,10 @@ public interface WebSupport<REQ,RES> {
      * <p><b>{@code @author:}</b>wlpiaoyi</p>
      */
     default int isSupportExecResponse(REQ request, RES response, Map obj){return -1;}
+
+    default boolean canExecResponse(HttpServletRequest request, HttpServletResponse response) {
+        return false;
+    }
 
     /**
      * <p><b>{@code @description:}</b>
