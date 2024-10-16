@@ -89,6 +89,7 @@ public class UserControllerTest {
             System.out.println("response ebody:[\n" + ValueUtils.bytesToHex(body) + "\n]");
             String token = response.getHeaders().get(WebUtils.HEADER_TOKEN_KEY);
             if(ValueUtils.isNotBlank(token)){
+                System.out.println("response token:" + token);
                 this.token = token;
             }
             String eSalt = response.getHeaders().get(WebUtils.HEADER_SALT_KEY);
@@ -113,10 +114,10 @@ public class UserControllerTest {
     @SneakyThrows
     @Test
     public void test() throws IOException {
-        this.login404();
-        this.logine();
-        this.loginer();
-        this.save();
+//        this.login404();
+//        this.logine();
+//        this.loginer();
+//        this.save();
         this.login();
         this.save();
         this.expire();

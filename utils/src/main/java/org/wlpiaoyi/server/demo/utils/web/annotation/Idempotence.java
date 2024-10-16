@@ -14,6 +14,18 @@ import java.lang.annotation.*;
 @Documented
 public @interface Idempotence {
 
-    int value() default 3000;
+    /**
+     * 5秒钟内访问超过5次
+     */
+    //=========================>
+    int duriSecond() default 5;
+
+    int count() default 5;
+    //<=========================
+
+    /**
+     * 锁定10分钟
+     */
+    int deadLockMinutes() default 1;
 
 }

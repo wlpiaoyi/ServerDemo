@@ -39,23 +39,6 @@ public class MenuController {
 	private final IMenuService menuService;
 
 	/**
-	 * 菜单 详情
-	 */
-	@GetMapping("/detail")
-	@ApiOperationSupport(order = 1)
-	@Operation(summary = "菜单 详情")
-	public R<MenuVo> detail(MenuQuery body) {
-		MenuVo menu = ModelWrapper.parseOne(
-				this.menuService.getOne(
-						Condition.getQueryWrapper(ModelWrapper.parseOne(body, Menu.class))
-				),
-				MenuVo.class
-		);
-		return R.success(menu);
-
-	}
-
-	/**
 	 * 菜单 分页
 	 */
 	@PostMapping("/page")
@@ -63,20 +46,13 @@ public class MenuController {
 	@Operation(summary = "菜单 分页")
 	public R<IPage<MenuVo>> page(@RequestBody MenuQuery body){
 		LambdaQueryWrapper<Menu> wrapper = Wrappers.<Menu>lambdaQuery();
+		if(ValueUtils.isNotBlank(body.getParentId())){
+			wrapper.eq(Menu::getParentId, body.getParentId());
+		}
+		if(ValueUtils.isNotBlank(body.getType())){
+			wrapper.eq(Menu::getType, body.getType());
+		}
 		wrapper.orderByDesc(Menu::getCreateTime);
-		IPage<Menu> pages = menuService.page(Condition.getPage(body), wrapper);
-		return R.success(ModelWrapper.parseForPage(pages, MenuVo.class));
-	}
-
-	/**
-	 * 菜单 分页
-	 */
-	@PostMapping("/list")
-	@ApiOperationSupport(order = 3)
-	@Operation(summary = "菜单 分页")
-	public R<IPage<MenuVo>> list(@RequestBody MenuQuery body) {
-		QueryWrapper<Menu> wrapper = Condition.getQueryWrapper(ModelWrapper.parseOne(body, Menu.class));
-		wrapper.orderByDesc("create_time");
 		IPage<Menu> pages = menuService.page(Condition.getPage(body), wrapper);
 		return R.success(ModelWrapper.parseForPage(pages, MenuVo.class));
 	}
@@ -102,16 +78,6 @@ public class MenuController {
 	}
 
 	/**
-	 * 菜单 新增或修改
-	 */
-	@PostMapping("/submit")
-	@ApiOperationSupport(order = 6)
-	@Operation(summary = "菜单 新增或修改")
-	public R<Boolean> submit(@Valid @RequestBody MenuSubmit body) {
-		return R.success(menuService.saveOrUpdate(ModelWrapper.parseOne(body, Menu.class)));
-	}
-
-	/**
 	 * 菜单 删除
 	 */
 	@GetMapping("/remove")
@@ -121,4 +87,4 @@ public class MenuController {
 		return R.success(menuService.deleteLogic(ValueUtils.toLongList(ids)));
 	}
 
-}
+}

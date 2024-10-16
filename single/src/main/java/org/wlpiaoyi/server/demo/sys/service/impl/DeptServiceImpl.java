@@ -1,6 +1,7 @@
 package org.wlpiaoyi.server.demo.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Role;
 import org.wlpiaoyi.server.demo.sys.service.IDeptService;
@@ -24,6 +25,32 @@ import java.util.List;
 @Primary
 @Service
 public class DeptServiceImpl extends BaseServiceImpl<DeptMapper, Dept> implements IDeptService {
+
+    @Override
+    public boolean save(Dept entity) {
+        if("admin".equals(entity.getCode())){
+            throw new BusinessException("不能新增管理员部门");
+        }
+        if(ValueUtils.isNotBlank(entity.getParentId()) && this.baseMapper.selectById(entity.getParentId()) == null){
+            throw new BusinessException("没有找到对应的上级部门");
+        }
+        return super.save(entity);
+    }
+
+    @Override
+    public boolean updateById(Dept entity) {
+        Dept db = this.baseMapper.selectById(entity.getId());
+        if("admin".equals(db.getCode())){
+            throw new BusinessException("不能操作管理员部门");
+        }
+        if("admin".equals(entity.getCode())){
+            throw new BusinessException("不能修改为管理员部门");
+        }
+        if(ValueUtils.isNotBlank(entity.getParentId()) && this.baseMapper.selectById(entity.getParentId()) == null){
+            throw new BusinessException("没有找到对应的上级部门");
+        }
+        return super.updateById(entity);
+    }
 
     @Override
     public boolean deleteLogic(List<Long> ids) {

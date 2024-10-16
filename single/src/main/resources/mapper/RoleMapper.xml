@@ -45,21 +45,21 @@
         DELETE FROM `sys_user_role_rela` WHERE (`role_id` = #{roleId}) and (`user_id` = #{user_id});
     </delete>
 
-    <select id="selectByAccessIds" resultMap="roleResultMap">
-        SELECT r.* FROM `sys_access_role_rela` urr left join sys_role r on urr.role_id = r.id
-        where urr.access_id in (
-        <foreach item="accessId" index="index" collection="accessIds" separator=",">
-            #{accessId}
-        </foreach>
-        )
-    </select>
-    <insert id="insertAccessRela">
-        INSERT INTO `sys_access_role_rela` (`role_id`, `access_id`)
-        VALUES
-        (#{roleId}, #{accessId})
-    </insert>
-    <delete id="deleteAccessRela">
-        DELETE FROM `sys_user_role_rela` WHERE (`role_id` = #{roleId}) and (`access_id` = #{accessId});
-    </delete>
+<!--    <select id="selectByAccessIds" resultMap="roleResultMap">-->
+<!--        SELECT r.* FROM `sys_access_role_rela` urr left join sys_role r on urr.role_id = r.id-->
+<!--        where urr.access_id in (-->
+<!--        <foreach item="accessId" index="index" collection="accessIds" separator=",">-->
+<!--            #{accessId}-->
+<!--        </foreach>-->
+<!--        )-->
+<!--    </select>-->
+<!--    <insert id="insertAccessRela">-->
+<!--        INSERT INTO `sys_access_role_rela` (`role_id`, `access_id`)-->
+<!--        VALUES-->
+<!--        (#{roleId}, #{accessId})-->
+<!--    </insert>-->
+<!--    <delete id="deleteAccessRela">-->
+<!--        DELETE FROM `sys_user_role_rela` WHERE (`role_id` = #{roleId}) and (`access_id` = #{accessId});-->
+<!--    </delete>-->
 
 </mapper>

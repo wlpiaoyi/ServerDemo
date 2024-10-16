@@ -24,10 +24,6 @@ public class DeptRo {
 
         private static final long serialVersionUID = 1L;
 
-		@JsonSerialize(using = ToStringSerializer.class)
-		@Schema(description = "主键id")
-		@TableId(value = "id", type = IdType.ASSIGN_ID)
-		private Long id;
 		/** 上级部门Id **/
 		@Schema(name = "parentId" , description = "上级部门Id")
 		@JsonSerialize(using = ToStringSerializer.class)

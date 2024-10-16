@@ -24,11 +24,6 @@ public class DictRo {
 	public static class DictQuery extends org.wlpiaoyi.server.demo.utils.request.Query implements Serializable {
 
         private static final long serialVersionUID = 1L;
-
-		@JsonSerialize(using = ToStringSerializer.class)
-		@Schema(description = "主键id")
-		@TableId(value = "id", type = IdType.ASSIGN_ID)
-		private Long id;
 		/** 上级节点 **/
 		@Schema(name = "parentId" , description = "上级节点")
 		@JsonSerialize(using = ToStringSerializer.class)
@@ -41,26 +36,10 @@ public class DictRo {
 		@Schema(name = "code" , description = "字典编码")
 		@NotBlank(message = "字典编码不能为空")
 		private String code;
-		/** 字典值 **/
-		@Schema(name = "value" , description = "字典值")
-		@NotBlank(message = "字典值不能为空")
-		private String value;
 		/** 是否公开,如果是公开则所有人都能看到,否则只有指定角色的人才能看到=(0:非公开,1:公开) **/
 		@Schema(name = "isPublic" , description = "是否公开:如果是公开则所有人都能看到,否则只有指定角色的人才能看到 enums(0:非公开,1:公开)" , examples = {"0:非公开","1:公开"})
 		@NotNull(message = "是否公开不能为空")
 		private Byte isPublic;
-		/** 排序 **/
-		@Schema(name = "sort" , description = "排序")
-		@NotNull(message = "排序不能为空")
-		private Integer sort;
-		/** 树深度 **/
-		@Schema(name = "deep" , description = "树深度")
-		@NotNull(message = "树深度不能为空")
-		private Integer deep;
-		/** 是否是叶子节点 **/
-		@Schema(name = "isLeaf" , description = "是否是叶子节点")
-		@NotNull(message = "是否是叶子节点不能为空")
-		private Byte isLeaf;
     }
 
     @Data
@@ -97,13 +76,5 @@ public class DictRo {
 		@Schema(name = "sort" , description = "排序")
 		@NotNull(message = "排序不能为空")
 		private Integer sort;
-		/** 树深度 **/
-		@Schema(name = "deep" , description = "树深度")
-		@NotNull(message = "树深度不能为空")
-		private Integer deep;
-		/** 是否是叶子节点 **/
-		@Schema(name = "isLeaf" , description = "是否是叶子节点")
-		@NotNull(message = "是否是叶子节点不能为空")
-		private Byte isLeaf;
     }
 }

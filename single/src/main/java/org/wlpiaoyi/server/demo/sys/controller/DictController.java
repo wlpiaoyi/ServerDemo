@@ -39,23 +39,6 @@ public class DictController {
 	private final IDictService dictService;
 
 	/**
-	 * 数据字典 详情
-	 */
-	@GetMapping("/detail")
-	@ApiOperationSupport(order = 1)
-	@Operation(summary = "数据字典 详情")
-	public R<DictVo> detail(DictQuery body) {
-		DictVo dict = ModelWrapper.parseOne(
-				this.dictService.getOne(
-						Condition.getQueryWrapper(ModelWrapper.parseOne(body, Dict.class))
-				),
-				DictVo.class
-		);
-		return R.success(dict);
-
-	}
-
-	/**
 	 * 数据字典 分页
 	 */
 	@PostMapping("/page")
@@ -63,20 +46,20 @@ public class DictController {
 	@Operation(summary = "数据字典 分页")
 	public R<IPage<DictVo>> page(@RequestBody DictQuery body){
 		LambdaQueryWrapper<Dict> wrapper = Wrappers.<Dict>lambdaQuery();
-		wrapper.orderByDesc(Dict::getCreateTime);
-		IPage<Dict> pages = dictService.page(Condition.getPage(body), wrapper);
-		return R.success(ModelWrapper.parseForPage(pages, DictVo.class));
-	}
+		if(ValueUtils.isNotBlank(body.getParentId())){
+			wrapper.eq(Dict::getParentId, body.getParentId());
+		}
+		if(ValueUtils.isNotBlank(body.getName())){
+			wrapper.like(Dict::getName, body.getName());
+		}
+		if(ValueUtils.isNotBlank(body.getCode())){
+			wrapper.like(Dict::getCode, body.getCode());
+		}
+		if(ValueUtils.isNotBlank(body.getIsPublic()) && body.getIsPublic().intValue() == 1){
 
-	/**
-	 * 数据字典 分页
-	 */
-	@PostMapping("/list")
-	@ApiOperationSupport(order = 3)
-	@Operation(summary = "数据字典 分页")
-	public R<IPage<DictVo>> list(@RequestBody DictQuery body) {
-		QueryWrapper<Dict> wrapper = Condition.getQueryWrapper(ModelWrapper.parseOne(body, Dict.class));
-		wrapper.orderByDesc("create_time");
+		}
+		wrapper.orderByDesc(Dict::getSort);
+		wrapper.orderByDesc(Dict::getCreateTime);
 		IPage<Dict> pages = dictService.page(Condition.getPage(body), wrapper);
 		return R.success(ModelWrapper.parseForPage(pages, DictVo.class));
 	}
@@ -102,16 +85,6 @@ public class DictController {
 	}
 
 	/**
-	 * 数据字典 新增或修改
-	 */
-	@PostMapping("/submit")
-	@ApiOperationSupport(order = 6)
-	@Operation(summary = "数据字典 新增或修改")
-	public R<Boolean> submit(@Valid @RequestBody DictSubmit body) {
-		return R.success(dictService.saveOrUpdate(ModelWrapper.parseOne(body, Dict.class)));
-	}
-
-	/**
 	 * 数据字典 删除
 	 */
 	@GetMapping("/remove")
@@ -121,4 +94,4 @@ public class DictController {
 		return R.success(dictService.deleteLogic(ValueUtils.toLongList(ids)));
 	}
 
-}
+}

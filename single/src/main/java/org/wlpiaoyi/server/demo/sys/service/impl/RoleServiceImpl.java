@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Access;
+import org.wlpiaoyi.server.demo.sys.domain.entity.Dept;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.AccessMapper;
 import org.wlpiaoyi.server.demo.sys.domain.vo.AccessVo;
 import org.wlpiaoyi.server.demo.sys.service.IRoleService;
@@ -49,52 +50,24 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
     }
 
     @Override
-    @Transactional
-    public int addAccess(Long roleId, Collection<Long> accessIds) {
-        if(this.count(Wrappers.<Role>lambdaQuery().eq(Role::getId, roleId).eq(Role::getCode, "admin")) > 0){
-            throw new BusinessException("不能操作管理员权限");
+    public boolean save(Role entity) {
+        if("admin".equals(entity.getCode())){
+            throw new BusinessException("不能新增管理员角色");
         }
-        List<Access> accesses = this.accessMapper.selectByRoleIds(roleId);
-        List<Long> insertIds = new ArrayList<>(accessIds.size());
-        if(ValueUtils.isNotBlank(accesses)){
-            List<Long> exitIds = accesses.stream().map(Access::getId).collect(Collectors.toList());
-            for(Long accessId : accessIds){
-                if(exitIds.contains(accessId)){
-                    continue;
-                }
-                insertIds.add(accessId);
-            }
-        }
-        if(insertIds.isEmpty()){
-            return 0;
-        }
-        return this.accessMapper.insertAccessRelaBatch(roleId, insertIds);
+        return super.save(entity);
     }
 
     @Override
-    @Transactional
-    public int deleteAccess(Long roleId, Collection<Long> accessIds) {
-        if(this.count(Wrappers.<Role>lambdaQuery().eq(Role::getId, roleId).eq(Role::getCode, "admin")) > 0){
-            throw new BusinessException("不能操作管理员权限");
+    public boolean updateById(Role entity) {
+        Role db = this.baseMapper.selectById(entity.getId());
+        if("admin".equals(db.getCode())){
+            throw new BusinessException("不能操作管理员角色");
         }
-        for(Long accessId : accessIds){
-            this.accessMapper.deleteAccessRela(roleId, accessId);
+        if("admin".equals(entity.getCode())){
+            throw new BusinessException("不能修改为管理员角色");
         }
-        return 1;
+        return super.updateById(entity);
     }
-
-    @Override
-    @Transactional
-    public void mergeAccesses(Long userId, Collection<Long> addAccessIds, Collection<Long> delAccessId) {
-        if(ValueUtils.isNotBlank(addAccessIds)){
-            this.addAccess(userId, addAccessIds);
-        }
-        if(ValueUtils.isNotBlank(delAccessId)){
-            this.deleteAccess(userId, delAccessId);
-        }
-    }
-
-
 
     @Override
     public boolean deleteLogic(List<Long> ids) {

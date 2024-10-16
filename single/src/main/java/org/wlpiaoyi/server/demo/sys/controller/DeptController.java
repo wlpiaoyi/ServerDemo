@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.AllArgsConstructor;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Dept;
+import org.wlpiaoyi.server.demo.sys.domain.entity.Dict;
 import org.wlpiaoyi.server.demo.sys.service.IDeptService;
 import org.wlpiaoyi.server.demo.sys.domain.vo.DeptVo;
 import org.wlpiaoyi.server.demo.sys.domain.ro.DeptRo.*;
@@ -39,23 +40,6 @@ public class DeptController {
 	private final IDeptService deptService;
 
 	/**
-	 * 部门 详情
-	 */
-	@GetMapping("/detail")
-	@ApiOperationSupport(order = 1)
-	@Operation(summary = "部门 详情")
-	public R<DeptVo> detail(DeptQuery body) {
-		DeptVo dept = ModelWrapper.parseOne(
-				this.deptService.getOne(
-						Condition.getQueryWrapper(ModelWrapper.parseOne(body, Dept.class))
-				),
-				DeptVo.class
-		);
-		return R.success(dept);
-
-	}
-
-	/**
 	 * 部门 分页
 	 */
 	@PostMapping("/page")
@@ -63,20 +47,16 @@ public class DeptController {
 	@Operation(summary = "部门 分页")
 	public R<IPage<DeptVo>> page(@RequestBody DeptQuery body){
 		LambdaQueryWrapper<Dept> wrapper = Wrappers.<Dept>lambdaQuery();
+		if(ValueUtils.isNotBlank(body.getParentId())){
+			wrapper.eq(Dept::getParentId, body.getParentId());
+		}
+		if(ValueUtils.isNotBlank(body.getName())){
+			wrapper.like(Dept::getName, body.getName());
+		}
+		if(ValueUtils.isNotBlank(body.getCode())){
+			wrapper.like(Dept::getCode, body.getCode());
+		}
 		wrapper.orderByDesc(Dept::getCreateTime);
-		IPage<Dept> pages = deptService.page(Condition.getPage(body), wrapper);
-		return R.success(ModelWrapper.parseForPage(pages, DeptVo.class));
-	}
-
-	/**
-	 * 部门 分页
-	 */
-	@PostMapping("/list")
-	@ApiOperationSupport(order = 3)
-	@Operation(summary = "部门 分页")
-	public R<IPage<DeptVo>> list(@RequestBody DeptQuery body) {
-		QueryWrapper<Dept> wrapper = Condition.getQueryWrapper(ModelWrapper.parseOne(body, Dept.class));
-		wrapper.orderByDesc("create_time");
 		IPage<Dept> pages = deptService.page(Condition.getPage(body), wrapper);
 		return R.success(ModelWrapper.parseForPage(pages, DeptVo.class));
 	}
@@ -102,16 +82,6 @@ public class DeptController {
 	}
 
 	/**
-	 * 部门 新增或修改
-	 */
-	@PostMapping("/submit")
-	@ApiOperationSupport(order = 6)
-	@Operation(summary = "部门 新增或修改")
-	public R<Boolean> submit(@Valid @RequestBody DeptSubmit body) {
-		return R.success(deptService.saveOrUpdate(ModelWrapper.parseOne(body, Dept.class)));
-	}
-
-	/**
 	 * 部门 删除
 	 */
 	@GetMapping("/remove")
@@ -121,4 +91,4 @@ public class DeptController {
 		return R.success(deptService.deleteLogic(ValueUtils.toLongList(ids)));
 	}
 
-}
+}

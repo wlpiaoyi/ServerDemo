@@ -32,7 +32,7 @@ public class IdempotenceLoader {
                         if(idempotenceUriSet.contains(path)){
                             return 0;
                         }
-                        idempotenceUriSet.put(path, ((Idempotence)idempotence).value());
+                        idempotenceUriSet.put(path, ((Idempotence)idempotence));
                         return 0;
                     });
 

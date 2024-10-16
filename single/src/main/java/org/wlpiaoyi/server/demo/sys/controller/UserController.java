@@ -88,6 +88,7 @@ public class UserController {
 	 */
 	@Decrypt
 	@PostMapping("/list")
+	@PreAuthorize("user_list")
 	@ApiOperationSupport(order = 3)
 	@Operation(summary = "用户表 分页")
 	public R<IPage<UserVo>> list(@RequestBody UserQuery body) {

@@ -1,5 +1,7 @@
 package org.wlpiaoyi.server.demo.utils.web.support.impl.idempotence;
 
+import org.wlpiaoyi.server.demo.utils.web.annotation.Idempotence;
+
 /**
  * <p><b>{@code @author:}</b>         wlpiaoyi</p>
  * <p><b>{@code @description:}</b>    幂等URI集合</p>
@@ -11,8 +13,8 @@ public interface IdempotenceUriSet {
 
     boolean contains(String uri);
 
-    Integer get(String uri);
+    Idempotence get(String uri);
 
-    void put(String uri, int duriTime);
+    void put(String uri, Idempotence idempotence);
 
 }

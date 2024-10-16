@@ -1,9 +1,14 @@
 package org.wlpiaoyi.server.demo.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.wlpiaoyi.framework.utils.ValueUtils;
+import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.server.demo.config.web.support.AccessSupport;
+import org.wlpiaoyi.server.demo.sys.domain.entity.Role;
+import org.wlpiaoyi.server.demo.sys.domain.mapper.RoleMapper;
 import org.wlpiaoyi.server.demo.sys.service.IAccessService;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Access;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.AccessMapper;
@@ -15,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.wlpiaoyi.server.demo.utils.IdUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +34,9 @@ import java.util.stream.Collectors;
 @Primary
 @Service
 public class AccessServiceImpl extends BaseServiceImpl<AccessMapper, Access> implements IAccessService {
+
+    @Resource
+    private RoleMapper roleMapper;
 
     @Transactional
     @Override
@@ -60,5 +69,56 @@ public class AccessServiceImpl extends BaseServiceImpl<AccessMapper, Access> imp
         access.setValue(value);
         this.save(access);
         return access;
+    }
+
+    @Override
+    public List<Access> listForRoleId(Long roleId) {
+        return this.baseMapper.selectByRoleIds(roleId);
+    }
+
+    @Override
+    @Transactional
+    public int addAccess(Long roleId, Collection<Long> accessIds) {
+        if(this.roleMapper.selectCount(Wrappers.<Role>lambdaQuery().eq(Role::getId, roleId).eq(Role::getCode, "admin")) > 0){
+            throw new BusinessException("不能操作管理员权限");
+        }
+        List<Access> accesses = this.baseMapper.selectByRoleIds(roleId);
+        List<Long> insertIds = new ArrayList<>(accessIds.size());
+        if(ValueUtils.isNotBlank(accesses)){
+            List<Long> exitIds = accesses.stream().map(Access::getId).collect(Collectors.toList());
+            for(Long accessId : accessIds){
+                if(exitIds.contains(accessId)){
+                    continue;
+                }
+                insertIds.add(accessId);
+            }
+        }
+        if(insertIds.isEmpty()){
+            return 0;
+        }
+        return this.baseMapper.insertAccessRelaBatch(roleId, insertIds);
+    }
+
+    @Override
+    @Transactional
+    public void mergeAccesses(Long AccessSubmit, Collection<Long> addAccessIds, Collection<Long> delAccessId) {
+        if(ValueUtils.isNotBlank(addAccessIds)){
+            this.addAccess(AccessSubmit, addAccessIds);
+        }
+        if(ValueUtils.isNotBlank(delAccessId)){
+            this.deleteAccess(AccessSubmit, delAccessId);
+        }
+    }
+
+    @Override
+    @Transactional
+    public int deleteAccess(Long roleId, Collection<Long> accessIds) {
+        if(this.roleMapper.selectCount(Wrappers.<Role>lambdaQuery().eq(Role::getId, roleId).eq(Role::getCode, "admin")) > 0){
+            throw new BusinessException("不能操作管理员权限");
+        }
+        for(Long accessId : accessIds){
+            this.baseMapper.deleteAccessRela(roleId, accessId);
+        }
+        return 1;
     }
 }

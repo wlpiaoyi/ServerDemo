@@ -25,28 +25,10 @@ public class MenuRo {
 
         private static final long serialVersionUID = 1L;
 
-		@JsonSerialize(using = ToStringSerializer.class)
-		@Schema(description = "主键id")
-		@TableId(value = "id", type = IdType.ASSIGN_ID)
-		private Long id;
 		/** 上级ID,如果为空就是顶级节点 **/
 		@Schema(name = "parentId" , description = "上级ID:如果为空就是顶级节点")
 		@JsonSerialize(using = ToStringSerializer.class)
 		private Long parentId;
-		/** 名称 **/
-		@Schema(name = "name" , description = "名称")
-		@NotBlank(message = "名称不能为空")
-		private String name;
-		/** 编码 **/
-		@Schema(name = "code" , description = "编码")
-		@NotBlank(message = "编码不能为空")
-		private String code;
-		/** 事件响应 **/
-		@Schema(name = "action" , description = "事件响应")
-		private String action;
-		/** icon **/
-		@Schema(name = "icon" , description = "icon")
-		private String icon;
 		/** 菜单类型=(0:未知类型, 1:菜单, 2:按钮) **/
 		@Schema(name = "type" , description = "菜单类型 enums(0:未知类型, 1:菜单, 2:按钮)" , examples = {"0:未知类型"," 1:菜单"," 2:按钮"})
 		@NotNull(message = "菜单类型不能为空")

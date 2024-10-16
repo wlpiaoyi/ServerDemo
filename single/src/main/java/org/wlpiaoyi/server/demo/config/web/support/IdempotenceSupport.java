@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.wlpiaoyi.framework.utils.data.DataUtils;
+import org.wlpiaoyi.server.demo.utils.web.annotation.Idempotence;
 import org.wlpiaoyi.server.demo.utils.web.support.impl.idempotence.IdempotenceUriSet;
 
 import java.util.HashMap;
@@ -22,7 +23,7 @@ public class IdempotenceSupport extends org.wlpiaoyi.server.demo.utils.web.suppo
 
     @Getter
     @Autowired
-    private IdempotenceMoonMapImpl idempotenceMoon;
+    private IdempotenceMoonImpl idempotenceMoon;
 
     @Getter
     private IdempotenceUriSet idempotenceUriSet = IdempotenceUriSetObj;
@@ -45,7 +46,7 @@ public class IdempotenceSupport extends org.wlpiaoyi.server.demo.utils.web.suppo
 
     public static final IdempotenceUriSet IdempotenceUriSetObj = new IdempotenceUriSet() {
 
-        private HashMap<String, Integer> uriMap = new HashMap<>();
+        private HashMap<String, Idempotence> uriMap = new HashMap<>();
 
         @Override
         public boolean contains(String uri) {
@@ -53,13 +54,13 @@ public class IdempotenceSupport extends org.wlpiaoyi.server.demo.utils.web.suppo
         }
 
         @Override
-        public Integer get(String uri) {
+        public Idempotence get(String uri) {
             return this.uriMap.get(uri);
         }
 
         @Override
-        public void put(String uri, int duriTime) {
-            uriMap.put(uri, duriTime);
+        public void put(String uri, Idempotence idempotence) {
+            uriMap.put(uri, idempotence);
         }
 
     };
