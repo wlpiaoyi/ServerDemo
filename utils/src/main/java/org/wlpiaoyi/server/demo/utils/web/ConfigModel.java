@@ -19,9 +19,11 @@ public class ConfigModel {
 
     public static final String ZONE = "GMT+8";
     @Value("${wlpiaoyi.ee.cors.data.snowflake.workerId}")
-    private Byte workerId;
+    private Byte workerId = 1;
     @Value("${wlpiaoyi.ee.cors.data.snowflake.datacenterId}")
-    private Byte datacenterId;
+    private Byte datacenterId = 1;
+    @Value("${wlpiaoyi.ee.cors.data.snowflake.timerEpoch}")
+    private Long timerEpoch = 1729087588173L;
     @Value("${wlpiaoyi.ee.cors.data.charset_name}")
     private String charsetName = StandardCharsets.UTF_8.name();
 

@@ -2,6 +2,7 @@ package org.wlpiaoyi.server.demo;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.wlpiaoyi.server.demo.config.web.support.AccessSupport;
@@ -27,9 +28,9 @@ public class ApplicationListens implements CommandLineRunner, DisposableBean {
     public void run(String... args) throws Exception {
         log.info("应用启动成功，预相关加载数据");
         DecryptEncryptLoader.load(SpringUtils.getApplicationContext(), DecryptSupport.DECRYPT_URI_SET, EncryptSupport.ENCRYPT_URI_SET);
-        IdWorkerLoader.load(SpringUtils.getApplicationContext(), System.currentTimeMillis());
+        IdWorkerLoader.load(SpringUtils.getApplicationContext());
         AccessLoader.load(SpringUtils.getApplicationContext(), AccessSupport.ACCESS_URI_SET);
-        IdWorkerLoader.load(SpringUtils.getApplicationContext(), System.currentTimeMillis());
+//        IdWorkerLoader.load(SpringUtils.getApplicationContext(), System.currentTimeMillis());
         IdempotenceLoader.load(SpringUtils.getApplicationContext(), IdempotenceUriSetObj);
         IAccessService accessService = SpringUtils.getBean(IAccessService.class);
         accessService.mergeAll();
