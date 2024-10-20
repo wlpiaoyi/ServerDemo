@@ -2,27 +2,18 @@ package org.wlpiaoyi.server.demo.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
-import org.wlpiaoyi.server.demo.sys.domain.entity.Access;
-import org.wlpiaoyi.server.demo.sys.domain.entity.Dept;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.AccessMapper;
-import org.wlpiaoyi.server.demo.sys.domain.vo.AccessVo;
 import org.wlpiaoyi.server.demo.sys.service.IRoleService;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Role;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.RoleMapper;
 import org.wlpiaoyi.server.demo.sys.domain.vo.RoleVo;
-import org.wlpiaoyi.server.demo.sys.domain.ro.RoleRo;
-import org.wlpiaoyi.server.demo.service.impl.BaseServiceImpl;
+import org.wlpiaoyi.server.demo.common.datasource.service.impl.BaseServiceImpl;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-import org.wlpiaoyi.server.demo.utils.tools.ModelWrapper;
+import org.wlpiaoyi.server.demo.common.datasource.tools.ModelWrapper;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 /**

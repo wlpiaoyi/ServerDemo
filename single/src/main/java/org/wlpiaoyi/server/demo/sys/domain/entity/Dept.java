@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import java.io.Serializable;
-import org.wlpiaoyi.server.demo.domain.entity.BaseEntity;
-import org.wlpiaoyi.server.demo.domain.entity.CommonEntity;
+
+import org.wlpiaoyi.server.demo.common.datasource.domain.entity.CommonEntity;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import jakarta.validation.constraints.NotBlank;
@@ -45,4 +45,4 @@ public class Dept extends CommonEntity implements Serializable {
     @NotBlank(message = "部门编码不能为空")
     private String code;
 
-}
+}

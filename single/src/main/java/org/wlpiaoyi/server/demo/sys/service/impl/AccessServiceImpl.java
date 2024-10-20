@@ -2,7 +2,7 @@ package org.wlpiaoyi.server.demo.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
@@ -12,12 +12,10 @@ import org.wlpiaoyi.server.demo.sys.domain.mapper.RoleMapper;
 import org.wlpiaoyi.server.demo.sys.service.IAccessService;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Access;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.AccessMapper;
-import org.wlpiaoyi.server.demo.sys.domain.vo.AccessVo;
-import org.wlpiaoyi.server.demo.sys.domain.ro.AccessRo;
-import org.wlpiaoyi.server.demo.service.impl.BaseServiceImpl;
+import org.wlpiaoyi.server.demo.common.datasource.service.impl.BaseServiceImpl;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-import org.wlpiaoyi.server.demo.utils.IdUtils;
+import org.wlpiaoyi.server.demo.common.core.utils.IdUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,6 +35,9 @@ public class AccessServiceImpl extends BaseServiceImpl<AccessMapper, Access> imp
 
     @Resource
     private RoleMapper roleMapper;
+
+    @Resource
+    private RedisTemplate redisTemplate;
 
     @Transactional
     @Override

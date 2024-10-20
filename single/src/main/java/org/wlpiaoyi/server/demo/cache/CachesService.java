@@ -2,7 +2,7 @@ package org.wlpiaoyi.server.demo.cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.wlpiaoyi.server.demo.domain.entity.BaseEntity;
+import org.wlpiaoyi.server.demo.common.datasource.domain.entity.BaseEntity;
 
 import java.util.concurrent.TimeUnit;
 

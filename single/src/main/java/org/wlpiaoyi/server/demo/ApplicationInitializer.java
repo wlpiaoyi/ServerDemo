@@ -8,8 +8,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.wlpiaoyi.server.demo.cache.RoleCachesService;
 import org.wlpiaoyi.server.demo.cache.UserCachesService;
-import org.wlpiaoyi.server.demo.utils.SpringUtils;
-import org.wlpiaoyi.server.demo.utils.web.WebUtils;
+import org.wlpiaoyi.server.demo.common.core.utils.SpringUtils;
+import org.wlpiaoyi.server.demo.common.core.web.WebUtils;
 
 
 @Slf4j

@@ -1,13 +1,8 @@
 package org.wlpiaoyi.server.demo.sys.service;
 
-import org.wlpiaoyi.server.demo.sys.domain.entity.Access;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Role;
 import org.wlpiaoyi.server.demo.sys.domain.vo.RoleVo;
-import org.wlpiaoyi.server.demo.sys.domain.ro.RoleRo;
-import org.wlpiaoyi.server.demo.service.IBaseService;
-
-import java.util.Collection;
-import java.util.List;
+import org.wlpiaoyi.server.demo.common.datasource.service.IBaseService;
 
 
 /**

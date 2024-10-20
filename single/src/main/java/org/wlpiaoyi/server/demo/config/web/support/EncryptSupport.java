@@ -6,10 +6,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.wlpiaoyi.framework.utils.StringUtils;
-import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
 import org.wlpiaoyi.framework.utils.security.SignVerify;
-import org.wlpiaoyi.server.demo.utils.web.support.impl.encrypt.EncryptUriSet;
+import org.wlpiaoyi.server.demo.common.core.web.support.impl.encrypt.EncryptUriSet;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +20,7 @@ import java.util.Set;
  * <p><b>{@code @version:}:</b> 1.0</p>
  */
 @Component
-public class EncryptSupport extends org.wlpiaoyi.server.demo.utils.web.support.impl.encrypt.EncryptSupport {
+public class EncryptSupport extends org.wlpiaoyi.server.demo.common.core.web.support.impl.encrypt.EncryptSupport {
 
 
     @Resource(name = "encrypt.rsae")

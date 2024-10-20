@@ -3,10 +3,10 @@ package org.wlpiaoyi.server.demo.cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.wlpiaoyi.server.demo.common.datasource.tools.ModelWrapper;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Access;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Role;
 import org.wlpiaoyi.server.demo.sys.domain.vo.RoleVo;
-import org.wlpiaoyi.server.demo.utils.tools.ModelWrapper;
 
 import java.util.ArrayList;
 import java.util.List;

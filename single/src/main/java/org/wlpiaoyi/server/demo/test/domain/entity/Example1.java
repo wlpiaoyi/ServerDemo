@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.wlpiaoyi.server.demo.domain.entity.CommonEntity;
+import org.wlpiaoyi.server.demo.common.datasource.domain.entity.CommonEntity;
 
 
 /**

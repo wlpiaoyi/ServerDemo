@@ -1,9 +1,7 @@
 package org.wlpiaoyi.server.demo.sys.service;
 
 import org.wlpiaoyi.server.demo.sys.domain.entity.Dept;
-import org.wlpiaoyi.server.demo.sys.domain.vo.DeptVo;
-import org.wlpiaoyi.server.demo.sys.domain.ro.DeptRo;
-import org.wlpiaoyi.server.demo.service.IBaseService;
+import org.wlpiaoyi.server.demo.common.datasource.service.IBaseService;
 
 
 /**

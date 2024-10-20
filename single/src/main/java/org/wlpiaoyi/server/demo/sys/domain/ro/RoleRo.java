@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.wlpiaoyi.server.demo.common.core.request.Query;
+
 import java.io.Serializable;
 
 
@@ -18,7 +20,7 @@ import java.io.Serializable;
 public class RoleRo {
     @Data
     @Schema(description = "角色 请求实例")
-	public static class RoleQuery extends org.wlpiaoyi.server.demo.utils.request.Query implements Serializable {
+	public static class RoleQuery extends Query implements Serializable {
 
         private static final long serialVersionUID = 1L;
 

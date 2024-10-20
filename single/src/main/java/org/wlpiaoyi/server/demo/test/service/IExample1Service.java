@@ -1,9 +1,7 @@
 package org.wlpiaoyi.server.demo.test.service;
 
 import org.wlpiaoyi.server.demo.test.domain.entity.Example1;
-import org.wlpiaoyi.server.demo.test.domain.vo.Example1Vo;
-import org.wlpiaoyi.server.demo.test.domain.ro.Example1Ro;
-import org.wlpiaoyi.server.demo.service.IBaseService;
+import org.wlpiaoyi.server.demo.common.datasource.service.IBaseService;
 
 
 /**

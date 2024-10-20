@@ -6,8 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import java.io.Serializable;
-import org.wlpiaoyi.server.demo.domain.entity.BaseEntity;
-import org.wlpiaoyi.server.demo.domain.entity.CommonEntity;
+import org.wlpiaoyi.server.demo.common.datasource.domain.entity.BaseEntity;
 import jakarta.validation.constraints.NotBlank;
 
 

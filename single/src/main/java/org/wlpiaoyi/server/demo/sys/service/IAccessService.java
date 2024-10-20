@@ -1,9 +1,7 @@
 package org.wlpiaoyi.server.demo.sys.service;
 
 import org.wlpiaoyi.server.demo.sys.domain.entity.Access;
-import org.wlpiaoyi.server.demo.sys.domain.vo.AccessVo;
-import org.wlpiaoyi.server.demo.sys.domain.ro.AccessRo;
-import org.wlpiaoyi.server.demo.service.IBaseService;
+import org.wlpiaoyi.server.demo.common.datasource.service.IBaseService;
 
 import java.util.Collection;
 import java.util.List;

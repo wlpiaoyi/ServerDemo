@@ -3,9 +3,7 @@ package org.wlpiaoyi.server.demo.sys.service.impl;
 import org.wlpiaoyi.server.demo.sys.service.IPlatformService;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Platform;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.PlatformMapper;
-import org.wlpiaoyi.server.demo.sys.domain.vo.PlatformVo;
-import org.wlpiaoyi.server.demo.sys.domain.ro.PlatformRo;
-import org.wlpiaoyi.server.demo.service.impl.BaseServiceImpl;
+import org.wlpiaoyi.server.demo.common.datasource.service.impl.BaseServiceImpl;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +19,4 @@ import org.springframework.stereotype.Service;
 public class PlatformServiceImpl extends BaseServiceImpl<PlatformMapper, Platform> implements IPlatformService {
 
 
-}
+}

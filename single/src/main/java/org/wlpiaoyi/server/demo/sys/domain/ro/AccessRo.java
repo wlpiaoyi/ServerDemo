@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import jakarta.validation.constraints.NotBlank;
+import org.wlpiaoyi.server.demo.common.core.request.Query;
 
 
 /**
@@ -21,7 +22,7 @@ import jakarta.validation.constraints.NotBlank;
 public class AccessRo {
     @Data
     @Schema(description = "数据权限 请求实例")
-	public static class AccessQuery extends org.wlpiaoyi.server.demo.utils.request.Query implements Serializable {
+	public static class AccessQuery extends Query implements Serializable {
 
         private static final long serialVersionUID = 1L;
 

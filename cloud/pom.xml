@@ -14,8 +14,7 @@
     <version>1.0.1-DEV-JDK21</version>
     <packaging>pom</packaging>
     <name>CloudServer</name>
-    <description>微服务</description
-    >
+    <description>微服务</description>
     <modules>
         <module>gateway</module>
     </modules>

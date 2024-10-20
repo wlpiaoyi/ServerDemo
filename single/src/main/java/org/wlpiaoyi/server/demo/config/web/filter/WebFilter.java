@@ -2,9 +2,9 @@ package org.wlpiaoyi.server.demo.config.web.filter;
 
 import org.springframework.stereotype.Component;
 import org.wlpiaoyi.server.demo.config.web.support.*;
-import org.wlpiaoyi.server.demo.utils.SpringUtils;
-import org.wlpiaoyi.server.demo.utils.web.filter.WebBaseFilter;
-import org.wlpiaoyi.server.demo.utils.web.support.WebSupport;
+import org.wlpiaoyi.server.demo.common.core.utils.SpringUtils;
+import org.wlpiaoyi.server.demo.common.core.web.filter.WebBaseFilter;
+import org.wlpiaoyi.server.demo.common.core.web.support.WebSupport;
 
 import java.util.List;
 

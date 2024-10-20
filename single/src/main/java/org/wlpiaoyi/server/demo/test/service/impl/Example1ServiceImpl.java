@@ -3,9 +3,7 @@ package org.wlpiaoyi.server.demo.test.service.impl;
 import org.wlpiaoyi.server.demo.test.service.IExample1Service;
 import org.wlpiaoyi.server.demo.test.domain.entity.Example1;
 import org.wlpiaoyi.server.demo.test.domain.mapper.Example1Mapper;
-import org.wlpiaoyi.server.demo.test.domain.vo.Example1Vo;
-import org.wlpiaoyi.server.demo.test.domain.ro.Example1Ro;
-import org.wlpiaoyi.server.demo.service.impl.BaseServiceImpl;
+import org.wlpiaoyi.server.demo.common.datasource.service.impl.BaseServiceImpl;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +19,4 @@ import org.springframework.stereotype.Service;
 public class Example1ServiceImpl extends BaseServiceImpl<Example1Mapper, Example1> implements IExample1Service {
 
 
-}
+}

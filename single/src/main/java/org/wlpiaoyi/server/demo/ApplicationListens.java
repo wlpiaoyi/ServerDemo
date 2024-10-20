@@ -2,18 +2,17 @@ package org.wlpiaoyi.server.demo;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.wlpiaoyi.server.demo.config.web.support.AccessSupport;
 import org.wlpiaoyi.server.demo.config.web.support.DecryptSupport;
 import org.wlpiaoyi.server.demo.config.web.support.EncryptSupport;
 import org.wlpiaoyi.server.demo.sys.service.IAccessService;
-import org.wlpiaoyi.server.demo.utils.SpringUtils;
-import org.wlpiaoyi.server.demo.utils.loader.AccessLoader;
-import org.wlpiaoyi.server.demo.utils.loader.DecryptEncryptLoader;
-import org.wlpiaoyi.server.demo.utils.loader.IdWorkerLoader;
-import org.wlpiaoyi.server.demo.utils.loader.IdempotenceLoader;
+import org.wlpiaoyi.server.demo.common.core.utils.SpringUtils;
+import org.wlpiaoyi.server.demo.common.core.loader.AccessLoader;
+import org.wlpiaoyi.server.demo.common.core.loader.DecryptEncryptLoader;
+import org.wlpiaoyi.server.demo.common.core.loader.IdWorkerLoader;
+import org.wlpiaoyi.server.demo.common.core.loader.IdempotenceLoader;
 
 import static org.wlpiaoyi.server.demo.config.web.support.IdempotenceSupport.IdempotenceUriSetObj;
 

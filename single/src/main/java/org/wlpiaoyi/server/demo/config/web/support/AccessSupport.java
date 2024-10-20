@@ -1,10 +1,8 @@
 package org.wlpiaoyi.server.demo.config.web.support;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.wlpiaoyi.server.demo.sys.service.IAccessService;
-import org.wlpiaoyi.server.demo.utils.web.support.impl.access.AccessUriSet;
+import org.wlpiaoyi.server.demo.common.core.web.support.impl.access.AccessUriSet;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +15,7 @@ import java.util.Set;
  * <p><b>{@code @version:}:</b>1.0</p>
  */
 @Component
-public class AccessSupport extends org.wlpiaoyi.server.demo.utils.web.support.impl.access.AccessSupport {
+public class AccessSupport extends org.wlpiaoyi.server.demo.common.core.web.support.impl.access.AccessSupport {
 
     @Override
     protected AccessUriSet getAccessUriSet() {

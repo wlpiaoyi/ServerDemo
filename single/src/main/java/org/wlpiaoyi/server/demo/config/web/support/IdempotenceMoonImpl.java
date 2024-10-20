@@ -1,16 +1,10 @@
 package org.wlpiaoyi.server.demo.config.web.support;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.Cursor;
-import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.stereotype.Component;
-import org.wlpiaoyi.server.demo.utils.web.support.impl.idempotence.IdempotenceMoon;
+import org.wlpiaoyi.server.demo.common.core.web.support.impl.idempotence.IdempotenceMoon;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**

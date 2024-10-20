@@ -18,9 +18,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>single</module>
-        <module>utils</module>
         <module>cloud</module>
-        <module>datasource</module>
+        <module>common</module>
     </modules>
 
     <properties>
@@ -80,13 +79,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-dependencies</artifactId>-->
-<!--                <version>${spring.boot.version}</version>-->
-<!--                <type>pom</type>-->
-<!--                <scope>import</scope>-->
-<!--            </dependency>-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -211,9 +210,19 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>org.wlpiaoyi.server.demo</groupId>
-                <artifactId>utils</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <groupId>org.wlpiaoyi.server.demo.common</groupId>
+                <artifactId>core</artifactId>
+                <version>1.0.1-DEV-JDK21</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wlpiaoyi.server.demo.common</groupId>
+                <artifactId>datasource</artifactId>
+                <version>1.0.1-DEV-JDK21</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wlpiaoyi.server.demo.common</groupId>
+                <artifactId>redis</artifactId>
+                <version>1.0.1-DEV-JDK21</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

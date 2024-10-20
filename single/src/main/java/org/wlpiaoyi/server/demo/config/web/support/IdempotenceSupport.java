@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.wlpiaoyi.framework.utils.data.DataUtils;
-import org.wlpiaoyi.server.demo.utils.web.annotation.Idempotence;
-import org.wlpiaoyi.server.demo.utils.web.support.impl.idempotence.IdempotenceUriSet;
+import org.wlpiaoyi.server.demo.common.core.web.annotation.Idempotence;
+import org.wlpiaoyi.server.demo.common.core.web.support.impl.idempotence.IdempotenceUriSet;
 
 import java.util.HashMap;
 
@@ -19,7 +19,7 @@ import java.util.HashMap;
  * <p><b>{@code @version:}:</b>1.0</p>
  */
 @Component
-public class IdempotenceSupport extends org.wlpiaoyi.server.demo.utils.web.support.impl.idempotence.IdempotenceSupport {
+public class IdempotenceSupport extends org.wlpiaoyi.server.demo.common.core.web.support.impl.idempotence.IdempotenceSupport {
 
     @Getter
     @Autowired

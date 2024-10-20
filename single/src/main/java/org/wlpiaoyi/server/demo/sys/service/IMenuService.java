@@ -1,9 +1,7 @@
 package org.wlpiaoyi.server.demo.sys.service;
 
 import org.wlpiaoyi.server.demo.sys.domain.entity.Menu;
-import org.wlpiaoyi.server.demo.sys.domain.vo.MenuVo;
-import org.wlpiaoyi.server.demo.sys.domain.ro.MenuRo;
-import org.wlpiaoyi.server.demo.service.IBaseService;
+import org.wlpiaoyi.server.demo.common.datasource.service.IBaseService;
 
 
 /**

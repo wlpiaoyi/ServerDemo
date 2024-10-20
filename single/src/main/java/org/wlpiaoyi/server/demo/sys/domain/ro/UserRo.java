@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.wlpiaoyi.server.demo.common.core.request.Query;
 
 
 /**
@@ -21,7 +22,7 @@ import jakarta.validation.constraints.NotNull;
 public class UserRo {
     @Data
     @Schema(description = "用户表 请求实例")
-	public static class UserQuery extends org.wlpiaoyi.server.demo.utils.request.Query implements Serializable {
+	public static class UserQuery extends Query implements Serializable {
 
         private static final long serialVersionUID = 1L;
 

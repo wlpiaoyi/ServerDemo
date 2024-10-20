@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.server.demo.sys.domain.entity.User;
 import org.wlpiaoyi.server.demo.sys.domain.vo.UserVo;
-import org.wlpiaoyi.server.demo.utils.tools.ModelWrapper;
+import org.wlpiaoyi.server.demo.common.datasource.tools.ModelWrapper;
 
 import java.util.concurrent.TimeUnit;
 

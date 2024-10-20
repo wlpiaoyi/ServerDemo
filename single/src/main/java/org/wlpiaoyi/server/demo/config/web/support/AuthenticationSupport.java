@@ -1,14 +1,9 @@
 package org.wlpiaoyi.server.demo.config.web.support;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import org.wlpiaoyi.framework.utils.StringUtils;
-import org.wlpiaoyi.framework.utils.ValueUtils;
-import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * <p><b>{@code @version:}:</b>1.0</p>
  */
 @Component
-public class AuthenticationSupport extends org.wlpiaoyi.server.demo.utils.web.support.impl.auth.AuthenticationSupport {
+public class AuthenticationSupport extends org.wlpiaoyi.server.demo.common.core.web.support.impl.auth.AuthenticationSupport {
 
     @Autowired
     private RedisTemplate redisTemplate;

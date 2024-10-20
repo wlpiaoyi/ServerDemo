@@ -21,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Example1Ro {
     @Data
     @Schema(description = "测试用的表格 请求实例")
-	public static class Query extends org.wlpiaoyi.server.demo.utils.request.Query implements Serializable {
+	public static class Query extends org.wlpiaoyi.server.demo.common.core.request.Query implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
@@ -64,4 +64,4 @@ public class Example1Ro {
 		@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 		private Date dateVar;
     }
-}
+}

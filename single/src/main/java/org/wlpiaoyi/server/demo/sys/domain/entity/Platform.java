@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import java.io.Serializable;
-import org.wlpiaoyi.server.demo.domain.entity.BaseEntity;
-import org.wlpiaoyi.server.demo.domain.entity.CommonEntity;
+
+import org.wlpiaoyi.server.demo.common.datasource.domain.entity.CommonEntity;
 import jakarta.validation.constraints.NotBlank;
 
 
@@ -38,4 +38,4 @@ public class Platform extends CommonEntity implements Serializable {
     @NotBlank(message = "平台编码不能为空")
     private String code;
 
-}
+}

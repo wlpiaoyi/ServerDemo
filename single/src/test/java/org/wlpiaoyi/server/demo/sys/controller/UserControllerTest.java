@@ -16,7 +16,7 @@ import org.wlpiaoyi.framework.utils.http.request.Request;
 import org.wlpiaoyi.framework.utils.http.response.Response;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
 import org.wlpiaoyi.framework.utils.security.SignVerify;
-import org.wlpiaoyi.server.demo.utils.web.WebUtils;
+import org.wlpiaoyi.server.demo.common.core.web.WebUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

@@ -1,9 +1,7 @@
 package org.wlpiaoyi.server.demo.sys.service;
 
 import org.wlpiaoyi.server.demo.sys.domain.entity.Platform;
-import org.wlpiaoyi.server.demo.sys.domain.vo.PlatformVo;
-import org.wlpiaoyi.server.demo.sys.domain.ro.PlatformRo;
-import org.wlpiaoyi.server.demo.service.IBaseService;
+import org.wlpiaoyi.server.demo.common.datasource.service.IBaseService;
 
 
 /**

@@ -10,15 +10,14 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Parameter;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.wlpiaoyi.server.demo.test.domain.entity.Example1;
 import org.wlpiaoyi.server.demo.test.service.IExample1Service;
 import org.wlpiaoyi.server.demo.test.domain.vo.Example1Vo;
 import org.wlpiaoyi.server.demo.test.domain.ro.Example1Ro;
-import org.wlpiaoyi.server.demo.utils.tools.ModelWrapper;
-import org.wlpiaoyi.server.demo.utils.response.R;
-import org.wlpiaoyi.server.demo.utils.request.Condition;
+import org.wlpiaoyi.server.demo.common.datasource.tools.ModelWrapper;
+import org.wlpiaoyi.server.demo.common.core.response.R;
+import org.wlpiaoyi.server.demo.common.datasource.tools.Condition;
 import org.springframework.web.bind.annotation.*;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 

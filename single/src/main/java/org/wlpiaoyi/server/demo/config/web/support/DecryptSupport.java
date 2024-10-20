@@ -5,13 +5,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.wlpiaoyi.framework.utils.data.DataUtils;
 import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
-import org.wlpiaoyi.server.demo.utils.web.WebUtils;
-import org.wlpiaoyi.server.demo.utils.web.support.impl.encrypt.DecryptUriSet;
+import org.wlpiaoyi.server.demo.common.core.web.WebUtils;
+import org.wlpiaoyi.server.demo.common.core.web.support.impl.encrypt.DecryptUriSet;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +22,7 @@ import java.util.Set;
  * <p><b>{@code @version:}:</b> 1.0</p>
  */
 @Component
-public class DecryptSupport extends org.wlpiaoyi.server.demo.utils.web.support.impl.encrypt.DecryptSupport {
+public class DecryptSupport extends org.wlpiaoyi.server.demo.common.core.web.support.impl.encrypt.DecryptSupport {
 
 
 //    @Resource(name = "encrypt.aes")

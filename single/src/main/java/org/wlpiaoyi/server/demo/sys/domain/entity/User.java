@@ -7,8 +7,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import java.io.Serializable;
-import org.wlpiaoyi.server.demo.domain.entity.BaseEntity;
-import org.wlpiaoyi.server.demo.domain.entity.CommonEntity;
+
+import org.wlpiaoyi.server.demo.common.datasource.domain.entity.CommonEntity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

@@ -5,9 +5,7 @@ import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.server.demo.sys.service.IMenuService;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Menu;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.MenuMapper;
-import org.wlpiaoyi.server.demo.sys.domain.vo.MenuVo;
-import org.wlpiaoyi.server.demo.sys.domain.ro.MenuRo;
-import org.wlpiaoyi.server.demo.service.impl.BaseServiceImpl;
+import org.wlpiaoyi.server.demo.common.datasource.service.impl.BaseServiceImpl;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 

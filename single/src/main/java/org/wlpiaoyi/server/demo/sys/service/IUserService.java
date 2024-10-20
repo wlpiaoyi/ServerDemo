@@ -4,7 +4,7 @@ import org.wlpiaoyi.framework.utils.exception.SystemException;
 import org.wlpiaoyi.server.demo.sys.domain.entity.User;
 import org.wlpiaoyi.server.demo.sys.domain.vo.UserVo;
 import org.wlpiaoyi.server.demo.sys.domain.ro.UserRo;
-import org.wlpiaoyi.server.demo.service.IBaseService;
+import org.wlpiaoyi.server.demo.common.datasource.service.IBaseService;
 
 import java.util.Collection;
 

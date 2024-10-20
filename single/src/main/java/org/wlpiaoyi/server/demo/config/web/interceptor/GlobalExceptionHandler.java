@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.wlpiaoyi.server.demo.utils.response.R;
+import org.wlpiaoyi.server.demo.common.core.response.R;
 
 import java.io.IOException;
 
@@ -20,7 +20,7 @@ import java.io.IOException;
 @Slf4j
 @Order(1)
 @ControllerAdvice
-public class GlobalExceptionHandler extends org.wlpiaoyi.server.demo.utils.handler.GlobalExceptionHandler {
+public class GlobalExceptionHandler extends org.wlpiaoyi.server.demo.common.core.handler.GlobalExceptionHandler {
 
 
     @Override
@@ -54,5 +54,19 @@ public class GlobalExceptionHandler extends org.wlpiaoyi.server.demo.utils.handl
         String message = exception.getMessage();
         R<Object> r = R.data(413, null, message);
         doResponse(413, r, req, resp, exception);
+    }
+
+
+    public Object[] expandErrorHandler(HttpServletRequest req, HttpServletResponse resp, Exception exception){
+        int code = 0;
+        String message = null;
+        if (exception instanceof org.springframework.jdbc.BadSqlGrammarException) {
+            code = 500;
+            message = "服务器错误[sql error]:";
+        }
+        if(message == null){
+            return null;
+        }
+        return new Object[]{code, message};
     }
 }

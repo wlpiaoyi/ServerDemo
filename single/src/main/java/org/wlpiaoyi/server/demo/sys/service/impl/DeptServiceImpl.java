@@ -3,13 +3,10 @@ package org.wlpiaoyi.server.demo.sys.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
-import org.wlpiaoyi.server.demo.sys.domain.entity.Role;
 import org.wlpiaoyi.server.demo.sys.service.IDeptService;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Dept;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.DeptMapper;
-import org.wlpiaoyi.server.demo.sys.domain.vo.DeptVo;
-import org.wlpiaoyi.server.demo.sys.domain.ro.DeptRo;
-import org.wlpiaoyi.server.demo.service.impl.BaseServiceImpl;
+import org.wlpiaoyi.server.demo.common.datasource.service.impl.BaseServiceImpl;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 

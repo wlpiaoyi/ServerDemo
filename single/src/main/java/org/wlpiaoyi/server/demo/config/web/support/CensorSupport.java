@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import org.wlpiaoyi.framework.utils.PatternUtils;
 import org.wlpiaoyi.framework.utils.ValueUtils;
-import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 
 /**
  * <p><b>{@code @author:}</b>wlpiaoyi</p>
@@ -17,7 +15,7 @@ import org.wlpiaoyi.server.demo.utils.web.WebUtils;
  */
 @Slf4j
 @Component
-public class CensorSupport extends org.wlpiaoyi.server.demo.utils.web.support.impl.censor.CensorSupport {
+public class CensorSupport extends org.wlpiaoyi.server.demo.common.core.web.support.impl.censor.CensorSupport {
 
     @Autowired
     private RedisTemplate redisTemplate;

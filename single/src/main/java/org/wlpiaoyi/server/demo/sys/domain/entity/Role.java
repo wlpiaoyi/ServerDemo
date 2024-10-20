@@ -1,16 +1,13 @@
 package org.wlpiaoyi.server.demo.sys.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import java.io.Serializable;
-import org.wlpiaoyi.server.demo.domain.entity.BaseEntity;
-import org.wlpiaoyi.server.demo.domain.entity.CommonEntity;
+
+import org.wlpiaoyi.server.demo.common.datasource.domain.entity.CommonEntity;
 
 
 

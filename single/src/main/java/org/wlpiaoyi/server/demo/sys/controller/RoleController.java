@@ -11,14 +11,14 @@ import org.wlpiaoyi.server.demo.sys.domain.entity.Role;
 import org.wlpiaoyi.server.demo.sys.service.IRoleService;
 import org.wlpiaoyi.server.demo.sys.domain.vo.RoleVo;
 import org.wlpiaoyi.server.demo.sys.domain.ro.RoleRo.*;
-import org.wlpiaoyi.server.demo.utils.tools.ModelWrapper;
-import org.wlpiaoyi.server.demo.utils.response.R;
-import org.wlpiaoyi.server.demo.utils.request.Condition;
+import org.wlpiaoyi.server.demo.common.datasource.tools.ModelWrapper;
+import org.wlpiaoyi.server.demo.common.core.response.R;
+import org.wlpiaoyi.server.demo.common.datasource.tools.Condition;
 import org.springframework.web.bind.annotation.*;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 
 import jakarta.validation.Valid;
-import org.wlpiaoyi.server.demo.utils.web.annotation.PreAuthorize;
+import org.wlpiaoyi.server.demo.common.core.web.annotation.PreAuthorize;
 
 
 /**

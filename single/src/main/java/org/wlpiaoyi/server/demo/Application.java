@@ -15,7 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.ComponentScan;
-import org.wlpiaoyi.server.demo.domain.entity.BaseEntity;
+import org.wlpiaoyi.server.demo.common.datasource.domain.entity.BaseEntity;
 
 import java.util.TimeZone;
 

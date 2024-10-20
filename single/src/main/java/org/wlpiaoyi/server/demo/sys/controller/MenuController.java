@@ -3,7 +3,6 @@ package org.wlpiaoyi.server.demo.sys.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -15,9 +14,9 @@ import org.wlpiaoyi.server.demo.sys.domain.entity.Menu;
 import org.wlpiaoyi.server.demo.sys.service.IMenuService;
 import org.wlpiaoyi.server.demo.sys.domain.vo.MenuVo;
 import org.wlpiaoyi.server.demo.sys.domain.ro.MenuRo.*;
-import org.wlpiaoyi.server.demo.utils.tools.ModelWrapper;
-import org.wlpiaoyi.server.demo.utils.response.R;
-import org.wlpiaoyi.server.demo.utils.request.Condition;
+import org.wlpiaoyi.server.demo.common.datasource.tools.ModelWrapper;
+import org.wlpiaoyi.server.demo.common.core.response.R;
+import org.wlpiaoyi.server.demo.common.datasource.tools.Condition;
 import org.springframework.web.bind.annotation.*;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 

@@ -1,6 +1,7 @@
 package org.wlpiaoyi.server.demo.cloud.gateway;
 
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.TimeZone;
 
@@ -22,6 +24,9 @@ import java.util.TimeZone;
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class Application implements ApplicationContextAware, BeanFactoryPostProcessor {
 
+    @Getter
+    private static ApplicationContext applicationContext;
+
     @PostConstruct
     void started() {
     }
@@ -32,11 +37,11 @@ public class Application implements ApplicationContextAware, BeanFactoryPostProc
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        ApplicationInitializer.SpringUtilsBuilder.build().setBeanFactory(beanFactory);
     }
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        ApplicationInitializer.SpringUtilsBuilder.build().setApplicationContext(applicationContext);
+        Application.applicationContext = applicationContext;
     }
+
 
 }

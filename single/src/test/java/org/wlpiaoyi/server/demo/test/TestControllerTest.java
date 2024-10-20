@@ -1,7 +1,6 @@
 package org.wlpiaoyi.server.demo.test;
 
 import lombok.SneakyThrows;
-import org.apache.hc.client5.http.cookie.CookieStore;
 import org.apache.hc.client5.http.protocol.HttpClientContext;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.junit.After;
@@ -12,11 +11,10 @@ import org.wlpiaoyi.framework.utils.data.DataUtils;
 import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.gson.GsonBuilder;
-import org.wlpiaoyi.framework.utils.http.factory.CookieFactory;
 import org.wlpiaoyi.framework.utils.http.request.Request;
 import org.wlpiaoyi.framework.utils.http.response.Response;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
-import org.wlpiaoyi.server.demo.utils.web.WebUtils;
+import org.wlpiaoyi.server.demo.common.core.web.WebUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
