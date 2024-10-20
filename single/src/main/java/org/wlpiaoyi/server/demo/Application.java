@@ -50,6 +50,7 @@ public class Application implements ApplicationContextAware, BeanFactoryPostProc
     }
 
     public static void main(String[] args) {
+//        org.yaml.snakeyaml.inspector.TagInspector
         SpringApplication.run(Application.class, args);
     }
 

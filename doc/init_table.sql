@@ -130,7 +130,10 @@ CREATE TABLE `sys_user_role_rela` (
   KEY `index_role_id` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户角色';
 
---============================
 
-ALTER TABLE `server_demo`.`sys_user`
+ALTER TABLE `sys_user`
 ADD COLUMN `cur_role_id` BIGINT NOT NULL COMMENT '当前角色Id' AFTER `dept_id`;
+ALTER TABLE `sys_user`
+--============================
+CHANGE COLUMN `cur_role_id` `cur_role_id` BIGINT NULL DEFAULT NULL COMMENT '当前角色Id' ;
+

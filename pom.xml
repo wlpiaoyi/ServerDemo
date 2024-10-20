@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.11</version>
+        <version>3.3.3</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
@@ -35,17 +35,19 @@
         <maven-jar-plugin.version>3.4.0</maven-jar-plugin.version>
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
 
-        <spring.boot.version>3.1.11</spring.boot.version>
-        <spring.platform.version>Cairo-SR8</spring.platform.version>
 
+        <spring.boot.version>3.3.3</spring.boot.version>
+<!--        <spring.boot.version>3.1.11</spring.boot.version>-->
         <!-- <spring.platform.version>Cairo-SR8</spring.platform.version>-->
         <jakarta.servlet-api.version>6.1.0-M2</jakarta.servlet-api.version>
         <commons.io.version>2.16.1</commons.io.version>
         <commons.fileupload.version>1.5</commons.fileupload.version>
         <!-- 微服务 -->
-        <spring.cloud.version>2021.0.3</spring.cloud.version>
-        <spring.cloud.alibaba.version>2021.0.5.0</spring.cloud.alibaba.version>
-        <spring.boot.starter.security.version>3.2.5</spring.boot.starter.security.version>
+        <spring.cloud.version>2023.0.3</spring.cloud.version>
+        <spring.cloud.alibaba.version>2023.0.1.2</spring.cloud.alibaba.version>
+<!--        <spring.cloud.version>2021.0.3</spring.cloud.version>-->
+<!--        <spring.cloud.alibaba.version>2021.0.5.0</spring.cloud.alibaba.version>-->
+<!--        <spring.boot.starter.security.version>3.2.5</spring.boot.starter.security.version>-->
 
         <!-- Swagger.V3 -->
         <springdoc-openapi-ui.version>1.8.0</springdoc-openapi-ui.version>
@@ -53,7 +55,6 @@
         <knife4j-openapi3-jakarta.version>4.5.0</knife4j-openapi3-jakarta.version>
 
         <!-- 数据库 -->
-        <mybatis-spring-boot-starter.version>2.3.2</mybatis-spring-boot-starter.version>
         <com.baomidou.mybatis-plus.version>3.5.4</com.baomidou.mybatis-plus.version>
         <sqlite-jdbc.version>3.45.3.0</sqlite-jdbc.version>
         <mybatis-spring.version>3.0.3</mybatis-spring.version>
@@ -79,13 +80,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-dependencies</artifactId>-->
+<!--                <version>${spring.boot.version}</version>-->
+<!--                <type>pom</type>-->
+<!--                <scope>import</scope>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -113,11 +114,11 @@
 <!--                <artifactId>nacos-client</artifactId>-->
 <!--                <version>${alibaba.nacos.version}</version>-->
 <!--            </dependency>-->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-security</artifactId>
-                <version>${spring.boot.starter.security.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-starter-security</artifactId>-->
+<!--                <version>${spring.boot.starter.security.version}</version>-->
+<!--            </dependency>-->
             <!--io常用工具类 -->
             <dependency>
                 <groupId>commons-io</groupId>

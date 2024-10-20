@@ -16,8 +16,8 @@ spring:
   #  LOWER_CASE    username
   #  SNAKE_CASE    user_name
   #  UPPER_CAMEL_CASE    UserName
-  　jackson:
-    　property-naming-strategy: LOWER_CAMEL_CASE
+  jackson:
+    property-naming-strategy: LOWER_CAMEL_CASE
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/server_demo?useSSL=false&useUnicode=true&characterEncoding=utf-8&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8

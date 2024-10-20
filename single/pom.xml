@@ -31,7 +31,6 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.wlpiaoyi.server.demo</groupId>
             <artifactId>utils</artifactId>
