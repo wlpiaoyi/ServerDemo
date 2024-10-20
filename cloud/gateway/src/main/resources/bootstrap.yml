@@ -1,3 +1,13 @@
+nacos:
+  server-address: 192.168.1.139:8848
+  username: nacos
+  password: nacos
+  # 是否为临时实例，默认为 true
+  ephemeral: true
+  namespace: demo
+  group: local
+  file-extension: yaml
+
 # Tomcat
 server:
   version: 1.0.0
@@ -22,48 +32,50 @@ spring:
     nacos:
       discovery:
         # 服务注册地址
-        server-addr: 127.0.0.1:8848
-        # 用户名
-        username: nacos
-        # 密码
-        password: nacos
+        server-addr: ${nacos.server-address}
+#        # 用户名
+#        username: ${nacos.username}
+#        # 密码
+#        password: ${nacos.password}
         # 命名空间
-        namespace: demo
+        namespace: ${nacos.namespace}
+        # 是否为临时实例，默认为 true
+        ephemeral: ${nacos.ephemeral}
 #        group: ${nacos.group} # 使用的 Nacos 配置分组，默认为 DEFAULT_GROUP
       config:
         bootstrap:
           enable: true
-        # 配置中心地址
-        server-addr: 127.0.0.1:8848
-        # 用户名
-        username: nacos
-        # 密码
-        password: nacos
+        # 服务注册地址
+        server-addr: ${nacos.server-address}
+#        # 用户名
+#        username: ${nacos.username}
+#        # 密码
+#        password: ${nacos.password}
         # 命名空间
-        namespace: demo
+        namespace: ${nacos.namespace}
         # 配置文件格式
-        file-extension: yaml
+        file-extension: ${nacos.file-extension}
         # 共享配置
         shared-configs:
-          - data-id: ${spring.application.name}-${spring.profiles.active}.yaml
+          - data-id: ${spring.application.name}-${spring.profiles.active}.${nacos.file-extension}
 #            group: demo
             refresh: true
-          - data-id: demo-common.yaml
+          - data-id: demo-common.${nacos.file-extension}
 #            group: demo
             refresh: true
-          - data-id: demo-common-${spring.profiles.active}.yaml
+          - data-id: demo-common-${spring.profiles.active}.${nacos.file-extension}
 #            group: demo
             refresh: true
 #spring:
-  datasource:
-    redis:
-      host: 127.0.0.1 # 地址
-      port: 6379 # 端口
-      database: 11 # 数据库索引
-      password: '000000'
-      pool:
-        maxTotal: 1000
-        maxIdle: 10000
+#  datasource:
+#    redis:
+#      host: 127.0.0.1 # 地址
+#      port: 6379 # 端口
+#      database: 11 # 数据库索引
+#      password: '000000'
+#      pool:
+#        maxTotal: 1000
+#        maxIdle: 10000
 #    sentinel:
 #      # 取消控制台懒加载
 #      eager: true

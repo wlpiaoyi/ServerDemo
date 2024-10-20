@@ -11,24 +11,34 @@
 
     <groupId>org.wlpiaoyi.server.demo.cloud</groupId>
     <artifactId>gateway</artifactId>
+    <name>Gateway</name>
 
     <description>
         gateway网关模块
     </description>
 
     <dependencies>
-
-<!--        <dependency>-->
-<!--            <groupId>org.wlpiaoyi.server.demo</groupId>-->
-<!--            <artifactId>utils</artifactId>-->
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <groupId>org.springframework.boot</groupId>-->
-<!--                    <artifactId>spring-boot-starter-web</artifactId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
-<!--        </dependency>-->
-        <!-- SpringCloud Gateway -->
+        <!-- Core Common -->
+        <dependency>
+            <groupId>org.wlpiaoyi.server.demo.common</groupId>
+            <artifactId>core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.wlpiaoyi.server.demo.common</groupId>
+            <artifactId>redis</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.wlpiaoyi.server.demo.common</groupId>
+                    <artifactId>core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
