@@ -45,7 +45,7 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
             return null;
         }
         RoleVo detail = ModelWrapper.parseOne(role, RoleVo.class);
-        detail.setAccesses(ModelWrapper.parseForList(this.accessMapper.selectByRoleIds(id), AccessVo.class));
+        detail.setAccesses(this.accessMapper.selectByRoleIds(id));
         return detail;
     }
 

@@ -19,6 +19,7 @@ import org.wlpiaoyi.server.demo.utils.response.ResponseUtils;
 import org.wlpiaoyi.server.demo.utils.response.ResponseWrapper;
 import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 import org.wlpiaoyi.server.demo.utils.web.domain.DoFilterEnum;
+import org.wlpiaoyi.server.demo.utils.web.domain.WebError;
 import org.wlpiaoyi.server.demo.utils.web.support.WebSupport;
 
 import javax.crypto.BadPaddingException;
@@ -130,8 +131,7 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
      * <p><b>{@code @date:}</b>2024/10/11 23:51</p>
      * <p><b>{@code @author:}</b>wlpiaoyi</p>
      */
-    @SneakyThrows
-    protected void encryptResponseBody(ResponseWrapper respWrapper, HttpServletResponse response, Aes aes, SignVerify signVerify) throws IOException, IllegalBlockSizeException, BadPaddingException {
+    protected void encryptResponseBody(ResponseWrapper respWrapper, HttpServletResponse response, Aes aes, SignVerify signVerify) throws Exception {
         byte[] respData = respWrapper.getResponseData();
         String sign = null;
         if(!ValueUtils.isBlank(respData) && aes != null){
@@ -161,12 +161,17 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
     }
 
     @Override
-    public int doFilter(HttpServletRequest request, HttpServletResponse response, Map obj) throws BusinessException, IOException {
+    public int doFilter(HttpServletRequest request, HttpServletResponse response, Map obj) {
 
         String uri = this.getRequestURI(request);
         EncryptUriSet uriSet = this.getEncryptUriSet();
         if(uriSet != null && uriSet.contains(uri)){
-            ResponseWrapper respWrapper = new ResponseWrapper(response);
+            ResponseWrapper respWrapper;
+            try {
+                respWrapper = new ResponseWrapper(response);
+            } catch (IOException e) {
+                throw new BusinessException(WebError.Unknown, e);
+            }
             obj.put("response", respWrapper);
             obj.put("encrypt_tag", true);
         }
@@ -225,7 +230,7 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
                 try {
                     response.getOutputStream().close();
                 } catch (Exception ex) {}
-                throw new BusinessException(e);
+                throw new BusinessException(WebError.Unknown, e);
             }
         }
     }

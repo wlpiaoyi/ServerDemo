@@ -114,10 +114,10 @@ public class UserControllerTest {
     @SneakyThrows
     @Test
     public void test() throws IOException {
-//        this.login404();
-//        this.logine();
-//        this.loginer();
-//        this.save();
+        this.login404();
+        this.logine();
+        this.loginer();
+        this.save();
         this.login();
         this.save();
         this.expire();

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.wlpiaoyi.server.demo.cache.RoleCachesService;
 import org.wlpiaoyi.server.demo.cache.UserCachesService;
 import org.wlpiaoyi.server.demo.utils.SpringUtils;
 import org.wlpiaoyi.server.demo.utils.web.WebUtils;
@@ -25,27 +26,35 @@ class ApplicationInitializer {
         }
         SpringUtilsBuilder setApplicationContext(ApplicationContext applicationContext){
             SpringUtils.applicationContext = applicationContext;
-//            UserCachesService userCachesService = applicationContext.getBean(UserCachesService.class);
             SpringUtils.utilsExpand =  new SpringUtilsExpand() {
                 private UserCachesService userCachesService;
+                private RoleCachesService roleCachesService;
                 UserCachesService getUserCachesService(){
                     if(this.userCachesService == null){
                         this.userCachesService = SpringUtils.getBean(UserCachesService.class);
                     }
                     return this.userCachesService;
                 }
+
+                public RoleCachesService getRoleCachesService() {
+                    if(this.roleCachesService == null){
+                        this.roleCachesService =  SpringUtils.getBean(RoleCachesService.class);
+                    }
+                    return this.roleCachesService;
+                }
+
                 @Override
                 public Object getSpringUtilsAuthUser() {
                     HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
                     String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
-                    return this.getUserCachesService().getSpringUtilsAuthUser(token);
+                    return this.getUserCachesService().getAuthUser(token);
                 }
 
                 @Override
                 public Object getSpringUtilsAuthRole() {
                     HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
                     String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
-                    return this.getUserCachesService().getSpringUtilsAuthRole(token);
+                    return this.getRoleCachesService().getCurAuthRole(token);
                 }
             };
             return this;

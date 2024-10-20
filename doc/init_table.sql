@@ -63,6 +63,7 @@ CREATE TABLE `sys_menu` (
   `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '名称',
   `code` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '编码',
   `action` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '事件响应',
+  `sort` int NOT NULL DEFAULT '0' COMMENT '排序',
   `icon` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `type` int NOT NULL COMMENT '菜单类型=(0:未知类型, 1:菜单, 2:按钮)',
   `status` int DEFAULT '1' COMMENT '状态',
@@ -128,3 +129,8 @@ CREATE TABLE `sys_user_role_rela` (
   KEY `index_user_id` (`user_id`) /*!80000 INVISIBLE */,
   KEY `index_role_id` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户角色';
+
+--============================
+
+ALTER TABLE `server_demo`.`sys_user`
+ADD COLUMN `cur_role_id` BIGINT NOT NULL COMMENT '当前角色Id' AFTER `dept_id`;

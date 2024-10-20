@@ -50,6 +50,11 @@ public class Menu extends CommonEntity implements Serializable {
     @Schema(name = "action" , description = "事件响应")
     private String action;
 
+    /** 排序 **/
+    @Schema(name = "sort" , description = "排序")
+    @NotNull(message = "排序不能为空")
+    private Integer sort;
+
     /** icon **/
     @Schema(name = "icon" , description = "icon")
     private String icon;
@@ -59,4 +64,4 @@ public class Menu extends CommonEntity implements Serializable {
     @NotNull(message = "菜单类型不能为空")
     private Integer type;
 
-}
+}

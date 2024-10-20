@@ -16,6 +16,8 @@
         <result column="code" property="code"/>
         <!-- 事件响应 -->
         <result column="action" property="action"/>
+        <!-- 排序 -->
+        <result column="sort" property="sort"/>
         <!-- icon -->
         <result column="icon" property="icon"/>
         <!-- 菜单类型=(0:未知类型, 1:菜单, 2:按钮) -->

@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 import org.wlpiaoyi.server.demo.utils.web.domain.DoFilterEnum;
+import org.wlpiaoyi.server.demo.utils.web.domain.WebError;
 import org.wlpiaoyi.server.demo.utils.web.support.WebSupport;
 
 import java.util.Map;
@@ -51,7 +52,7 @@ public abstract class AccessSupport implements WebSupport<HttpServletRequest, Ht
             return DoFilterEnum.CloseReq.getValue() | DoFilterEnum.CloseResp.getValue() | DoFilterEnum.UndoChain.getValue();
         }
         if(!this.preAuthorize(value, token)){
-            throw new BusinessException(412, "Not access this path");
+            throw new BusinessException(WebError.UnAccess);
         }
         return DoFilterEnum.Unknown.getValue();
     }

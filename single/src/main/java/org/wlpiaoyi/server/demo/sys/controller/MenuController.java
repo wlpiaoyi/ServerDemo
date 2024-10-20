@@ -52,6 +52,7 @@ public class MenuController {
 		if(ValueUtils.isNotBlank(body.getType())){
 			wrapper.eq(Menu::getType, body.getType());
 		}
+		wrapper.orderByDesc(Menu::getSort);
 		wrapper.orderByDesc(Menu::getCreateTime);
 		IPage<Menu> pages = menuService.page(Condition.getPage(body), wrapper);
 		return R.success(ModelWrapper.parseForPage(pages, MenuVo.class));

@@ -22,7 +22,7 @@ abstract class CachesService<T extends BaseEntity> {
     protected abstract long getCacheDuriMinutes();
 
 
-    protected void set( T entity, long minutes){
+    protected void set(T entity, long minutes){
         this.redisTemplate.opsForValue().set("cache_db_" + this.getKeyTag() + entity.getId(), entity, minutes, TimeUnit.MINUTES);
     }
 

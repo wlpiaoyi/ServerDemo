@@ -1,14 +1,15 @@
 package org.wlpiaoyi.server.demo.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
+import org.wlpiaoyi.framework.utils.StringUtils;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.exception.SystemException;
+import org.wlpiaoyi.server.demo.cache.RoleCachesService;
 import org.wlpiaoyi.server.demo.cache.UserCachesService;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Role;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.DeptMapper;
@@ -23,13 +24,13 @@ import org.wlpiaoyi.server.demo.sys.domain.ro.UserRo;
 import org.wlpiaoyi.server.demo.service.impl.BaseServiceImpl;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.wlpiaoyi.server.demo.utils.SpringUtils;
 import org.wlpiaoyi.server.demo.utils.tools.ModelWrapper;
-import org.wlpiaoyi.server.demo.utils.web.WebUtils;
+import org.wlpiaoyi.server.demo.utils.web.domain.WebError;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 
@@ -55,6 +56,22 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     @Autowired
     private UserCachesService userCachesService;
 
+    @Autowired
+    private RoleCachesService roleCachesService;
+
+    @Override
+    public void switchRole(String token, Long roleId) {
+        User authUser = SpringUtils.getAuthUser();
+        if(authUser == null){
+            throw new BusinessException(WebError.UnLogin);
+        }
+        User user = new User();
+        user.setId(authUser.getId());
+        user.setCurRoleId(roleId);
+        super.updateById(user);
+        this.roleCachesService.switchRole(token, roleId);
+    }
+
     @Override
     public UserVo login(String token, UserRo.UserAuth auth) {
         List<User> users = this.list(Wrappers.<User>lambdaQuery().eq(User::getAccount, auth.getAccount()).eq(User::getPassword, auth.getPassword()));
@@ -63,8 +80,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         }
         User user = users.getFirst();
         UserVo detail = this.getDetail(user.getId());
-        detail.setCurRole(detail.getRoles().get(0));
-        this.userCachesService.setAuthUser(token, detail);
+        this.userCachesService.setAuthUserVo(token, detail);
         return detail;
     }
 
@@ -85,6 +101,17 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         }
         UserVo detail = ModelWrapper.parseOne(user, UserVo.class);
         detail.setRoles(ModelWrapper.parseForList(this.roleMapper.selectByUserIds(new ArrayList(){{add(detail.getId());}}), RoleVo.class));
+        if(ValueUtils.isNotBlank(detail.getRoles())){
+            detail.setCurRole(detail.getRoles().getFirst());
+            if(ValueUtils.isNotBlank(detail.getCurRoleId())){
+                for (RoleVo roleVo : detail.getRoles()){
+                    if(roleVo.getId().longValue() == detail.getCurRoleId().longValue()){
+                        detail.setCurRole(roleVo);
+                        break;
+                    }
+                }
+            }
+        }
         detail.setDept(ModelWrapper.parseOne(this.deptMapper.selectById(user.getDeptId()), DeptVo.class));
         return detail;
     }

@@ -57,6 +57,20 @@ public class UserController {
 		return R.success(this.userService.login(token, body));
 	}
 
+
+	/**
+	 * 切换角色
+	 */
+	@Idempotence
+	@Encrypt
+	@GetMapping("/switch/role")
+	@ApiOperationSupport(order = 0)
+	@Operation(summary = "切换角色")
+	public R<Boolean> switchRole(@RequestHeader String token, @RequestParam Long roleId) throws SystemException {
+		this.userService.switchRole(token, roleId);
+		return R.success(true);
+	}
+
 	/**
 	 * token续期
 	 */

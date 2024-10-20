@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 import java.util.List;
 
+import org.wlpiaoyi.server.demo.sys.domain.entity.Access;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Role;
 
 /**
@@ -27,6 +28,6 @@ public class RoleVo extends Role implements Serializable {
 	/**
 	 * 单圈角色数据权限
 	 */
-	private List<AccessVo> accesses;
+	private List<Access> accesses;
 
 }

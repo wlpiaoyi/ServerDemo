@@ -36,7 +36,6 @@ public class DecryptSupport extends org.wlpiaoyi.server.demo.utils.web.support.i
     protected DecryptUriSet getDecryptUriSet() {
         return DECRYPT_URI_SET;
     }
-
     @SneakyThrows
     @Override
     protected Aes createAes(HttpServletRequest request, HttpServletResponse response) {

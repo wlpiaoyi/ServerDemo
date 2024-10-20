@@ -20,6 +20,24 @@ public interface IUserService extends IBaseService<User> {
 
     /**
      * <p><b>{@code @description:}</b>
+     * 切换角色
+     * </p>
+     *
+     * <p><b>@param</b> <b>token</b>
+     * {@link String}
+     * </p>
+     *
+     * <p><b>@param</b> <b>roleId</b>
+     * {@link Long}
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2024/10/18 10:48</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    void switchRole(String token, Long roleId) ;
+
+    /**
+     * <p><b>{@code @description:}</b>
      * 登录
      * </p>
      *

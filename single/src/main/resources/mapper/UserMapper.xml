@@ -14,6 +14,8 @@
         <result column="password" property="password"/>
         <!-- 部门ID -->
         <result column="dept_id" property="deptId"/>
+        <!-- 当前角色Id -->
+        <result column="cur_role_id" property="curRoleId"/>
         <!-- 状态 -->
         <result column="status" property="status"/>
         <!-- 是否删除 -->

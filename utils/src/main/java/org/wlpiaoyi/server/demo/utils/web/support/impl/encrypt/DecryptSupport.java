@@ -11,6 +11,7 @@ import org.wlpiaoyi.framework.utils.security.RsaCipher;
 import org.wlpiaoyi.server.demo.utils.request.RequestWrapper;
 import org.wlpiaoyi.server.demo.utils.web.WebUtils;
 import org.wlpiaoyi.server.demo.utils.web.domain.DoFilterEnum;
+import org.wlpiaoyi.server.demo.utils.web.domain.WebError;
 import org.wlpiaoyi.server.demo.utils.web.support.WebSupport;
 
 import javax.crypto.BadPaddingException;
@@ -114,7 +115,7 @@ public abstract class DecryptSupport  implements WebSupport<HttpServletRequest, 
 
 
     @Override
-    public int doFilter(HttpServletRequest request, HttpServletResponse response, Map obj) throws BusinessException, IOException, IllegalBlockSizeException, BadPaddingException {
+    public int doFilter(HttpServletRequest request, HttpServletResponse response, Map obj) {
         String uri = getRequestURI(request);
         DecryptUriSet uriSet = this.getDecryptUriSet();
         Aes aes = null;
@@ -126,8 +127,19 @@ public abstract class DecryptSupport  implements WebSupport<HttpServletRequest, 
             }
         }
         //响应处理 包装响应对象 res 并缓存响应数据
-        RequestWrapper reqWrapper = new RequestWrapper(request, 1);
-        this.decryptRequestBody(reqWrapper, aes);
+        RequestWrapper reqWrapper;
+        try {
+            reqWrapper = new RequestWrapper(request, 1);
+        } catch (IOException e) {
+            throw new BusinessException(WebError.Unknown, e);
+        }
+        try {
+            this.decryptRequestBody(reqWrapper, aes);
+        } catch (IllegalBlockSizeException e) {
+            throw new BusinessException(WebError.Unknown, e);
+        } catch (BadPaddingException e) {
+            throw new BusinessException(WebError.Unknown, e);
+        }
         String salt = reqWrapper.getHeader(WebUtils.HEADER_SALT_KEY);
         if(ValueUtils.isNotBlank(salt)){
             RsaCipher rsa = this.getRsaDecrypt(request, response);
@@ -136,9 +148,6 @@ public abstract class DecryptSupport  implements WebSupport<HttpServletRequest, 
         }
         obj.put("request", reqWrapper);
         obj.put("response", response);
-        //执行业务逻辑 交给下一个过滤器或servlet处理
-//        filterChain.doFilter(reqWrapper, respWrapper);
-//        this.encryptResponseBody(respWrapper, response, aes);
         return DoFilterEnum.GoNext.getValue();
     }
 }

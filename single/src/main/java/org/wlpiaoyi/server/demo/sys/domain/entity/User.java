@@ -49,4 +49,10 @@ public class User extends CommonEntity implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long deptId;
 
+    /** 当前角色Id **/
+    @Schema(name = "curRoleId" , description = "当前角色Id")
+    @NotNull(message = "当前角色Id不能为空")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long curRoleId;
+
 }

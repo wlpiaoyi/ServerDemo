@@ -19,6 +19,8 @@
     <modules>
         <module>single</module>
         <module>utils</module>
+        <module>cloud</module>
+        <module>datasource</module>
     </modules>
 
     <properties>
@@ -106,11 +108,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>com.alibaba.nacos</groupId>
-                <artifactId>nacos-client</artifactId>
-                <version>${alibaba.nacos.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.alibaba.nacos</groupId>-->
+<!--                <artifactId>nacos-client</artifactId>-->
+<!--                <version>${alibaba.nacos.version}</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-security</artifactId>

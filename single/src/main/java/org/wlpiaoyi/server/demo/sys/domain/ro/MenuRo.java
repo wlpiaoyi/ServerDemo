@@ -53,6 +53,10 @@ public class MenuRo {
 		@Schema(name = "name" , description = "名称")
 		@NotBlank(message = "名称不能为空")
 		private String name;
+		/** 排序 **/
+		@Schema(name = "sort" , description = "排序")
+		@NotNull(message = "排序不能为空")
+		private Integer sort;
 		/** 编码 **/
 		@Schema(name = "code" , description = "编码")
 		@NotBlank(message = "编码不能为空")
