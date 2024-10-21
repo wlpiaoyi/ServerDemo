@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.wlpiaoyi.server.demo</groupId>
+        <artifactId>ServerDemo</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>org.wlpiaoyi.server.demo</groupId>
+    <artifactId>demo-single</artifactId>
+    <version>1.0.1-DEV-JDK21</version>
+
+    <packaging>jar</packaging>
+    <name>SingleServer</name>
+    <description>单服务</description>
+
+    <properties>
+        <!-- 文件拷贝时的编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 编译时的编码 -->
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <java.version>21</java.version>
+        <commons.fileupload.version>1.3.3</commons.fileupload.version>
+        <commons.io.version>2.7</commons.io.version>
+        <!-- Web 相关 -->
+        <servlet.versoin>2.5</servlet.versoin>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.wlpiaoyi.server.demo.biz</groupId>
+            <artifactId>admin-service</artifactId>
+        </dependency>
+        <!-- swagger3工具 -->
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId> <!-- 接口文档：使用最新版本的 Swagger 模型 -->
+            <artifactId>swagger-annotations</artifactId>
+            <!-- <scope>provided</scope> &lt;!&ndash; 设置为 provided，主要是 PageParam 使用到 &ndash;&gt;-->
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId> <!-- 接口文档：使用最新版本的 Swagger 模型 -->
+            <artifactId>swagger-models</artifactId>
+        </dependency>
+        <!-- 架构 -->
+        <dependency>
+            <artifactId>spring-boot-starter-validation</artifactId>
+            <groupId>org.springframework.boot</groupId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <!-- <scope>provided</scope>-->
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <!-- swagger3工具 -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+        </dependency>
+        <!--io常用工具类 -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <!--文件上传工具类 -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis-spring</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>mybatis</artifactId>
+                    <groupId>org.mybatis</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+<!--        &lt;!&ndash; 热部署 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-devtools</artifactId>-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
+    </dependencies>
+
+
+    <build>
+        <!-- 打包不带版本号 -->
+        <finalName>server.demo.single</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.wlpiaoyi.framework.datasource</groupId>
+                <artifactId>generator-plugin</artifactId>
+                <version>${fw.project.version}</version>
+            </plugin>
+            <!-- JUnit 配置 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <!--忽略测试启动类 -->
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <!-- jar运行配置 正常打包-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

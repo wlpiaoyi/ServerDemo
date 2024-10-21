@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.wlpiaoyi.server.demo</groupId>
+        <artifactId>demo-biz</artifactId>
+        <version>1.0.1-DEV-JDK21</version>
+    </parent>
+
+    <groupId>org.wlpiaoyi.server.demo.biz</groupId>
+    <artifactId>admin-service</artifactId>
+    <name>BusinessAdminService</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.wlpiaoyi.server.demo.biz</groupId>
+            <artifactId>admin-datasource</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.wlpiaoyi.server.demo.common</groupId>
+            <artifactId>redis</artifactId>
+        </dependency>
+        <!-- swagger3工具 -->
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId> <!-- 接口文档：使用最新版本的 Swagger 模型 -->
+            <artifactId>swagger-annotations</artifactId>
+            <!-- <scope>provided</scope> &lt;!&ndash; 设置为 provided，主要是 PageParam 使用到 &ndash;&gt;-->
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.wlpiaoyi.server.demo</groupId>
+        <artifactId>demo-common</artifactId>
+        <version>1.0.1-DEV-JDK21</version>
+    </parent>
+
+    <groupId>org.wlpiaoyi.server.demo.common</groupId>
+    <artifactId>datasource</artifactId>
+    <version>1.0.1-DEV-JDK21</version>
+    <name>CommonDataSource</name>
+    <description>数据功能集合</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.wlpiaoyi.server.demo.common</groupId>
+            <artifactId>servlet-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-core</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+</project>

@@ -17,9 +17,10 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>single</module>
-        <module>cloud</module>
-        <module>common</module>
+        <module>demo-single</module>
+        <module>demo-cloud</module>
+        <module>demo-common</module>
+        <module>demo-biz</module>
     </modules>
 
     <properties>
@@ -211,7 +212,7 @@
             </dependency>
             <dependency>
                 <groupId>org.wlpiaoyi.server.demo.common</groupId>
-                <artifactId>core</artifactId>
+                <artifactId>servlet-core</artifactId>
                 <version>1.0.1-DEV-JDK21</version>
             </dependency>
             <dependency>
@@ -222,6 +223,16 @@
             <dependency>
                 <groupId>org.wlpiaoyi.server.demo.common</groupId>
                 <artifactId>redis</artifactId>
+                <version>1.0.1-DEV-JDK21</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wlpiaoyi.server.demo.biz</groupId>
+                <artifactId>admin-datasource</artifactId>
+                <version>1.0.1-DEV-JDK21</version>
+            </dependency>
+            <dependency>
+                <groupId>org.wlpiaoyi.server.demo.biz</groupId>
+                <artifactId>admin-service</artifactId>
                 <version>1.0.1-DEV-JDK21</version>
             </dependency>
         </dependencies>
