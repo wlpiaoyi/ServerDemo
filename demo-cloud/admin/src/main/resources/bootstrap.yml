@@ -11,7 +11,7 @@ nacos:
 # Tomcat
 server:
   version: 1.0.0
-  port: 18080
+  port: 18081
 
 # Spring
 spring:
@@ -24,7 +24,7 @@ spring:
     property-naming-strategy: LOWER_CAMEL_CASE
   application:
     # 应用名称
-    name: demo-gateway
+    name: demo-admin
   profiles:
     # 环境配置
     active: dev

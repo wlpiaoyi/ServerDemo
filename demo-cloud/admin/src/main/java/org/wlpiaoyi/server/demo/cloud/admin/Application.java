@@ -1,8 +1,6 @@
-package org.wlpiaoyi.server.demo.cloud.gateway;
+package org.wlpiaoyi.server.demo.cloud.admin;
 
 import jakarta.annotation.PostConstruct;
-import lombok.Getter;
-//import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -12,9 +10,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.redis.core.RedisTemplate;
-
-import java.util.TimeZone;
 
 /**
  * {@code @author:}         wlpiaoyi
@@ -23,8 +18,10 @@ import java.util.TimeZone;
  * {@code @version:}:       1.0
  */
 //Dspring.config.location=/data/config/application-sms.yml
-
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@ComponentScan(basePackages = {"org.wlpiaoyi.server.demo"})
+@SpringBootApplication(scanBasePackages = {
+        "org.wlpiaoyi.server.demo",
+},exclude = {DataSourceAutoConfiguration.class })
 public class Application implements ApplicationContextAware, BeanFactoryPostProcessor {
 
     @PostConstruct
