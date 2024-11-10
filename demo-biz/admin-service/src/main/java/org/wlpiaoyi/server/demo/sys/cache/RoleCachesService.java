@@ -51,11 +51,11 @@ public class RoleCachesService extends CachesService<Role> {
      * 切换角色
      * </p>
      *
-     * <p><b>@param</b> <b>token</b>
+     * <p><b>{@code @param}</b> <b>token</b>
      * {@link String}
      * </p>
      *
-     * <p><b>@param</b> <b>roleId</b>
+     * <p><b>{@code @param}</b> <b>roleId</b>
      * {@link Long}
      * </p>
      *

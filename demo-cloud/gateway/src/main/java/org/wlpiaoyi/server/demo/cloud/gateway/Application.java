@@ -38,11 +38,11 @@ public class Application implements ApplicationContextAware, BeanFactoryPostProc
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-//        ApplicationInitializer.SpringUtilsBuilder.build().setBeanFactory(beanFactory);
+        ApplicationInitializer.SpringUtilsBuilder.build().setBeanFactory(beanFactory);
     }
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-//        ApplicationInitializer.SpringUtilsBuilder.build().setApplicationContext(applicationContext);
+        ApplicationInitializer.SpringUtilsBuilder.build().setApplicationContext(applicationContext);
     }
 
 }

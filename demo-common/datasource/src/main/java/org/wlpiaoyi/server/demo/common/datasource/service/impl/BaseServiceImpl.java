@@ -6,11 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.reflect.ClassModel;
-import org.wlpiaoyi.server.demo.common.core.utils.SpringUtils;
+import org.wlpiaoyi.server.demo.common.tools.utils.SpringUtils;
 import org.wlpiaoyi.server.demo.common.datasource.domain.entity.BaseEntity;
 import org.wlpiaoyi.server.demo.common.datasource.domain.entity.CommonEntity;
 import org.wlpiaoyi.server.demo.common.datasource.service.IBaseService;
-import org.wlpiaoyi.server.demo.common.core.utils.IdUtils;
+import org.wlpiaoyi.server.demo.common.tools.utils.IdUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -12,7 +12,7 @@ import java.util.*;
  * {@code @date:}           2023/12/8 11:55
  * {@code @version:}:       1.0
  */
-public class ModelWrapper extends org.wlpiaoyi.server.demo.common.core.tools.ModelWrapper {
+public class ModelWrapper extends org.wlpiaoyi.server.demo.common.tools.web.model.ModelWrapper {
 
     public static <T> IPage<T> parseForPage(IPage orgPage, Class<T> resClazz) {
         if(orgPage == null){

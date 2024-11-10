@@ -12,12 +12,12 @@ import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
 import org.wlpiaoyi.framework.utils.security.SignVerify;
-import org.wlpiaoyi.server.demo.common.core.utils.WebUtils;
-import org.wlpiaoyi.server.demo.common.core.web.domain.DoFilterEnum;
+import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.DoFilterEnum;
 import org.wlpiaoyi.server.demo.common.core.web.support.WebSupport;
 import org.wlpiaoyi.server.demo.common.core.response.ResponseUtils;
 import org.wlpiaoyi.server.demo.common.core.response.ResponseWrapper;
-import org.wlpiaoyi.server.demo.common.core.web.domain.WebError;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.WebError;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -37,7 +37,7 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
      * TODO
      * </p>
      *
-     * <p><b>@param</b> <b></b>
+     * <p><b>{@code @param}</b> <b></b>
      * {@link }
      * </p>
      *
@@ -58,11 +58,11 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
      * 非对称加密
      * </p>
      *
-     * <p><b>@param</b> <b>request</b>
+     * <p><b>{@code @param}</b> <b>request</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>response</b>
+     * <p><b>{@code @param}</b> <b>response</b>
      * {@link HttpServletResponse}
      * </p>
      *
@@ -77,11 +77,11 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
      * 数据签名
      * </p>
      *
-     * <p><b>@param</b> <b>request</b>
+     * <p><b>{@code @param}</b> <b>request</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>response</b>
+     * <p><b>{@code @param}</b> <b>response</b>
      * {@link HttpServletResponse}
      * </p>
      *
@@ -96,7 +96,7 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
      * TODO
      * </p>
      *
-     * <p><b>@param</b> <b>token</b>
+     * <p><b>{@code @param}</b> <b>token</b>
      * {@link String}
      * </p>
      *
@@ -111,15 +111,15 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
      * 加密 Response Body
      * </p>
      *
-     * <p><b>@param</b> <b>respWrapper</b>
+     * <p><b>{@code @param}</b> <b>respWrapper</b>
      * {@link ResponseWrapper}
      * </p>
      *
-     * <p><b>@param</b> <b>servletResponse</b>
+     * <p><b>{@code @param}</b> <b>servletResponse</b>
      * {@link ServletResponse}
      * </p>
      *
-     * <p><b>@param</b> <b>aes</b>
+     * <p><b>{@code @param}</b> <b>aes</b>
      * {@link Aes}
      * </p>
      *

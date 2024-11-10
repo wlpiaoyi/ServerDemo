@@ -21,7 +21,7 @@ public interface AccessMapper extends BaseMapper<Access> {
      * 查询指定角色的数据权限
      * </p>
      *
-     * <p><b>@param</b> <b>roleId</b>
+     * <p><b>{@code @param}</b> <b>roleId</b>
      * {@link Long}
      * </p>
      *
@@ -36,11 +36,11 @@ public interface AccessMapper extends BaseMapper<Access> {
      * 新增角色数据权限
      * </p>
      *
-     * <p><b>@param</b> <b>roleId</b>
+     * <p><b>{@code @param}</b> <b>roleId</b>
      * {@link Long}
      * </p>
      *
-     * <p><b>@param</b> <b>accessIds</b>
+     * <p><b>{@code @param}</b> <b>accessIds</b>
      * {@link List<Long>}
      * </p>
      *
@@ -55,11 +55,11 @@ public interface AccessMapper extends BaseMapper<Access> {
      * 删除角色数据权限
      * </p>
      *
-     * <p><b>@param</b> <b>roleId</b>
+     * <p><b>{@code @param}</b> <b>roleId</b>
      * {@link Long}
      * </p>
      *
-     * <p><b>@param</b> <b>accessId</b>
+     * <p><b>{@code @param}</b> <b>accessId</b>
      * {@link Long}
      * </p>
      *

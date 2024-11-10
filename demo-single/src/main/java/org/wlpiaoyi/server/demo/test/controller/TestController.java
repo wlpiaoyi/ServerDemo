@@ -2,6 +2,7 @@ package org.wlpiaoyi.server.demo.test.controller;
 
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +10,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
-import org.wlpiaoyi.server.demo.common.core.response.R;
-import org.wlpiaoyi.server.demo.common.core.web.annotation.Decrypt;
-import org.wlpiaoyi.server.demo.common.core.web.annotation.Encrypt;
-import org.wlpiaoyi.server.demo.common.core.web.annotation.Idempotence;
+import org.wlpiaoyi.server.demo.common.tools.web.model.R;
+import org.wlpiaoyi.server.demo.common.tools.web.annotation.Decrypt;
+import org.wlpiaoyi.server.demo.common.tools.web.annotation.Encrypt;
 
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * <p><b>{@code @author:}</b>wlpiaoyi</p>
@@ -25,26 +24,24 @@ import java.util.concurrent.TimeUnit;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/test")
+@RequestMapping("/nacos/v1/auth")
 public class TestController {
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    @PostMapping("/auth/login")
-    @Idempotence
-    @Encrypt
-    @Decrypt
+    @PostMapping("/users/login")
     @ApiOperationSupport(order = 1)
     @Operation(summary = "授权令牌")
-    public R authLogin(@RequestHeader String token, @RequestBody Map body, HttpServletResponse response) {
-        this.redisTemplate.opsForValue().set(token, System.currentTimeMillis() + "", 5, TimeUnit.MINUTES);
-        body.put("currentTimeMillis", System.currentTimeMillis());
-        if(body.containsKey("error")){
-            throw new BusinessException(body.get("error").toString());
-        }
-        response.setHeader("abc","123");
-        return R.success(body);
+    public R authLogin(@RequestParam String username,@RequestParam String password, HttpServletRequest request, HttpServletResponse response) {
+//        request.getHeader(ContentType)
+//        this.redisTemplate.opsForValue().set(token, System.currentTimeMillis() + "", 5, TimeUnit.MINUTES);
+//        body.put("currentTimeMillis", System.currentTimeMillis());
+//        if(body.containsKey("error")){
+//            throw new BusinessException(body.get("error").toString());
+//        }
+//        response.setHeader("abc","123");
+        return R.success(null);
     }
 
     @Encrypt

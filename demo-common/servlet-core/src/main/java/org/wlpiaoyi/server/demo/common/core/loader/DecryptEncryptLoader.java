@@ -3,8 +3,8 @@ package org.wlpiaoyi.server.demo.common.core.loader;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.AnnotationUtils;
-import org.wlpiaoyi.server.demo.common.core.web.annotation.Decrypt;
-import org.wlpiaoyi.server.demo.common.core.web.annotation.Encrypt;
+import org.wlpiaoyi.server.demo.common.tools.web.annotation.Decrypt;
+import org.wlpiaoyi.server.demo.common.tools.web.annotation.Encrypt;
 import org.wlpiaoyi.server.demo.common.core.web.support.impl.encrypt.DecryptUriSet;
 import org.wlpiaoyi.server.demo.common.core.web.support.impl.encrypt.EncryptUriSet;
 

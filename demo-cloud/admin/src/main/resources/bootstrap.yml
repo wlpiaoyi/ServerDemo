@@ -1,12 +1,13 @@
 nacos:
   server-address: 127.0.0.1:8848
-  username: nacos
-  password: nacos
+  username: demo
+  password: demo
   # 是否为临时实例，默认为 true
   ephemeral: true
   namespace: demo
   group: local
   file-extension: yaml
+
 
 # Tomcat
 server:
@@ -91,3 +92,14 @@ spring:
 #            groupId: DEFAULT_GROUP
 #            data-type: json
 #            rule-type: gw-flow
+
+wlpiaoyi:
+  ee:
+    cors:
+      data:
+        charset_name: 'UTF-8'
+        snowflake:
+          workerId: 1
+          datacenterId: 1
+          timerEpoch: 1729087588173
+

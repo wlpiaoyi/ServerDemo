@@ -21,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Example1Ro {
     @Data
     @Schema(description = "测试用的表格 请求实例")
-	public static class Query extends org.wlpiaoyi.server.demo.common.core.request.Query implements Serializable {
+	public static class Query extends org.wlpiaoyi.server.demo.common.tools.web.model.Query implements Serializable {
 
         private static final long serialVersionUID = 1L;
 

@@ -1,11 +1,11 @@
 nacos:
-  server-address: 127.0.0.1:8848
-  username: nacos
-  password: nacos
+  server-address: 192.168.1.139:8848
+  username: demo
+  password: demo
   # 是否为临时实例，默认为 true
   ephemeral: true
   namespace: demo
-  group: local
+  group: DEFAULT_GROUP
   file-extension: yaml
 
 # Tomcat
@@ -43,8 +43,8 @@ spring:
         ephemeral: ${nacos.ephemeral}
 #        group: ${nacos.group} # 使用的 Nacos 配置分组，默认为 DEFAULT_GROUP
       config:
-        bootstrap:
-          enable: true
+#        bootstrap:
+#          enable: true
         # 服务注册地址
         server-addr: ${nacos.server-address}
         # 用户名

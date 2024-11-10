@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.wlpiaoyi.framework.utils.data.DataUtils;
 import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
-import org.wlpiaoyi.server.demo.common.core.utils.WebUtils;
+import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
 import org.wlpiaoyi.server.demo.common.core.web.support.impl.encrypt.DecryptUriSet;
 
 import java.util.HashSet;

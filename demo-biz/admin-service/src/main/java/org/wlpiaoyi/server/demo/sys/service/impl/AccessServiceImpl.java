@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
-import org.wlpiaoyi.server.demo.common.core.utils.IdUtils;
+import org.wlpiaoyi.server.demo.common.tools.utils.IdUtils;
 import org.wlpiaoyi.server.demo.common.core.web.support.impl.access.AccessUriSet;
 import org.wlpiaoyi.server.demo.common.datasource.service.impl.BaseServiceImpl;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Access;

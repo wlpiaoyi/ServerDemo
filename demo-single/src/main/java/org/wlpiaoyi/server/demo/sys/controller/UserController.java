@@ -15,16 +15,16 @@ import org.wlpiaoyi.server.demo.sys.domain.ro.UserRo;
 import org.wlpiaoyi.server.demo.sys.service.IUserService;
 import org.wlpiaoyi.server.demo.sys.domain.vo.UserVo;
 import org.wlpiaoyi.server.demo.common.datasource.tools.ModelWrapper;
-import org.wlpiaoyi.server.demo.common.core.response.R;
+import org.wlpiaoyi.server.demo.common.tools.web.model.R;
 import org.wlpiaoyi.server.demo.common.datasource.tools.Condition;
 import org.springframework.web.bind.annotation.*;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 
 import jakarta.validation.Valid;
-import org.wlpiaoyi.server.demo.common.core.web.annotation.Decrypt;
-import org.wlpiaoyi.server.demo.common.core.web.annotation.Encrypt;
-import org.wlpiaoyi.server.demo.common.core.web.annotation.Idempotence;
-import org.wlpiaoyi.server.demo.common.core.web.annotation.PreAuthorize;
+import org.wlpiaoyi.server.demo.common.tools.web.annotation.Decrypt;
+import org.wlpiaoyi.server.demo.common.tools.web.annotation.Encrypt;
+import org.wlpiaoyi.server.demo.common.tools.web.annotation.Idempotence;
+import org.wlpiaoyi.server.demo.common.tools.web.annotation.PreAuthorize;
 
 /**
  * {@code @author:} 		wlpia:WLPIAOYI-PC

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.wlpiaoyi.framework.utils.data.DataUtils;
-import org.wlpiaoyi.server.demo.common.core.web.annotation.Idempotence;
+import org.wlpiaoyi.server.demo.common.tools.web.annotation.Idempotence;
 import org.wlpiaoyi.server.demo.common.core.web.support.impl.idempotence.IdempotenceUriSet;
 
 import java.util.HashMap;

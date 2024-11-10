@@ -19,7 +19,7 @@ public interface RoleMapper extends BaseMapper<Role> {
      * 查询指定User的角色
      * </p>
      *
-     * <p><b>@param</b> <b>userIds</b>
+     * <p><b>{@code @param}</b> <b>userIds</b>
      * {@link List<Long>}
      * </p>
      *
@@ -34,11 +34,11 @@ public interface RoleMapper extends BaseMapper<Role> {
      * 新增用户角色
      * </p>
      *
-     * <p><b>@param</b> <b>userId</b>
+     * <p><b>{@code @param}</b> <b>userId</b>
      * {@link Long}
      * </p>
      *
-     * <p><b>@param</b> <b>roleIds</b>
+     * <p><b>{@code @param}</b> <b>roleIds</b>
      * {@link List< Long>}
      * </p>
      *
@@ -53,11 +53,11 @@ public interface RoleMapper extends BaseMapper<Role> {
      * 删除用户角色
      * </p>
      *
-     * <p><b>@param</b> <b>userId</b>
+     * <p><b>{@code @param}</b> <b>userId</b>
      * {@link Long}
      * </p>
      *
-     * <p><b>@param</b> <b>roleId</b>
+     * <p><b>{@code @param}</b> <b>roleId</b>
      * {@link Long}
      * </p>
      *

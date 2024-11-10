@@ -1,17 +1,10 @@
 package org.wlpiaoyi.server.demo.cloud.admin.test;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
-import org.springframework.http.server.ServerHttpRequest;
-import org.springframework.http.server.ServletServerHttpRequest;
-import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.web.bind.annotation.*;
 import org.wlpiaoyi.framework.utils.exception.SystemException;
-import org.wlpiaoyi.server.demo.common.core.response.R;
-import org.wlpiaoyi.server.demo.common.core.web.annotation.Encrypt;
-import org.wlpiaoyi.server.demo.common.core.web.annotation.Idempotence;
+import org.wlpiaoyi.server.demo.common.tools.web.model.R;
 
 import java.util.HashMap;
 import java.util.Iterator;

@@ -3,7 +3,7 @@ package org.wlpiaoyi.server.demo.common.core.loader;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.AnnotationUtils;
-import org.wlpiaoyi.server.demo.common.core.web.annotation.Idempotence;
+import org.wlpiaoyi.server.demo.common.tools.web.annotation.Idempotence;
 import org.wlpiaoyi.server.demo.common.core.web.support.impl.idempotence.IdempotenceUriSet;
 
 import java.lang.reflect.Method;

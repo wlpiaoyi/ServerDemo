@@ -6,10 +6,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
-import org.wlpiaoyi.server.demo.common.core.utils.WebUtils;
-import org.wlpiaoyi.server.demo.common.core.web.domain.DoFilterEnum;
+import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.DoFilterEnum;
 import org.wlpiaoyi.server.demo.common.core.web.support.WebSupport;
-import org.wlpiaoyi.server.demo.common.core.web.domain.WebError;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.WebError;
 
 import java.io.IOException;
 import java.util.Map;
@@ -29,11 +29,11 @@ public abstract class CensorSupport implements WebSupport<HttpServletRequest, Ht
      * 令牌审查
      * </p>
      *
-     * <p><b>@param</b> <b>servletRequest</b>
+     * <p><b>{@code @param}</b> <b>servletRequest</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>servletResponse</b>
+     * <p><b>{@code @param}</b> <b>servletResponse</b>
      * {@link HttpServletResponse}
      * </p>
      *

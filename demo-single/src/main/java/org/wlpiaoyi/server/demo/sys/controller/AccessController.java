@@ -10,7 +10,7 @@ import org.wlpiaoyi.server.demo.sys.domain.ro.AccessRo;
 import org.wlpiaoyi.server.demo.sys.service.IAccessService;
 import org.wlpiaoyi.server.demo.sys.domain.vo.AccessVo;
 import org.wlpiaoyi.server.demo.common.datasource.tools.ModelWrapper;
-import org.wlpiaoyi.server.demo.common.core.response.R;
+import org.wlpiaoyi.server.demo.common.tools.web.model.R;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

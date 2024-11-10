@@ -9,11 +9,11 @@ import org.springframework.core.annotation.Order;
 import org.wlpiaoyi.framework.utils.MapUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.gson.GsonBuilder;
-import org.wlpiaoyi.server.demo.common.core.response.R;
+import org.wlpiaoyi.server.demo.common.tools.web.model.R;
 import org.wlpiaoyi.server.demo.common.core.response.ResponseUtils;
 import org.wlpiaoyi.server.demo.common.core.response.ResponseWrapper;
-import org.wlpiaoyi.server.demo.common.core.utils.WebUtils;
-import org.wlpiaoyi.server.demo.common.core.web.domain.DoFilterEnum;
+import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.DoFilterEnum;
 import org.wlpiaoyi.server.demo.common.core.web.support.WebSupport;
 
 import java.io.IOException;
@@ -71,7 +71,7 @@ public abstract class WebBaseFilter implements Filter {
         }
         if(webSupports != null && !webSupports.isEmpty()){
             for (WebSupport webSupport : webSupports){
-                if(!WebUtils.patternUri(webSupport.getRequestURI(request),webSupport.getURIRegexes())){
+                if(!WebUtils.mathPath(webSupport.getRequestURI(request),webSupport.getURIRegexes())){
                     continue;
                 }
                 int res = DoFilterEnum.Unknown.getValue();
@@ -151,7 +151,7 @@ public abstract class WebBaseFilter implements Filter {
         }
         R r = R.data(code, e.getMessage());
 
-        if(finalDos == null || !WebUtils.patternUri(finalDos.getRequestURI(request),finalDos.getURIRegexes())){
+        if(finalDos == null || !WebUtils.mathPath(finalDos.getRequestURI(request),finalDos.getURIRegexes())){
             ResponseUtils.prepareHeader(servletRequest, servletResponse);
             ResponseUtils.writeResponseData(code, r, servletResponse);
             return;

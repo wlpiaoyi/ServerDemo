@@ -13,19 +13,19 @@ public interface IdempotenceMoon {
      * TODO
      * </p>
      *
-     * <p><b>@param</b> <b>key</b>
+     * <p><b>{@code @param}</b> <b>key</b>
      * {@link String}
      * </p>
      *
-     * <p><b>@param</b> <b>duriSecond</b>
+     * <p><b>{@code @param}</b> <b>duriSecond</b>
      * {@link int}
      * </p>
      *
-     * <p><b>@param</b> <b>count</b>
+     * <p><b>{@code @param}</b> <b>count</b>
      * {@link int}
      * </p>
      *
-     * <p><b>@param</b> <b>deadLockMinutes</b>
+     * <p><b>{@code @param}</b> <b>deadLockMinutes</b>
      * {@link int}
      * </p>
      *

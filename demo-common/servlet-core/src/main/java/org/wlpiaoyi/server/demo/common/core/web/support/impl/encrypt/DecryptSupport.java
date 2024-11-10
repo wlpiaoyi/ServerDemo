@@ -8,9 +8,9 @@ import org.wlpiaoyi.framework.utils.data.DataUtils;
 import org.wlpiaoyi.framework.utils.encrypt.aes.Aes;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
-import org.wlpiaoyi.server.demo.common.core.utils.WebUtils;
-import org.wlpiaoyi.server.demo.common.core.web.domain.DoFilterEnum;
-import org.wlpiaoyi.server.demo.common.core.web.domain.WebError;
+import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.DoFilterEnum;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.WebError;
 import org.wlpiaoyi.server.demo.common.core.web.support.WebSupport;
 import org.wlpiaoyi.server.demo.common.core.request.RequestWrapper;
 
@@ -33,7 +33,7 @@ public abstract class DecryptSupport  implements WebSupport<HttpServletRequest, 
      * TODO
      * </p>
      *
-     * <p><b>@param</b> <b></b>
+     * <p><b>{@code @param}</b> <b></b>
      * {@link }
      * </p>
      *
@@ -55,11 +55,11 @@ public abstract class DecryptSupport  implements WebSupport<HttpServletRequest, 
      * 构建对称加密
      * </p>
      *
-     * <p><b>@param</b> <b>request</b>
+     * <p><b>{@code @param}</b> <b>request</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>response</b>
+     * <p><b>{@code @param}</b> <b>response</b>
      * {@link HttpServletResponse}
      * </p>
      *
@@ -74,11 +74,11 @@ public abstract class DecryptSupport  implements WebSupport<HttpServletRequest, 
      * 非对称加密
      * </p>
      *
-     * <p><b>@param</b> <b>request</b>
+     * <p><b>{@code @param}</b> <b>request</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>response</b>
+     * <p><b>{@code @param}</b> <b>response</b>
      * {@link HttpServletResponse}
      * </p>
      *
@@ -93,11 +93,11 @@ public abstract class DecryptSupport  implements WebSupport<HttpServletRequest, 
      * 解密 Request Body
      * </p>
      *
-     * <p><b>@param</b> <b>reqWrapper</b>
+     * <p><b>{@code @param}</b> <b>reqWrapper</b>
      * {@link RequestWrapper}
      * </p>
      *
-     * <p><b>@param</b> <b>aes</b>
+     * <p><b>{@code @param}</b> <b>aes</b>
      * {@link Aes}
      * </p>
      *

@@ -17,28 +17,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.wlpiaoyi.framework</groupId>
-            <artifactId>utils</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.wlpiaoyi.server.demo.common</groupId>
+            <artifactId>tools</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!-- swagger3工具 -->
-        <dependency>
-            <groupId>io.swagger.core.v3</groupId> <!-- 接口文档：使用最新版本的 Swagger 模型 -->
-            <artifactId>swagger-annotations</artifactId>
-            <!-- <scope>provided</scope> &lt;!&ndash; 设置为 provided，主要是 PageParam 使用到 &ndash;&gt;-->
-        </dependency>
-        <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
         </dependency>
     </dependencies>
 

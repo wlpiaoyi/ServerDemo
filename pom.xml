@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.3</version>
+        <version>3.3.5</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
@@ -36,7 +36,7 @@
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
 
 
-        <spring.boot.version>3.3.3</spring.boot.version>
+        <spring.boot.version>3.3.5</spring.boot.version>
 <!--        <spring.boot.version>3.1.11</spring.boot.version>-->
         <!-- <spring.platform.version>Cairo-SR8</spring.platform.version>-->
         <jakarta.servlet-api.version>6.1.0-M2</jakarta.servlet-api.version>
@@ -44,10 +44,13 @@
         <commons.fileupload.version>1.5</commons.fileupload.version>
         <!-- 微服务 -->
         <spring.cloud.version>2023.0.3</spring.cloud.version>
-        <spring.cloud.alibaba.version>2023.0.1.2</spring.cloud.alibaba.version>
+        <spring.cloud.alibaba.version>2023.0.1.3</spring.cloud.alibaba.version>
 <!--        <spring.cloud.version>2021.0.3</spring.cloud.version>-->
 <!--        <spring.cloud.alibaba.version>2021.0.5.0</spring.cloud.alibaba.version>-->
 <!--        <spring.boot.starter.security.version>3.2.5</spring.boot.starter.security.version>-->
+
+        <jjwt.version>0.9.1</jjwt.version>
+        <java.xml.version>2.3.1</java.xml.version>
 
         <!-- Swagger.V3 -->
         <springdoc-openapi-ui.version>1.8.0</springdoc-openapi-ui.version>
@@ -119,6 +122,17 @@
 <!--                <artifactId>spring-boot-starter-security</artifactId>-->
 <!--                <version>${spring.boot.starter.security.version}</version>-->
 <!--            </dependency>-->
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${java.xml.version}</version>
+            </dependency>
             <!--io常用工具类 -->
             <dependency>
                 <groupId>commons-io</groupId>
@@ -134,7 +148,7 @@
             <dependency>
                 <groupId>org.wlpiaoyi.framework.ee</groupId>
                 <artifactId>utils</artifactId>
-                <version>${ee.project.version}</version>
+                <version>${fw.project.version}</version>
             </dependency>
             <!-- 数据库 -->
             <dependency>
@@ -209,6 +223,11 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.wlpiaoyi.server.demo.common</groupId>
+                <artifactId>tools</artifactId>
+                <version>1.0.1-DEV-JDK21</version>
             </dependency>
             <dependency>
                 <groupId>org.wlpiaoyi.server.demo.common</groupId>

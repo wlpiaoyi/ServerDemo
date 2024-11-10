@@ -23,11 +23,11 @@ public interface IUserService extends IBaseService<User> {
      * 切换角色
      * </p>
      *
-     * <p><b>@param</b> <b>token</b>
+     * <p><b>{@code @param}</b> <b>token</b>
      * {@link String}
      * </p>
      *
-     * <p><b>@param</b> <b>roleId</b>
+     * <p><b>{@code @param}</b> <b>roleId</b>
      * {@link Long}
      * </p>
      *
@@ -41,11 +41,11 @@ public interface IUserService extends IBaseService<User> {
      * 登录
      * </p>
      *
-     * <p><b>@param</b> <b>token</b>
+     * <p><b>{@code @param}</b> <b>token</b>
      * {@link String}
      * </p>
      *
-     * <p><b>@param</b> <b>auth</b>
+     * <p><b>{@code @param}</b> <b>auth</b>
      * {@link UserRo.UserAuth}
      * </p>
      *
@@ -60,7 +60,7 @@ public interface IUserService extends IBaseService<User> {
      * token续期
      * </p>
      *
-     * <p><b>@param</b> <b>token</b>
+     * <p><b>{@code @param}</b> <b>token</b>
      * {@link String}
      * </p>
      *
@@ -74,7 +74,7 @@ public interface IUserService extends IBaseService<User> {
      * 详情
      * </p>
      *
-     * <p><b>@param</b> <b>id</b>
+     * <p><b>{@code @param}</b> <b>id</b>
      * {@link Long}
      * </p>
      *
@@ -89,11 +89,11 @@ public interface IUserService extends IBaseService<User> {
      * 添加角色
      * </p>
      *
-     * <p><b>@param</b> <b>userId</b>
+     * <p><b>{@code @param}</b> <b>userId</b>
      * {@link Long}
      * </p>
      *
-     * <p><b>@param</b> <b>roleIds</b>
+     * <p><b>{@code @param}</b> <b>roleIds</b>
      * {@link Collection<Long>}
      * </p>
      *
@@ -108,11 +108,11 @@ public interface IUserService extends IBaseService<User> {
      * 删除角色
      * </p>
      *
-     * <p><b>@param</b> <b>userId</b>
+     * <p><b>{@code @param}</b> <b>userId</b>
      * {@link Long}
      * </p>
      *
-     * <p><b>@param</b> <b>roleIds</b>
+     * <p><b>{@code @param}</b> <b>roleIds</b>
      * {@link Collection< Long>}
      * </p>
      *
@@ -127,15 +127,15 @@ public interface IUserService extends IBaseService<User> {
      * 修改角色
      * </p>
      *
-     * <p><b>@param</b> <b>userId</b>
+     * <p><b>{@code @param}</b> <b>userId</b>
      * {@link Long}
      * </p>
      *
-     * <p><b>@param</b> <b>addRoleIds</b>
+     * <p><b>{@code @param}</b> <b>addRoleIds</b>
      * {@link Collection< Long>}
      * </p>
      *
-     * <p><b>@param</b> <b>delRoleIds</b>
+     * <p><b>{@code @param}</b> <b>delRoleIds</b>
      * {@link Collection< Long>}
      * </p>
      *

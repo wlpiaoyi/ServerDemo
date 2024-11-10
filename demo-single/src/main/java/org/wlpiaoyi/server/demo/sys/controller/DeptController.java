@@ -15,7 +15,7 @@ import org.wlpiaoyi.server.demo.sys.domain.ro.DeptRo;
 import org.wlpiaoyi.server.demo.sys.service.IDeptService;
 import org.wlpiaoyi.server.demo.sys.domain.vo.DeptVo;
 import org.wlpiaoyi.server.demo.common.datasource.tools.ModelWrapper;
-import org.wlpiaoyi.server.demo.common.core.response.R;
+import org.wlpiaoyi.server.demo.common.tools.web.model.R;
 import org.wlpiaoyi.server.demo.common.datasource.tools.Condition;
 import org.springframework.web.bind.annotation.*;
 import org.wlpiaoyi.framework.utils.ValueUtils;

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.lang.Nullable;
 import org.wlpiaoyi.framework.utils.ValueUtils;
-import org.wlpiaoyi.server.demo.common.core.request.Query;
+import org.wlpiaoyi.server.demo.common.tools.web.model.Query;
 
 /**
  * {@code @author:}         wlpiaoyi
@@ -35,7 +35,7 @@ public class Condition {
     }
 
     public static <T> IPage<T> getPage(Query query) {
-        Page<T> page = new Page(ValueUtils.toLong(query.getCurrent(), 1L), ValueUtils.toLong(query.getSize(), 10L));
+        Page<T> page = new Page(ValueUtils.toLong(query.getPageNum(), 1L), ValueUtils.toLong(query.getPageSize(), 10L));
         String[] ascArr = ValueUtils.toStringArray(query.getAscs());
         String[] descArr = ascArr;
         int var4 = ascArr.length;

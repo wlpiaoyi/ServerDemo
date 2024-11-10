@@ -9,10 +9,10 @@ import org.wlpiaoyi.framework.utils.StringUtils;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.gson.GsonBuilder;
-import org.wlpiaoyi.server.demo.common.core.utils.WebUtils;
-import org.wlpiaoyi.server.demo.common.core.web.domain.DoFilterEnum;
+import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.DoFilterEnum;
 import org.wlpiaoyi.server.demo.common.core.request.RequestWrapper;
-import org.wlpiaoyi.server.demo.common.core.response.R;
+import org.wlpiaoyi.server.demo.common.tools.web.model.R;
 import org.wlpiaoyi.server.demo.common.core.response.ResponseUtils;
 import org.wlpiaoyi.server.demo.common.core.response.ResponseWrapper;
 import org.wlpiaoyi.server.demo.common.core.web.support.WebSupport;
@@ -65,7 +65,7 @@ public abstract class AuthenticationSupport implements WebSupport<HttpServletReq
     @Override
     public int isSupportExecResponse(HttpServletRequest request, HttpServletResponse response, Map obj) {
         String uri = this.getRequestURI(request);
-        if(WebUtils.patternUri(uri, this.getURIRegexes())){
+        if(WebUtils.mathPath(uri, this.getURIRegexes())){
             return 0;
         }else{
             return WebSupport.super.isSupportExecResponse(request, response, obj);

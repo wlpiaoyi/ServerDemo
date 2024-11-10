@@ -1,6 +1,6 @@
 package org.wlpiaoyi.server.demo.common.core.web.support.impl.idempotence;
 
-import org.wlpiaoyi.server.demo.common.core.web.annotation.Idempotence;
+import org.wlpiaoyi.server.demo.common.tools.web.annotation.Idempotence;
 
 /**
  * <p><b>{@code @author:}</b>         wlpiaoyi</p>

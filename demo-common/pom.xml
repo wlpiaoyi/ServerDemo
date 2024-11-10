@@ -16,6 +16,7 @@
     <name>Common</name>
     <description>常用功能集合</description>
     <modules>
+        <module>tools</module>
         <module>servlet-core</module>
         <module>datasource</module>
         <module>redis</module>

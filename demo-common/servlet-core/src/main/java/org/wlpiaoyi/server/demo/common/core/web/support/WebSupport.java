@@ -2,7 +2,7 @@ package org.wlpiaoyi.server.demo.common.core.web.support;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.wlpiaoyi.server.demo.common.core.web.domain.DoFilterEnum;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.DoFilterEnum;
 
 import java.util.Map;
 
@@ -20,7 +20,7 @@ public interface WebSupport<REQ,RES> {
      * 获取请求的URI
      * </p>
      *
-     * <p><b>@param</b> <b>servletRequest</b>
+     * <p><b>{@code @param}</b> <b>servletRequest</b>
      * {@link REQ}
      * </p>
      *
@@ -36,7 +36,7 @@ public interface WebSupport<REQ,RES> {
      * WebUtils.patternUri("/sys/", new String[]{"(/sys/.*|/test/.*)","(^(?!/test/test2).*$)"})
      * </p>
      *
-     * <p><b>@param</b> <b></b>
+     * <p><b>{@code @param}</b> <b></b>
      * {@link }
      * </p>
      *
@@ -51,7 +51,7 @@ public interface WebSupport<REQ,RES> {
      * 根据之前按的执行结果确定是否执行当前对象
      * </p>
      *
-     * <p><b>@param</b> <b>res</b>
+     * <p><b>{@code @param}</b> <b>res</b>
      * {@link int}
      * </p>
      *
@@ -71,11 +71,11 @@ public interface WebSupport<REQ,RES> {
      *
      * </p>
      *
-     * <p><b>@param</b> <b>request</b>
+     * <p><b>{@code @param}</b> <b>request</b>
      * {@link REQ}
      * </p>
      *
-     * <p><b>@param</b> <b>response</b>
+     * <p><b>{@code @param}</b> <b>response</b>
      * {@link RES}
      * </p>
      *
@@ -98,15 +98,15 @@ public interface WebSupport<REQ,RES> {
      * TODO
      * </p>
      * 
-     * <p><b>@param</b> <b>request</b>
+     * <p><b>{@code @param}</b> <b>request</b>
      * {@link REQ}
      * </p>
      * 
-     * <p><b>@param</b> <b>response</b>
+     * <p><b>{@code @param}</b> <b>response</b>
      * {@link RES}
      * </p>
      * 
-     * <p><b>@param</b> <b>obj</b>
+     * <p><b>{@code @param}</b> <b>obj</b>
      * {@link Map}
      * </p>
      *
@@ -125,23 +125,23 @@ public interface WebSupport<REQ,RES> {
      * TODO
      * </p>
      *
-     * <p><b>@param</b> <b>request</b>
+     * <p><b>{@code @param}</b> <b>request</b>
      * {@link REQ}
      * </p>
      *
-     * <p><b>@param</b> <b>response</b>
+     * <p><b>{@code @param}</b> <b>response</b>
      * {@link RES}
      * </p>
      *
-     * <p><b>@param</b> <b>obj</b>
+     * <p><b>{@code @param}</b> <b>obj</b>
      * {@link Map}
      * </p>
      *
-     * <p><b>@param</b> <b>indexSupport</b>
+     * <p><b>{@code @param}</b> <b>indexSupport</b>
      * {@link int}
      * </p>
      *
-     * <p><b>@param</b> <b>totalSupports</b>
+     * <p><b>{@code @param}</b> <b>totalSupports</b>
      * {@link int}
      * </p>
      *

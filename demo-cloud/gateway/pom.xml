@@ -19,30 +19,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.wlpiaoyi.framework</groupId>
-            <artifactId>utils</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.java-websocket</groupId>
-                    <artifactId>Java-WebSocket</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.vladsch.flexmark</groupId>
-                    <artifactId>flexmark-profile-pegdown</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.vladsch.flexmark</groupId>
-                    <artifactId>flexmark-util</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.vladsch.flexmark</groupId>
-                    <artifactId>flexmark-ext-tables</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.wlpiaoyi.server.demo.common</groupId>
+            <artifactId>tools</artifactId>
         </dependency>
         <!-- Core Common -->
         <dependency>

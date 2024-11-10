@@ -14,7 +14,7 @@ import org.wlpiaoyi.framework.utils.gson.GsonBuilder;
 import org.wlpiaoyi.framework.utils.http.request.Request;
 import org.wlpiaoyi.framework.utils.http.response.Response;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
-import org.wlpiaoyi.server.demo.common.core.utils.WebUtils;
+import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

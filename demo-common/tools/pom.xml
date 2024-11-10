@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.wlpiaoyi.server.demo</groupId>
+        <artifactId>demo-common</artifactId>
+        <version>1.0.1-DEV-JDK21</version>
+    </parent>
+
+    <groupId>org.wlpiaoyi.server.demo.common</groupId>
+    <artifactId>tools</artifactId>
+
+    <properties>
+        <maven.compiler.source>23</maven.compiler.source>
+        <maven.compiler.target>23</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.wlpiaoyi.framework</groupId>
+            <artifactId>utils</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.java-websocket</groupId>
+                    <artifactId>Java-WebSocket</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.vladsch.flexmark</groupId>
+                    <artifactId>flexmark-profile-pegdown</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.vladsch.flexmark</groupId>
+                    <artifactId>flexmark-util</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.vladsch.flexmark</groupId>
+                    <artifactId>flexmark-ext-tables</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- swagger3工具 -->
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId> <!-- 接口文档：使用最新版本的 Swagger 模型 -->
+            <artifactId>swagger-annotations</artifactId>
+            <!-- <scope>provided</scope> &lt;!&ndash; 设置为 provided，主要是 PageParam 使用到 &ndash;&gt;-->
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

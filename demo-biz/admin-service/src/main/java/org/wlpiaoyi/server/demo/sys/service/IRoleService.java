@@ -18,7 +18,7 @@ public interface IRoleService extends IBaseService<Role> {
      * 角色详情
      * </p>
      *
-     * <p><b>@param</b> <b>id</b>
+     * <p><b>{@code @param}</b> <b>id</b>
      * {@link Long}
      * </p>
      *

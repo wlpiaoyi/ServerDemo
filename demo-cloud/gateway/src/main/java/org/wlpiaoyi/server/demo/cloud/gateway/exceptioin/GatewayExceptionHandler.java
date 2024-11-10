@@ -73,21 +73,21 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
      * 设置webflux模型响应
      * </p>
      *
-     * <p><b>@param</b> <b>exchange</b>
+     * <p><b>{@code @param}</b> <b>exchange</b>
      * {@link ServerWebExchange}
      * </p>
      *
-     * <p><b>@param</b> <b>status</b>
+     * <p><b>{@code @param}</b> <b>status</b>
      * {@link HttpStatus}
      * http状态码
      * </p>
      *
-     * <p><b>@param</b> <b>message</b>
+     * <p><b>{@code @param}</b> <b>message</b>
      * {@link String}
      * http状态码
      * </p>
      *
-     * <p><b>@param</b> <b>code</b>
+     * <p><b>{@code @param}</b> <b>code</b>
      * {@link int}
      * 响应状态码
      * </p>

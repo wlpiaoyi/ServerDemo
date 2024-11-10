@@ -65,19 +65,19 @@ public class FileResponse {
      * 分片下载任务处理
      * </p>
      *
-     * <p><b>@param</b> <b>dataInput</b>
+     * <p><b>{@code @param}</b> <b>dataInput</b>
      * {@link BufferedInputStream}
      * </p>
      *
-     * <p><b>@param</b> <b>funcMap</b>
+     * <p><b>{@code @param}</b> <b>funcMap</b>
      * {@link Map}
      * </p>
      *
-     * <p><b>@param</b> <b>request</b>
+     * <p><b>{@code @param}</b> <b>request</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>response</b>
+     * <p><b>{@code @param}</b> <b>response</b>
      * {@link HttpServletResponse}
      * </p>
      *
@@ -182,19 +182,19 @@ public class FileResponse {
      * 根据文件对象下载数据
      * </p>
      *
-     * <p><b>@param</b> <b>file</b>
+     * <p><b>{@code @param}</b> <b>file</b>
      * {@link File}
      * </p>
      *
-     * <p><b>@param</b> <b>funcMap</b>
+     * <p><b>{@code @param}</b> <b>funcMap</b>
      * {@link Map}
      * </p>
      *
-     * <p><b>@param</b> <b>request</b>
+     * <p><b>{@code @param}</b> <b>request</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>response</b>
+     * <p><b>{@code @param}</b> <b>response</b>
      * {@link HttpServletResponse}
      * </p>
      *

@@ -3,7 +3,7 @@ package org.wlpiaoyi.server.demo.common.core.loader;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.AnnotationUtils;
-import org.wlpiaoyi.server.demo.common.core.web.annotation.PreAuthorize;
+import org.wlpiaoyi.server.demo.common.tools.web.annotation.PreAuthorize;
 import org.wlpiaoyi.server.demo.common.core.web.support.impl.access.AccessUriSet;
 
 import java.lang.reflect.Method;
@@ -22,11 +22,11 @@ public class AccessLoader {
      * TODO
      * </p>
      *
-     * <p><b>@param</b> <b>applicationContext</b>
+     * <p><b>{@code @param}</b> <b>applicationContext</b>
      * {@link ApplicationContext}
      * </p>
      *
-     * <p><b>@param</b> <b>accessUriSet</b>
+     * <p><b>{@code @param}</b> <b>accessUriSet</b>
      * {@link AccessUriSet}
      * </p>
      *

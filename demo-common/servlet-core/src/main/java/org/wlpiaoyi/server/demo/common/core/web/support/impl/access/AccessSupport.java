@@ -4,10 +4,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
-import org.wlpiaoyi.server.demo.common.core.utils.WebUtils;
-import org.wlpiaoyi.server.demo.common.core.web.domain.DoFilterEnum;
+import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.DoFilterEnum;
 import org.wlpiaoyi.server.demo.common.core.web.support.WebSupport;
-import org.wlpiaoyi.server.demo.common.core.web.domain.WebError;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.WebError;
 
 import java.util.Map;
 

@@ -6,27 +6,28 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.wlpiaoyi.server.demo.common.tools.loader.ToolsLoader;
 import org.wlpiaoyi.server.demo.sys.cache.RoleCachesService;
 import org.wlpiaoyi.server.demo.sys.cache.UserCachesService;
-import org.wlpiaoyi.server.demo.common.core.utils.SpringUtils;
-import org.wlpiaoyi.server.demo.common.core.utils.WebUtils;
+import org.wlpiaoyi.server.demo.common.tools.utils.SpringUtils;
+import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
 
 
 @Slf4j
 class ApplicationInitializer {
 
-    static class SpringUtilsBuilder extends SpringUtils {
+    static class SpringUtilsBuilder{
         private SpringUtilsBuilder(){}
         static SpringUtilsBuilder build(){
             return new SpringUtilsBuilder();
         }
         SpringUtilsBuilder setBeanFactory(ConfigurableListableBeanFactory beanFactory){
-            SpringUtils.beanFactory = beanFactory;
+            ToolsLoader.setBeanFactory(beanFactory);
             return this;
         }
         SpringUtilsBuilder setApplicationContext(ApplicationContext applicationContext){
-            SpringUtils.applicationContext = applicationContext;
-            SpringUtils.utilsExpand =  new SpringUtilsExpand() {
+            ToolsLoader.setApplicationContext(applicationContext);
+            ToolsLoader.setSpringUtilsExpand(new SpringUtils.SpringUtilsExpand() {
                 private UserCachesService userCachesService;
                 private RoleCachesService roleCachesService;
                 UserCachesService getUserCachesService(){
@@ -56,7 +57,7 @@ class ApplicationInitializer {
                     String token = request.getHeader(WebUtils.HEADER_TOKEN_KEY);
                     return this.getRoleCachesService().getCurAuthRole(token);
                 }
-            };
+            });
             return this;
         }
     }

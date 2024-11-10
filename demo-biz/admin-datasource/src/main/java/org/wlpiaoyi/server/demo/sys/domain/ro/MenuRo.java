@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.wlpiaoyi.server.demo.common.core.request.Query;
+import org.wlpiaoyi.server.demo.common.tools.web.model.Query;
 
 
 /**

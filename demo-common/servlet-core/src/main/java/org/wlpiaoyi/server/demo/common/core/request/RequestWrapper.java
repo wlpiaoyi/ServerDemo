@@ -6,7 +6,7 @@ import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
 import org.springframework.http.HttpHeaders;
-import org.wlpiaoyi.server.demo.common.core.utils.WebUtils;
+import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
 
 import java.io.*;
 import java.util.*;

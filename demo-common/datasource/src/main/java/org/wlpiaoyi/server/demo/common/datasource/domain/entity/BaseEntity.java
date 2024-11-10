@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.wlpiaoyi.server.demo.common.core.web.ConfigModel;
+import org.wlpiaoyi.server.demo.common.tools.web.model.ConfigModel;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -55,7 +55,7 @@ public class BaseEntity implements Serializable {
      * 清理关键数据
      * </p>
      *
-     * <p><b>@param</b> <b></b>
+     * <p><b>{@code @param}</b> <b></b>
      * {@link }
      * </p>
      *

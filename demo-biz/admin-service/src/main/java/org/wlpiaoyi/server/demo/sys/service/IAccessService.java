@@ -21,7 +21,7 @@ public interface IAccessService extends IBaseService<Access> {
      * TODO
      * </p>
      *
-     * <p><b>@param</b> <b>uriSet</b>
+     * <p><b>{@code @param}</b> <b>uriSet</b>
      * {@link AccessUriSet}
      * </p>
      *
@@ -36,7 +36,7 @@ public interface IAccessService extends IBaseService<Access> {
      * 根据角色Id查询数据权限
      * </p>
      *
-     * <p><b>@param</b> <b>roleId</b>
+     * <p><b>{@code @param}</b> <b>roleId</b>
      * {@link Long}
      * </p>
      *
@@ -52,11 +52,11 @@ public interface IAccessService extends IBaseService<Access> {
      * 添加权限
      * </p>
      *
-     * <p><b>@param</b> <b>roleId</b>
+     * <p><b>{@code @param}</b> <b>roleId</b>
      * {@link Long}
      * </p>
      *
-     * <p><b>@param</b> <b>accessIds</b>
+     * <p><b>{@code @param}</b> <b>accessIds</b>
      * {@link Collection < Long>}
      * </p>
      *
@@ -71,15 +71,15 @@ public interface IAccessService extends IBaseService<Access> {
      * 修改数据权限
      * </p>
      *
-     * <p><b>@param</b> <b>roleId</b>
+     * <p><b>{@code @param}</b> <b>roleId</b>
      * {@link Long}
      * </p>
      *
-     * <p><b>@param</b> <b>addAccessIds</b>
+     * <p><b>{@code @param}</b> <b>addAccessIds</b>
      * {@link Collection< Long>}
      * </p>
      *
-     * <p><b>@param</b> <b>delAccessId</b>
+     * <p><b>{@code @param}</b> <b>delAccessId</b>
      * {@link Collection< Long>}
      * </p>
      *
@@ -93,11 +93,11 @@ public interface IAccessService extends IBaseService<Access> {
      * 删除数据权限
      * </p>
      *
-     * <p><b>@param</b> <b>roleId</b>
+     * <p><b>{@code @param}</b> <b>roleId</b>
      * {@link Long}
      * </p>
      *
-     * <p><b>@param</b> <b>accessIds</b>
+     * <p><b>{@code @param}</b> <b>accessIds</b>
      * {@link Collection<Long>}
      * </p>
      *

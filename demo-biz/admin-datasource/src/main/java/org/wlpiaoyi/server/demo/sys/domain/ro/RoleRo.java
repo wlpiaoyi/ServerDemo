@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import org.wlpiaoyi.server.demo.common.core.request.Query;
+import org.wlpiaoyi.server.demo.common.tools.web.model.Query;
 
 import java.io.Serializable;
 

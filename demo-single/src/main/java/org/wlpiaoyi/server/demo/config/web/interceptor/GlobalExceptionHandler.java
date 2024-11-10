@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.wlpiaoyi.server.demo.common.core.response.R;
+import org.wlpiaoyi.server.demo.common.tools.web.model.R;
 
 import java.io.IOException;
 
@@ -34,15 +34,15 @@ public class GlobalExceptionHandler extends org.wlpiaoyi.server.demo.common.core
      * 值范围异常异常处理
      * </p>
      *
-     * <p><b>@param</b> <b>req</b>
+     * <p><b>{@code @param}</b> <b>req</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>resp</b>
+     * <p><b>{@code @param}</b> <b>resp</b>
      * {@link HttpServletResponse}
      * </p>
      *
-     * <p><b>@param</b> <b>exception</b>
+     * <p><b>{@code @param}</b> <b>exception</b>
      * {@link IllegalArgumentException}
      * </p>
      *

@@ -3,8 +3,8 @@ package org.wlpiaoyi.server.demo.common.core.web.support.impl.idempotence;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.wlpiaoyi.server.demo.common.core.web.annotation.Idempotence;
-import org.wlpiaoyi.server.demo.common.core.web.domain.DoFilterEnum;
+import org.wlpiaoyi.server.demo.common.tools.web.annotation.Idempotence;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.DoFilterEnum;
 import org.wlpiaoyi.server.demo.common.core.web.support.WebSupport;
 
 import java.util.Map;

@@ -53,7 +53,7 @@ public class CommonEntity extends BaseEntity{
      * 清理关键数据
      * </p>
      *
-     * <p><b>@param</b> <b></b>
+     * <p><b>{@code @param}</b> <b></b>
      * {@link }
      * </p>
      *

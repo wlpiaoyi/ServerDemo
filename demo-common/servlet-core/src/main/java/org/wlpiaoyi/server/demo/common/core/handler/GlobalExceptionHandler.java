@@ -21,7 +21,7 @@ import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.exception.CatchException;
 import org.wlpiaoyi.framework.utils.exception.SystemException;
-import org.wlpiaoyi.server.demo.common.core.response.R;
+import org.wlpiaoyi.server.demo.common.tools.web.model.R;
 import org.wlpiaoyi.server.demo.common.core.response.ResponseUtils;
 
 import java.io.IOException;
@@ -45,23 +45,23 @@ public class GlobalExceptionHandler {
      * 日志打印
      * </p>
      *
-     * <p><b>@param</b> <b>code</b>
+     * <p><b>{@code @param}</b> <b>code</b>
      * {@link int}
      * </p>
      *
-     * <p><b>@param</b> <b>r</b>
+     * <p><b>{@code @param}</b> <b>r</b>
      * {@link R}
      * </p>
      *
-     * <p><b>@param</b> <b>req</b>
+     * <p><b>{@code @param}</b> <b>req</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>resp</b>
+     * <p><b>{@code @param}</b> <b>resp</b>
      * {@link HttpServletResponse}
      * </p>
      *
-     * <p><b>@param</b> <b>exception</b>
+     * <p><b>{@code @param}</b> <b>exception</b>
      * {@link Exception}
      * </p>
      *
@@ -144,15 +144,15 @@ public class GlobalExceptionHandler {
      * 业务异常处理
      * </p>
      *
-     * <p><b>@param</b> <b>req</b>
+     * <p><b>{@code @param}</b> <b>req</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>resp</b>
+     * <p><b>{@code @param}</b> <b>resp</b>
      * {@link HttpServletResponse}
      * </p>
      *
-     * <p><b>@param</b> <b>exception</b>
+     * <p><b>{@code @param}</b> <b>exception</b>
      * {@link BusinessException}
      * </p>
      *
@@ -171,15 +171,15 @@ public class GlobalExceptionHandler {
      * 系统异常处理
      * </p>
      *
-     * <p><b>@param</b> <b>req</b>
+     * <p><b>{@code @param}</b> <b>req</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>resp</b>
+     * <p><b>{@code @param}</b> <b>resp</b>
      * {@link HttpServletResponse}
      * </p>
      *
-     * <p><b>@param</b> <b>exception</b>
+     * <p><b>{@code @param}</b> <b>exception</b>
      * {@link SystemException}
      * </p>
      *
@@ -199,15 +199,15 @@ public class GlobalExceptionHandler {
      * 例如说，接口上设置了 @RequestParam("xx") 参数，结果并未传递 xx 参数
      * </p>
      *
-     * <p><b>@param</b> <b>req</b>
+     * <p><b>{@code @param}</b> <b>req</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>resp</b>
+     * <p><b>{@code @param}</b> <b>resp</b>
      * {@link HttpServletResponse}
      * </p>
      *
-     * <p><b>@param</b> <b>exception</b>
+     * <p><b>{@code @param}</b> <b>exception</b>
      * {@link MissingServletRequestParameterException}
      * </p>
      *
@@ -227,15 +227,15 @@ public class GlobalExceptionHandler {
      * 例如说，接口上设置了 @RequestParam("xx") 参数为 Integer，结果传递 xx 参数类型为 String
      * </p>
      *
-     * <p><b>@param</b> <b>req</b>
+     * <p><b>{@code @param}</b> <b>req</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>resp</b>
+     * <p><b>{@code @param}</b> <b>resp</b>
      * {@link HttpServletResponse}
      * </p>
      *
-     * <p><b>@param</b> <b>exception</b>
+     * <p><b>{@code @param}</b> <b>exception</b>
      * {@link MethodArgumentTypeMismatchException}
      * </p>
      *
@@ -254,15 +254,15 @@ public class GlobalExceptionHandler {
      * 参数校验不正确
      * </p>
      *
-     * <p><b>@param</b> <b>req</b>
+     * <p><b>{@code @param}</b> <b>req</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>resp</b>
+     * <p><b>{@code @param}</b> <b>resp</b>
      * {@link HttpServletResponse}
      * </p>
      *
-     * <p><b>@param</b> <b>exception</b>
+     * <p><b>{@code @param}</b> <b>exception</b>
      * {@link MethodArgumentNotValidException}
      * </p>
      *
@@ -288,15 +288,15 @@ public class GlobalExceptionHandler {
      * 参数绑定不正确，本质上也是通过 Validator 校验
      * </p>
      *
-     * <p><b>@param</b> <b>req</b>
+     * <p><b>{@code @param}</b> <b>req</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>resp</b>
+     * <p><b>{@code @param}</b> <b>resp</b>
      * {@link HttpServletResponse}
      * </p>
      *
-     * <p><b>@param</b> <b>exception</b>
+     * <p><b>{@code @param}</b> <b>exception</b>
      * {@link BindException}
      * </p>
      *
@@ -321,15 +321,15 @@ public class GlobalExceptionHandler {
      * 处理 Validator 校验不通过产生的异常
      * </p>
      *
-     * <p><b>@param</b> <b>req</b>
+     * <p><b>{@code @param}</b> <b>req</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>resp</b>
+     * <p><b>{@code @param}</b> <b>resp</b>
      * {@link HttpServletResponse}
      * </p>
      *
-     * <p><b>@param</b> <b>exception</b>
+     * <p><b>{@code @param}</b> <b>exception</b>
      * {@link ConstraintViolationException}
      * </p>
      *
@@ -355,15 +355,15 @@ public class GlobalExceptionHandler {
      * 处理 Dubbo Consumer 本地参数校验时，抛出的 ValidationException 异常
      * </p>
      *
-     * <p><b>@param</b> <b>req</b>
+     * <p><b>{@code @param}</b> <b>req</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>resp</b>
+     * <p><b>{@code @param}</b> <b>resp</b>
      * {@link HttpServletResponse}
      * </p>
      *
-     * <p><b>@param</b> <b>exception</b>
+     * <p><b>{@code @param}</b> <b>exception</b>
      * {@link ValidationException}
      * </p>
      *
@@ -383,15 +383,15 @@ public class GlobalExceptionHandler {
      * 来源是，使用 @PreAuthorize 注解，AOP 进行权限拦截
      * </p>
      *
-     * <p><b>@param</b> <b>req</b>
+     * <p><b>{@code @param}</b> <b>req</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>resp</b>
+     * <p><b>{@code @param}</b> <b>resp</b>
      * {@link HttpServletResponse}
      * </p>
      *
-     * <p><b>@param</b> <b>exception</b>
+     * <p><b>{@code @param}</b> <b>exception</b>
      * {@link AccessDeniedException}
      * </p>
      *
@@ -416,15 +416,15 @@ public class GlobalExceptionHandler {
      * 2. spring.static-path-pattern 为 /statics/**
      * </p>
      *
-     * <p><b>@param</b> <b>req</b>
+     * <p><b>{@code @param}</b> <b>req</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>resp</b>
+     * <p><b>{@code @param}</b> <b>resp</b>
      * {@link HttpServletResponse}
      * </p>
      *
-     * <p><b>@param</b> <b>exception</b>
+     * <p><b>{@code @param}</b> <b>exception</b>
      * {@link NoHandlerFoundException}
      * </p>
      *
@@ -445,15 +445,15 @@ public class GlobalExceptionHandler {
      * 例如说，A 接口的方法为 GET 方式，结果请求方法为 POST 方式，导致不匹配
      * </p>
      *
-     * <p><b>@param</b> <b>req</b>
+     * <p><b>{@code @param}</b> <b>req</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>resp</b>
+     * <p><b>{@code @param}</b> <b>resp</b>
      * {@link HttpServletResponse}
      * </p>
      *
-     * <p><b>@param</b> <b>exception</b>
+     * <p><b>{@code @param}</b> <b>exception</b>
      * {@link HttpRequestMethodNotSupportedException}
      * </p>
      *
@@ -481,15 +481,15 @@ public class GlobalExceptionHandler {
      * 系统异常处理
      * </p>
      *
-     * <p><b>@param</b> <b>req</b>
+     * <p><b>{@code @param}</b> <b>req</b>
      * {@link HttpServletRequest}
      * </p>
      *
-     * <p><b>@param</b> <b>resp</b>
+     * <p><b>{@code @param}</b> <b>resp</b>
      * {@link HttpServletResponse}
      * </p>
      *
-     * <p><b>@param</b> <b>exception</b>
+     * <p><b>{@code @param}</b> <b>exception</b>
      * {@link Exception}
      * </p>
      *
