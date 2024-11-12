@@ -8,6 +8,7 @@ import org.springframework.cloud.gateway.filter.factory.rewrite.ModifyRequestBod
 import org.springframework.core.Ordered;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;
+import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
 import reactor.core.publisher.Mono;
 
 /**
@@ -21,18 +22,25 @@ import reactor.core.publisher.Mono;
 public class RequestBodyFilter implements GlobalFilter, Ordered {
 
 
-    private GatewayFilter delegate;
+    private final GatewayFilter delegate;
 
-    public RequestBodyFilter(ModifyRequestBodyGatewayFilterFactory modifyRequestBody, RequestRewrite bodyRewrite) {
-        delegate = modifyRequestBody.apply(new ModifyRequestBodyGatewayFilterFactory.Config()
+    private final String[] decryptPatterns;
+
+    public RequestBodyFilter(ModifyRequestBodyGatewayFilterFactory modifyRequestBody, RequestRewrite bodyRewrite, String[] decryptPatterns) {
+        this.delegate = modifyRequestBody.apply(new ModifyRequestBodyGatewayFilterFactory.Config()
                         .setRewriteFunction(bodyRewrite)
                         .setInClass(byte[].class)
                         .setOutClass(byte[].class));
+        this.decryptPatterns = decryptPatterns;
     }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
+        String path = request.getURI().getPath();
+        if(!WebUtils.mathPath(path, this.decryptPatterns)){
+            return chain.filter(exchange);
+        }
         return delegate.filter(exchange.mutate().request(changeRequest(request)).build(), chain);
     }
 
@@ -44,8 +52,6 @@ public class RequestBodyFilter implements GlobalFilter, Ordered {
     private ServerHttpRequest changeRequest(ServerHttpRequest request) {
         ServerHttpRequest.Builder requestBuilder = request.mutate();
         requestBuilder.header("testFilter", "1");
-        requestBuilder.header("testAdd", "1");
-        requestBuilder.header("testEdit", "2");
         return requestBuilder.build();
     }
 

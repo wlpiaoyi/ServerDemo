@@ -1,13 +1,16 @@
 package org.wlpiaoyi.server.demo.cloud.gateway.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.filter.NettyWriteResponseFilter;
 import org.springframework.cloud.gateway.filter.factory.rewrite.ModifyResponseBodyGatewayFilterFactory;
 import org.springframework.core.Ordered;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;
+import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
 import reactor.core.publisher.Mono;
 
 /**
@@ -21,18 +24,26 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class ResponseBodyFilter implements GlobalFilter, Ordered {
 
-    private GatewayFilter delegate;
+    private final GatewayFilter delegate;
+
+    private final String[] encryptPatterns;
 
     public ResponseBodyFilter(ModifyResponseBodyGatewayFilterFactory modifyResponseBodyGatewayFilterFactory,
-                              ResponseRewrite rewriteFunction) {
-        delegate = modifyResponseBodyGatewayFilterFactory.apply(new ModifyResponseBodyGatewayFilterFactory.Config()
+                              ResponseRewrite rewriteFunction, String[] encryptPatterns) {
+        this.delegate = modifyResponseBodyGatewayFilterFactory.apply(new ModifyResponseBodyGatewayFilterFactory.Config()
                         .setRewriteFunction(rewriteFunction)
                         .setInClass(byte[].class)
                         .setOutClass(byte[].class));
+        this.encryptPatterns = encryptPatterns;
     }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        ServerHttpRequest request = exchange.getRequest();
+        String path = request.getURI().getPath();
+        if(!WebUtils.mathPath(path, this.encryptPatterns)){
+            return chain.filter(exchange);
+        }
         return delegate.filter(exchange, chain);
     }
 

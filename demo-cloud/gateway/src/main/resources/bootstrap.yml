@@ -1,11 +1,11 @@
 nacos:
-  server-address: 192.168.1.139:8848
+  server-address: 127.0.0.1:8848
   username: demo
   password: demo
   # 是否为临时实例，默认为 true
   ephemeral: true
   namespace: demo
-  group: DEFAULT_GROUP
+  group: local
   file-extension: yaml
 
 # Tomcat
@@ -91,3 +91,49 @@ spring:
 #            groupId: DEFAULT_GROUP
 #            data-type: json
 #            rule-type: gw-flow
+#wlpiaoyi:
+#  ee:
+#    rsa:
+#      privateKey:
+#        MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAL/WZ0qP04/DkrwzXYyZUYLsomm7
+#        3OC7J9TiDjaJq90mSBju4vrUXiC8aZGHJ0gU32nTTsC4jTBWI/qpH2r3Nh6e4vYblx7duwHiLLEG
+#        iyg/DWBs9FESplYJQPyuW6+qgdk2N3Bsd3HlIwvDC0XrEMbp0SrhWCuLC3ekY8QXtywJAgMBAAEC
+#        gYACcXXvT9WfRxu0pJLUb5THg2wDcg5mGPwbjKV8XFSBWd4hMymrjXjaweDg/EUBI1g/vh6Kpc8R
+#        MTJUHENM1sksT6x56ApEh0lCeyKDfiSo3lg025jKezsCOV0KX3ihr4uiT0vir/I5sAaGgUkc47Yz
+#        iALftFNNYrdZejB9Q2TgYQJBAOvzdg8QepIbARMvrreSy2veZXoxPbdaSoDyUFZHr5DhNy2iw8Sl
+#        HTF1u9tMDMiZkWvHlsN9N4b8J3KVtj89CWsCQQDQI1xP8taHMQu6pRkCCqjJCgLHUSkGMDMWBzBG
+#        zH0u5ZWvKo7aqO9pLv1bL9WCB2PXrT57zvpZTdKVzWdwxDlbAkAzVhZCstAoR83VEdPOxxaRUqL7
+#        kgkegnuhUJdgHlq5h/bMbBRyDYargzUrQoGph5gXPia0Q+M38FbY3G/5lFsfAkBwAdd3nrMb5aTu
+#        OFKQ6rOSHLUKFf8BuYaEYDH2p6zmQ96deUWPHkJYVFU7cS5w3xE3y59IeUX4MQ0WWIdGBBLpAkB/
+#        8nhUeo8eVsRBcIhtwPl7KcKDryPJ+NwuRdD92ArXbGNtqKUegdMbksjJzFJCglqR+f6yizSJSB10
+#        pQpipaYj
+#      publicKey:
+#        MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/1mdKj9OPw5K8M12MmVGC7KJpu9zguyfU4g42
+#        iavdJkgY7uL61F4gvGmRhydIFN9p007AuI0wViP6qR9q9zYenuL2G5ce3bsB4iyxBosoPw1gbPRR
+#        EqZWCUD8rluvqoHZNjdwbHdx5SMLwwtF6xDG6dEq4Vgriwt3pGPEF7csCQIDAQAB
+#    sign:
+#      privateKey:
+#        MIIBSwIBADCCASwGByqGSM44BAEwggEfAoGBAP1/U4EddRIpUt9KnC7s5Of2EbdSPO9EAMMeP4C2
+#        USZpRV1AIlH7WT2NWPq/xfW6MPbLm1Vs14E7gB00b/JmYLdrmVClpJ+f6AR7ECLCT7up1/63xhv4
+#        O1fnxqimFQ8E+4P208UewwI1VBNaFpEy9nXzrith1yrv8iIDGZ3RSAHHAhUAl2BQjxUjC8yykrmC
+#        ouuEC/BYHPUCgYEA9+GghdabPd7LvKtcNrhXuXmUr7v6OuqC+VdMCz0HgmdRWVeOutRZT+ZxBxCB
+#        gLRJFnEj6EwoFhO3zwkyjMim4TwWeotUfI0o4KOuHiuzpnWRbqN/C/ohNWLx+2J6ASQ7zKTxvqhR
+#        kImog9/hWuWfBpKLZl6Ae1UlZAFMO/7PSSoEFgIUFWp1i12RV4+tMR8q1TlXbu0b+qw=
+#      publicKey:
+#        MIIBtzCCASwGByqGSM44BAEwggEfAoGBAP1/U4EddRIpUt9KnC7s5Of2EbdSPO9EAMMeP4C2USZp
+#        RV1AIlH7WT2NWPq/xfW6MPbLm1Vs14E7gB00b/JmYLdrmVClpJ+f6AR7ECLCT7up1/63xhv4O1fn
+#        xqimFQ8E+4P208UewwI1VBNaFpEy9nXzrith1yrv8iIDGZ3RSAHHAhUAl2BQjxUjC8yykrmCouuE
+#        C/BYHPUCgYEA9+GghdabPd7LvKtcNrhXuXmUr7v6OuqC+VdMCz0HgmdRWVeOutRZT+ZxBxCBgLRJ
+#        FnEj6EwoFhO3zwkyjMim4TwWeotUfI0o4KOuHiuzpnWRbqN/C/ohNWLx+2J6ASQ7zKTxvqhRkImo
+#        g9/hWuWfBpKLZl6Ae1UlZAFMO/7PSSoDgYQAAoGAW2KjsxHHfm1igOPrP//mfptfS5/2qdRw+okO
+#        u5txFnQtTsXSEV1A7+/rj9E/nxCgoyQzpVSaJajhpz/DU20qtFtVkf8HzBmhFniO5SEJRwlziFrf
+#        Yxvy7H2C17T7ccGulfzN2jns1ZWfn9B4cYj4LidpeSuucNJinyIWGr01GU4=
+#    cors:
+#      data:
+#        patterns:
+#          # 解密数据
+#          decrypt:
+#            (/demo-admin/test/sys/.*)
+#          # 加密数据
+#          encrypt:
+#            (/demo-admin/test/sys/.*)
