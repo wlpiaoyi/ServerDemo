@@ -49,4 +49,19 @@ public class TestController {
         }});
     }
 
+
+    @PostMapping("/sys/post")
+    public R sysPost(HttpServletRequest request, @RequestBody Map body) throws SystemException {
+        Map headers = new HashMap<>();
+        Iterator<String> iterator = request.getHeaderNames().asIterator();
+        while (iterator.hasNext()){
+            String headerName = iterator.next();
+            headers.put(headerName, request.getHeader(headerName));
+        }
+        return R.success(new HashMap(){{
+            put("header", headers);
+            put("body", body);
+        }});
+    }
+
 }

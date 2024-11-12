@@ -1,7 +1,7 @@
 nacos:
   server-address: 127.0.0.1:8848
-  username: demo
-  password: demo
+  username: nacos
+  password: nacos
   # 是否为临时实例，默认为 true
   ephemeral: true
   namespace: demo

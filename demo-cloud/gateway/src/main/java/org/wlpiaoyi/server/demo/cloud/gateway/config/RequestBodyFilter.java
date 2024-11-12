@@ -6,10 +6,13 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.filter.NettyWriteResponseFilter;
 import org.springframework.cloud.gateway.filter.factory.rewrite.ModifyRequestBodyGatewayFilterFactory;
 import org.springframework.core.Ordered;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;
 import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
 import reactor.core.publisher.Mono;
+
+import java.util.Locale;
 
 /**
  * <p><b>{@code @author:}</b>wlpiaoyi</p>
@@ -50,8 +53,13 @@ public class RequestBodyFilter implements GlobalFilter, Ordered {
     }
 
     private ServerHttpRequest changeRequest(ServerHttpRequest request) {
+        String contentType = request.getHeaders().get(HttpHeaders.CONTENT_TYPE).get(0);
+        if(!contentType.toUpperCase(Locale.ROOT).startsWith(WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG.toUpperCase(Locale.ROOT))){
+            return request;
+        }
         ServerHttpRequest.Builder requestBuilder = request.mutate();
-        requestBuilder.header("testFilter", "1");
+        contentType = contentType.substring(WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG.length());
+        requestBuilder.header(HttpHeaders.CONTENT_TYPE, contentType);
         return requestBuilder.build();
     }
 

@@ -3,7 +3,9 @@ package org.wlpiaoyi.server.demo.common.tools.utils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.wlpiaoyi.framework.utils.StringUtils;
 import org.wlpiaoyi.framework.utils.ValueUtils;
+import org.wlpiaoyi.framework.utils.data.DataUtils;
 
 import java.util.HashMap;
 
@@ -69,13 +71,14 @@ public class WebUtilsTest {
 
     @Test
     public void jwtTest(){
-        String secretKey = "VGhpc0lzTXlDdXN0b21TZWNyZXRLZXkwMTIzNDU2Nzg=";
+        String secretKey = DataUtils.base64Encode(StringUtils.getUUID32());
         String token = WebUtils.generateJwtToken(new HashMap(){{
-            put("id","123");
+            put("deviceNo","B837A86F11AC84749BD09DAEF23332");
         }},new HashMap(){{
-            put("userName", "a");
-            put("password", "1234");
+            put("userName", "wlpiaoyi");
+            put("roleCode", "1234");
         }}, 300, secretKey);
+        System.out.println("token:" + token);
         WebUtils.isExpiredForToken(token, secretKey);
         WebUtils.getClaimsByToken(token, secretKey);
         WebUtils.getHeaderByToken(token, secretKey);
