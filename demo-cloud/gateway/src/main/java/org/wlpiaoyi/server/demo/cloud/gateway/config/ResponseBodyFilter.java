@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ServerWebExchange;
+import org.wlpiaoyi.server.demo.common.tools.utils.SpringUtils;
 import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
 import reactor.core.publisher.Mono;
 
@@ -31,12 +32,12 @@ public class ResponseBodyFilter implements GlobalFilter, Ordered {
     private final String[] encryptPatterns;
 
     public ResponseBodyFilter(ModifyResponseBodyGatewayFilterFactory modifyResponseBodyGatewayFilterFactory,
-                              ResponseRewrite rewriteFunction, String[] encryptPatterns) {
+                              ResponseRewrite rewriteFunction) {
         this.delegate = modifyResponseBodyGatewayFilterFactory.apply(new ModifyResponseBodyGatewayFilterFactory.Config()
                         .setRewriteFunction(rewriteFunction)
                         .setInClass(byte[].class)
                         .setOutClass(byte[].class));
-        this.encryptPatterns = encryptPatterns;
+        this.encryptPatterns = SpringUtils.resolve("${wlpiaoyi.ee.cors.data.patterns.encrypt}").split(" ");
     }
 
     @Override

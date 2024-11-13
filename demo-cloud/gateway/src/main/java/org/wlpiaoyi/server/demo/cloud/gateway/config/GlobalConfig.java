@@ -23,12 +23,6 @@ import org.wlpiaoyi.framework.utils.security.SignVerify;
 @Configuration
 public class GlobalConfig {
 
-    @Value("${wlpiaoyi.ee.cors.data.patterns.decrypt}")
-    private String[] decryptPatterns;
-
-    @Value("${wlpiaoyi.ee.cors.data.patterns.encrypt}")
-    private String[] encryptPatterns;
-
     /**
      * <p><b>{@code @description:}</b>
      * 数据签名
@@ -111,7 +105,7 @@ public class GlobalConfig {
     @Bean
     @Order(NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 2)   //指定顺序必须在之前
     public GlobalFilter requestFilter(ModifyRequestBodyGatewayFilterFactory modifyRequestBody, RequestRewrite bodyRewrite) {
-        return new RequestBodyFilter(modifyRequestBody, bodyRewrite, this.decryptPatterns);
+        return new RequestBodyFilter(modifyRequestBody, bodyRewrite);
     }
     /**
      * <p><b>{@code @description:}</b>
@@ -133,6 +127,6 @@ public class GlobalConfig {
     @Bean
     @Order(NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 2)   //指定顺序必须在之前
     public GlobalFilter responseFilter(ModifyResponseBodyGatewayFilterFactory modifyResponseBody, ResponseRewrite bodyRewrite) {
-        return new ResponseBodyFilter(modifyResponseBody, bodyRewrite, this.encryptPatterns);
+        return new ResponseBodyFilter(modifyResponseBody, bodyRewrite);
     }
 }

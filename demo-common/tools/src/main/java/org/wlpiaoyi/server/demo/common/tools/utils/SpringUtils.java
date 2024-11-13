@@ -1,9 +1,11 @@
 package org.wlpiaoyi.server.demo.common.tools.utils;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.wlpiaoyi.framework.utils.ValueUtils;
@@ -13,6 +15,7 @@ import org.wlpiaoyi.framework.utils.ValueUtils;
  *
  * @author ruoyi
  */
+@Slf4j
 public class SpringUtils {
 
     @Getter
@@ -98,6 +101,31 @@ public class SpringUtils {
     public static String[] getAliases(String name) throws NoSuchBeanDefinitionException
     {
         return beanFactory.getAliases(name);
+    }
+    /**
+     * <p><b>{@code @description:}</b>
+     * 动态解析yml的值
+     * </p>
+     *
+     * <p><b>{@code @param}</b> <b>value</b>
+     * {@link String}
+     * ${}格式
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2024/11/13 13:25</p>
+     * <p><b>{@code @return:}</b>
+     * {@link String}
+     * 若是解析失败或者未查找到，均返回null
+     * </p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    public static String resolve(String value) {
+        try {
+            return beanFactory.resolveEmbeddedValue(value);
+        }catch (Exception e){
+            log.error("resolve error", e);
+        }
+        return null;
     }
 
     /**

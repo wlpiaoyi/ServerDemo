@@ -9,6 +9,7 @@ import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;
+import org.wlpiaoyi.server.demo.common.tools.utils.SpringUtils;
 import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
 import reactor.core.publisher.Mono;
 
@@ -29,12 +30,12 @@ public class RequestBodyFilter implements GlobalFilter, Ordered {
 
     private final String[] decryptPatterns;
 
-    public RequestBodyFilter(ModifyRequestBodyGatewayFilterFactory modifyRequestBody, RequestRewrite bodyRewrite, String[] decryptPatterns) {
+    public RequestBodyFilter(ModifyRequestBodyGatewayFilterFactory modifyRequestBody, RequestRewrite bodyRewrite) {
         this.delegate = modifyRequestBody.apply(new ModifyRequestBodyGatewayFilterFactory.Config()
                         .setRewriteFunction(bodyRewrite)
                         .setInClass(byte[].class)
                         .setOutClass(byte[].class));
-        this.decryptPatterns = decryptPatterns;
+        this.decryptPatterns = SpringUtils.resolve("${wlpiaoyi.ee.cors.data.patterns.decrypt}").split(" ");
     }
 
     @Override
