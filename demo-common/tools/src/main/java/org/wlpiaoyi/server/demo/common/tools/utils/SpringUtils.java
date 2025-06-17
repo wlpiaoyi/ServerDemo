@@ -5,10 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
+import org.wlpiaoyi.framework.utils.PatternUtils;
+import org.wlpiaoyi.framework.utils.StringUtils;
 import org.wlpiaoyi.framework.utils.ValueUtils;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.AuthRole;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.AuthUser;
+
+import java.util.*;
 
 /**
  * spring工具类 方便在非spring管理环境中获取bean
@@ -21,10 +26,23 @@ public class SpringUtils {
     @Getter
     /** Spring Bean工厂 */
     protected static ConfigurableListableBeanFactory beanFactory;
-
     @Getter
     /** Spring应用上下文环境 */
     protected static ApplicationContext applicationContext;
+    @Getter
+    protected static AuthDomainContext authDomainContext;
+
+    /**
+     * 认证上下文环境
+     * @param <U>
+     * @param <R>
+     */
+    public interface AuthDomainContext<U extends AuthUser,R extends AuthRole>{
+
+        U getSpringUtilsAuthUser();
+        R getSpringUtilsAuthRole();
+
+    }
 
 
     /**
@@ -107,7 +125,7 @@ public class SpringUtils {
      * 动态解析yml的值
      * </p>
      *
-     * <p><b>{@code @param}</b> <b>value</b>
+     * <p><b>{@code @param}</b> <b>key</b>
      * {@link String}
      * ${}格式
      * </p>
@@ -119,13 +137,278 @@ public class SpringUtils {
      * </p>
      * <p><b>{@code @author:}</b>wlpiaoyi</p>
      */
-    public static String resolve(String value) {
+    public static String resolve(String key) {
         try {
-            return beanFactory.resolveEmbeddedValue(value);
+            if(key.startsWith("{")){
+                key = "$" + key;
+            }else if(!key.startsWith("${")){
+                key = "${" + key;
+            }
+            if(!key.endsWith("}")){
+                key = key + "}";
+            }
+            String value = beanFactory.resolveEmbeddedValue(key);
+            if(ValueUtils.isBlank(value)){
+                return null;
+            }
+            if(value.equals(key)){
+                return null;
+            }
+            return value;
         }catch (Exception e){
-            log.error("resolve error", e);
+            log.warn("resolve error: {}", e.getMessage());
         }
         return null;
+    }
+    /**
+     * <p><b>{@code @description:}</b>
+     * 动态解析yml的值
+     * </p>
+     *
+     * <p><b>@param</b> <b>key</b>
+     * {@link String}
+     * </p>
+     *
+     * <p><b>@param</b> <b>regex</b>
+     * {@link String}
+     * </p>
+     *
+     * <p><b>@param</b> <b>tClass</b>
+     * {@link Class<T>}
+     * </p>
+     *
+     * <p><b>@param</b> <b>vDefault</b>
+     * {@link T}
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2025/1/31 15:26</p>
+     * <p><b>{@code @return:}</b>{@link Set<T>}</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    public static <T> Set<T> resolveSet(String key, String regex, Class<T> tClass, T vDefault) {
+        try {
+            String value = resolve(key);
+            if(ValueUtils.isBlank(value)){
+                return null;
+            }
+            if(value.equals(key)){
+                return null;
+            }
+            if(tClass.isAssignableFrom(List.class)){
+                String[] vs = value.split(regex);
+                Set<T> res = new HashSet<>(vs.length);
+                for(String v : vs){
+                    if(v.isEmpty()){
+                        continue;
+                    }
+                    T re = parseResolveValue(value, tClass, vDefault);
+                    if(re == null){
+                        continue;
+                    }
+                    res.add(re);
+                }
+                return res;
+            }
+        }catch (Exception e){
+            log.error("resolve error: {}", e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * <p><b>{@code @description:}</b>
+     * 动态解析yml的值
+     * </p>
+     *
+     * <p><b>@param</b> <b>key</b>
+     * {@link String}
+     * ${}格式
+     * </p>
+     *
+     * <p><b>@param</b> <b>regex</b>
+     * {@link String}
+     * </p>
+     *
+     * <p><b>@param</b> <b>tClass</b>
+     * {@link Class<T>}
+     * </p>
+     *
+     * <p><b>@param</b> <b>vDefault</b>
+     * {@link T}
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2025/1/31 12:55</p>
+     * <p><b>{@code @return:}</b>{@link List<T>}</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    public static <T> List<T> resolveList(String key, String regex, Class<T> tClass, T vDefault) {
+        try {
+            String value = resolve(key);
+            if(ValueUtils.isBlank(value)){
+                return null;
+            }
+            if(value.equals(key)){
+                return null;
+            }
+            if(tClass.isAssignableFrom(List.class)){
+                String[] vs = value.split(regex);
+                List<T> res = new ArrayList<>(vs.length);
+                for(String v : vs){
+                    if(v.isEmpty()){
+                        continue;
+                    }
+                    T re = parseResolveValue(value, tClass, vDefault);
+                    if(re == null){
+                        continue;
+                    }
+                    res.add(re);
+                }
+                return res;
+            }
+        }catch (Exception e){
+            log.error("resolve error: {}", e.getMessage());
+        }
+        return null;
+    }
+    /**
+     * <p><b>{@code @description:}</b>
+     * 动态解析yml的值
+     * </p>
+     *
+     * <p><b>@param</b> <b>key</b>
+     * {@link String}
+     * ${}格式
+     * </p>
+     *
+     * <p><b>@param</b> <b>tClass</b>
+     * {@link Class<T>}
+     * </p>
+     *
+     * <p><b>@param</b> <b>vDefault</b>
+     * {@link T}
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2025/1/31 12:57</p>
+     * <p><b>{@code @return:}</b>{@link T}</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    public static <T> T resolve(String key, Class<T> tClass, T vDefault) {
+        try {
+            String value = resolve(key);
+            if(ValueUtils.isBlank(value)){
+                return vDefault;
+            }
+            if(value.equals(key)){
+                return vDefault;
+            }
+            return parseResolveValue(value, tClass, vDefault);
+        }catch (Exception e){
+            log.warn("resolve error: {}", e.getMessage());
+        }
+        return vDefault;
+    }
+    /**
+     * <p><b>{@code @description:}</b>
+     * 动态解析yml的值
+     * </p>
+     *
+     * <p><b>@param</b> <b>key</b>
+     * {@link String}
+     * ${}格式
+     * </p>
+     *
+     * <p><b>@param</b> <b>vDefault</b>
+     * {@link T}
+     * </p>
+     *
+     * <p><b>{@code @date:}</b>2025/1/31 13:05</p>
+     * <p><b>{@code @return:}</b>{@link T}</p>
+     * <p><b>{@code @author:}</b>wlpiaoyi</p>
+     */
+    public static <T> T resolve(String key, T vDefault) {
+        try {
+            String value = resolve(key);
+            if(ValueUtils.isBlank(value)){
+                return vDefault;
+            }
+            if(value.equals(key)){
+                return vDefault;
+            }
+            return parseResolveValue(value, (Class<T>) vDefault.getClass(), vDefault);
+        }catch (Exception e){
+            log.warn("resolve error: {}", e.getMessage());
+        }
+        return vDefault;
+    }
+    private static <T> T parseResolveValue(String value, Class<T> tClass, T vDefault) {
+        try {
+            if(tClass == String.class){
+                return (T) value;
+            }
+            if(tClass == Boolean.class){
+                if(PatternUtils.isNumber(value) || "true".equals(value.toUpperCase()) || "false".equals(value.toUpperCase())){
+                    return (T) Boolean.valueOf(value);
+                }
+                return vDefault;
+            }
+            if(tClass == Byte.class){
+                if(PatternUtils.isNumber(value)){
+                    return (T) Byte.valueOf(value);
+                }
+                if(PatternUtils.isHexadecimal(value)){
+                    return (T) Byte.valueOf((byte)((Character.digit(value.charAt(0), 16) << 4) + Character.digit(value.charAt(1), 16)));
+                }
+                return vDefault;
+            }
+            if(tClass == Integer.class){
+                if(PatternUtils.isNumber(value)){
+                    return (T) Integer.valueOf(value);
+                }
+                if(PatternUtils.isHexadecimal(value)){
+                    return (T) Integer.valueOf((int) ValueUtils.toLong(ValueUtils.hexToBytes(value)));
+                }
+                return vDefault;
+            }
+            if(tClass == Short.class){
+                if(PatternUtils.isNumber(value)){
+                    return (T) Short.valueOf(value);
+                }
+                if(PatternUtils.isHexadecimal(value)){
+                    return (T) Short.valueOf((short) ValueUtils.toLong(ValueUtils.hexToBytes(value)));
+                }
+                return vDefault;
+            }
+            if(tClass == Long.class){
+                if(PatternUtils.isNumber(value)){
+                    return (T) Long.valueOf(value);
+                }
+                if(PatternUtils.isHexadecimal(value)){
+                    return (T) Long.valueOf(ValueUtils.toLong(ValueUtils.hexToBytes(value)));
+                }
+                return vDefault;
+            }
+            if(tClass == Float.class){
+                if(PatternUtils.isNumber(value)){
+                    return (T) Float.valueOf(value);
+                }
+                if(PatternUtils.isFloat(value)){
+                    return (T) Float.valueOf(value);
+                }
+                return vDefault;
+            }
+            if(tClass == Double.class){
+                if(PatternUtils.isNumber(value)){
+                    return (T) Double.valueOf(value);
+                }
+                if(PatternUtils.isFloat(value)){
+                    return (T) Double.valueOf(value);
+                }
+                return vDefault;
+            }
+        }catch (Exception e){
+            log.warn("resolve error: {}", e.getMessage());
+        }
+        return vDefault;
     }
 
     /**
@@ -185,8 +468,8 @@ public class SpringUtils {
      * <p><b>{@code @return:}</b>{@link Object}</p>
      * <p><b>{@code @author:}</b>wlpiaoyi</p>
      */
-    public static <U> U getAuthUser(){
-        Object res = utilsExpand.getSpringUtilsAuthUser();
+    public static <U extends AuthUser> U getAuthUser(){
+        AuthUser res = authDomainContext.getSpringUtilsAuthUser();
         if(res == null){
             return null;
         }
@@ -206,22 +489,12 @@ public class SpringUtils {
      * <p><b>{@code @return:}</b>{@link R}</p>
      * <p><b>{@code @author:}</b>wlpiaoyi</p>
      */
-    public static <R> R getAuthRole(){
-        Object res = utilsExpand.getSpringUtilsAuthRole();
+    public static <R extends AuthRole> R getAuthRole(){
+        AuthRole res = authDomainContext.getSpringUtilsAuthRole();
         if(res == null){
             return null;
         }
         return (R) res;
-    }
-
-
-    protected static SpringUtilsExpand                                    utilsExpand = null;
-
-    public interface SpringUtilsExpand<U,R>{
-
-        U getSpringUtilsAuthUser();
-        R getSpringUtilsAuthRole();
-
     }
 
 }

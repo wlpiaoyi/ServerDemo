@@ -1,4 +1,4 @@
-package org.wlpiaoyi.server.demo.sys.service.impl;
+package org.wlpiaoyi.server.demo.sys.service._del.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import jakarta.annotation.Resource;
@@ -15,7 +15,7 @@ import org.wlpiaoyi.server.demo.sys.domain.entity.Access;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Role;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.AccessMapper;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.RoleMapper;
-import org.wlpiaoyi.server.demo.sys.service.IAccessService;
+import org.wlpiaoyi.server.demo.sys.service._del.IAccessService;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,4 +1,4 @@
-package org.wlpiaoyi.server.demo.sys.service.impl;
+package org.wlpiaoyi.server.demo.sys.service._del.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.context.annotation.Primary;
@@ -8,7 +8,7 @@ import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.server.demo.common.datasource.service.impl.BaseServiceImpl;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Dept;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.DeptMapper;
-import org.wlpiaoyi.server.demo.sys.service.IDeptService;
+import org.wlpiaoyi.server.demo.sys.service._del.IDeptService;
 
 import java.util.List;
 

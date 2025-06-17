@@ -2,8 +2,6 @@ package org.wlpiaoyi.server.demo.cloud.gateway.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
@@ -19,8 +17,6 @@ import org.wlpiaoyi.framework.utils.security.RsaCipher;
 import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
 import reactor.core.publisher.Mono;
 
-import java.io.ByteArrayOutputStream;
-
 /**
  * <p><b>{@code @author:}</b>wlpiaoyi</p>
  * <p><b>{@code @description:}</b></p>
@@ -29,7 +25,7 @@ import java.io.ByteArrayOutputStream;
  */
 @Slf4j
 @Component
-public class RequestRewrite implements RewriteFunction<byte[], byte[]> {
+public class DataRequestRewrite implements RewriteFunction<byte[], byte[]> {
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -40,7 +36,7 @@ public class RequestRewrite implements RewriteFunction<byte[], byte[]> {
     @SneakyThrows
     private Aes createAes(ServerWebExchange exchange) {
         ServerHttpRequest request = exchange.getRequest();
-        String eSalt = request.getHeaders().get(WebUtils.HEADER_SALT_KEY).get(0);
+        String eSalt = request.getHeaders().get(Common.HEADER_SALT_KEY).get(0);
         String dSalt = new String(this.rsaDecrypt.decrypt(DataUtils.base64Decode(eSalt.getBytes())));
         String[] keys = dSalt.split(",");
         return Aes.create().setKey(keys[0]).setIV(keys[1]).load();

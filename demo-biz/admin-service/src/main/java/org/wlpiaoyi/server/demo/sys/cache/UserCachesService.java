@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class UserCachesService extends CachesService<User> {
 
     @Value("${wlpiaoyi.ee.auth.duri_minutes}")
+
     private int authDuriMinutes;
 
     @Value("${wlpiaoyi.ee.cache.duri_minutes}")

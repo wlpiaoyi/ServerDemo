@@ -13,7 +13,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-
+import org.wlpiaoyi.server.demo.common.tools.web.domain.AuthUser;
 
 
 /**
@@ -50,9 +50,9 @@ public class User extends CommonEntity implements Serializable {
     private Long deptId;
 
     /** 当前角色Id **/
-    @Schema(name = "curRoleId" , description = "当前角色Id")
+    @Schema(name = "roleId" , description = "当前角色Id")
     @NotNull(message = "当前角色Id不能为空")
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long curRoleId;
+    private Long roleId;
 
 }

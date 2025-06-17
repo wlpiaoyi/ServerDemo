@@ -2,14 +2,17 @@ package org.wlpiaoyi.server.demo.cloud.gateway;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
 public class ApplicationListens implements CommandLineRunner, DisposableBean {
 
-
+    protected static ConfigurableListableBeanFactory beanFactory;
+    protected static ApplicationContext applicationContext;
 
     //应用启动成功后的回调
     @Override

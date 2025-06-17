@@ -2,7 +2,7 @@ package org.wlpiaoyi.server.demo.common.tools.web.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.wlpiaoyi.framework.utils.exception.Error;
+import org.wlpiaoyi.framework.utils.exception.ErrorDefine;
 
 /**
  * <p><b>{@code @author:}</b>wlpiaoyi</p>
@@ -12,10 +12,11 @@ import org.wlpiaoyi.framework.utils.exception.Error;
  */
 @Getter
 @AllArgsConstructor
-public enum WebError implements Error {
+public enum ErrorEnum implements ErrorDefine {
 
     UnLogin(402, "Not login"),
     UnAccess(412, "Not access this path"),
+    ModelParse(600, "Model parse error"),
     Unknown(500, "System error");
 
     private int code;

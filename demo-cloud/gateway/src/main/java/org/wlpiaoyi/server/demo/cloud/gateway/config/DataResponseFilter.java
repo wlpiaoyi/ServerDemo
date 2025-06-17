@@ -1,19 +1,16 @@
 package org.wlpiaoyi.server.demo.cloud.gateway.config;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
-import org.springframework.cloud.gateway.filter.NettyWriteResponseFilter;
 import org.springframework.cloud.gateway.filter.factory.rewrite.ModifyResponseBodyGatewayFilterFactory;
 import org.springframework.core.Ordered;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ServerWebExchange;
 import org.wlpiaoyi.server.demo.common.tools.utils.SpringUtils;
 import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
+import org.wlpiaoyi.server.demo.common.tools.web.model.ConfigModel;
 import reactor.core.publisher.Mono;
 
 /**
@@ -25,19 +22,19 @@ import reactor.core.publisher.Mono;
  * <p><b>{@code @version:}:</b>1.0</p>
  */
 @Slf4j
-public class ResponseBodyFilter implements GlobalFilter, Ordered {
+class DataResponseFilter implements GlobalFilter, Ordered {
 
     private final GatewayFilter delegate;
 
     private final String[] encryptPatterns;
 
-    public ResponseBodyFilter(ModifyResponseBodyGatewayFilterFactory modifyResponseBodyGatewayFilterFactory,
-                              ResponseRewrite rewriteFunction) {
+    public DataResponseFilter(ModifyResponseBodyGatewayFilterFactory modifyResponseBodyGatewayFilterFactory,
+                              DataResponseRewrite rewriteFunction) {
         this.delegate = modifyResponseBodyGatewayFilterFactory.apply(new ModifyResponseBodyGatewayFilterFactory.Config()
                         .setRewriteFunction(rewriteFunction)
                         .setInClass(byte[].class)
                         .setOutClass(byte[].class));
-        this.encryptPatterns = SpringUtils.resolve("${wlpiaoyi.ee.cors.data.patterns.encrypt}").split(" ");
+        this.encryptPatterns = SpringUtils.getBean(ConfigModel.class).getEncryptPatterns();
     }
 
     @Override
@@ -52,6 +49,6 @@ public class ResponseBodyFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        return NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 2;
+        return Common.BODY_RESP_FILTER_ORDER;
     }
 }

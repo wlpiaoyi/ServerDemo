@@ -10,6 +10,10 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.ComponentScan;
+import org.wlpiaoyi.server.demo.common.tools.loader.ToolsLoader;
+import org.wlpiaoyi.server.demo.common.tools.utils.SpringUtils;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.AuthRole;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.AuthUser;
 
 /**
  * {@code @author:}         wlpiaoyi
@@ -17,29 +21,35 @@ import org.springframework.context.annotation.ComponentScan;
  * {@code @date:}           2023/9/14 17:40
  * {@code @version:}:       1.0
  */
-//Dspring.config.location=/data/config/application-sms.yml
+//
 @ComponentScan(basePackages = {"org.wlpiaoyi.server.demo"})
 @SpringBootApplication(scanBasePackages = {
         "org.wlpiaoyi.server.demo",
 },exclude = {DataSourceAutoConfiguration.class })
-public class Application implements ApplicationContextAware, BeanFactoryPostProcessor {
+public class Application implements ApplicationContextAware, BeanFactoryPostProcessor{
 
     @PostConstruct
     void started() {
     }
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
-
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-//        ApplicationInitializer.SpringUtilsBuilder.build().setBeanFactory(beanFactory);
-    }
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-//        ApplicationInitializer.SpringUtilsBuilder.build().setApplicationContext(applicationContext);
+        ApplicationListens.beanFactory = beanFactory;
+        if(ApplicationListens.beanFactory != null && ApplicationListens.applicationContext != null){
+            ToolsLoader.setBeanFactory(ApplicationListens.beanFactory);
+            ToolsLoader.setApplicationContext(ApplicationListens.applicationContext);
+        }
     }
 
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        ApplicationListens.applicationContext = applicationContext;
+        if(ApplicationListens.beanFactory != null && ApplicationListens.applicationContext != null){
+            ToolsLoader.setBeanFactory(ApplicationListens.beanFactory);
+            ToolsLoader.setApplicationContext(ApplicationListens.applicationContext);
+        }
+    }
 }

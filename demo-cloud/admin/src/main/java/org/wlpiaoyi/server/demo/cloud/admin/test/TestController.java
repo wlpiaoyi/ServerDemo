@@ -21,7 +21,6 @@ import java.util.Map;
 @RequestMapping("/test")
 public class TestController {
 
-
     @GetMapping("/doing")
     public R doing() throws SystemException {
         return R.success(System.currentTimeMillis());
@@ -32,6 +31,20 @@ public class TestController {
         return R.success(new HashMap(){{
             put("testAdd", testAdd);
             put("testEdit", testEdit);
+        }});
+    }
+
+    @PostMapping("/test/login")
+    public R login(HttpServletRequest request, @RequestBody String body) throws SystemException {
+        Map headers = new HashMap<>();
+        Iterator<String> iterator = request.getHeaderNames().asIterator();
+        while (iterator.hasNext()){
+            String headerName = iterator.next();
+            headers.put(headerName, request.getHeader(headerName));
+        }
+        return R.success(new HashMap(){{
+            put("header", headers);
+            put("body", body);
         }});
     }
 

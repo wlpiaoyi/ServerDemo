@@ -21,10 +21,10 @@ import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
 import org.wlpiaoyi.framework.utils.security.SignVerify;
 import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
+import org.wlpiaoyi.server.demo.common.tools.web.model.ConfigModel;
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
 
 /**
  * <p><b>{@code @author:}</b>wlpiaoyi</p>
@@ -34,7 +34,7 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-public class ResponseRewrite implements RewriteFunction<byte[], byte[]> {
+public class DataResponseRewrite implements RewriteFunction<byte[], byte[]> {
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -45,9 +45,8 @@ public class ResponseRewrite implements RewriteFunction<byte[], byte[]> {
     @Resource(name = "signature.sign")
     private SignVerify signVerify;
 
-    @Value("${wlpiaoyi.ee.cors.data.charset_name}")
-    private String charsetName = StandardCharsets.UTF_8.name();
-
+    @Autowired
+    private ConfigModel configModel;
 
 
     @SneakyThrows
@@ -64,8 +63,8 @@ public class ResponseRewrite implements RewriteFunction<byte[], byte[]> {
             }
         }
         if(ValueUtils.isNotBlank(resContentType)){
-            if(!resContentType.startsWith(WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG)){
-                resContentType = WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG + resContentType + ";charset=" + this.charsetName;
+            if(!resContentType.startsWith(Common.ENCRYPT_CONTENT_TYPE_HEAD_TAG)){
+                resContentType = Common.ENCRYPT_CONTENT_TYPE_HEAD_TAG + resContentType + ";charset=" + this.configModel.getCharsetName();
                 response.getHeaders().set(HttpHeaders.CONTENT_TYPE, resContentType);
             }
         }
@@ -73,7 +72,7 @@ public class ResponseRewrite implements RewriteFunction<byte[], byte[]> {
         String iv = StringUtils.getUUID32().substring(0, 16);
         String dSalt = key + "," + iv;
         String eSalt = new String(DataUtils.base64Encode(this.rsaEncrypt.encrypt(dSalt.getBytes(StandardCharsets.UTF_8))));
-        response.getHeaders().set(WebUtils.HEADER_SALT_KEY, eSalt);
+        response.getHeaders().set(Common.HEADER_SALT_KEY, eSalt);
         String[] keys = dSalt.split(",");
         return Aes.create().setKey(keys[0]).setIV(keys[1]).load();
     }
@@ -85,7 +84,6 @@ public class ResponseRewrite implements RewriteFunction<byte[], byte[]> {
 //            Map respBody = objectMapper.readValue(bytes, Map.class);
 //            respBody.put("respChange", "test");
 //            return Mono.just(objectMapper.writeValueAsBytes(respBody));
-
             Aes aes = this.createAes(exchange);
 
             String sign = null;
@@ -94,7 +92,7 @@ public class ResponseRewrite implements RewriteFunction<byte[], byte[]> {
             }
             if(ValueUtils.isNotBlank(sign)){
                 ServerHttpResponse response = exchange.getResponse();
-                response.getHeaders().set(WebUtils.HEADER_SIGN_KEY, sign);
+                response.getHeaders().set(Common.HEADER_SIGN_KEY, sign);
             }
             return Mono.just(aes.encrypt(bytes));
         } catch (Exception ex) {

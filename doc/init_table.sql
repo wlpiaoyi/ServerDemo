@@ -106,11 +106,15 @@ CREATE TABLE `sys_role` (
   UNIQUE KEY `code_UNIQUE` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='角色';
 
+DROP TABLE IF EXISTS `sys_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sys_user` (
   `id` bigint unsigned NOT NULL,
   `account` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '账号',
   `password` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '密码',
   `dept_id` bigint NOT NULL COMMENT '部门ID',
+  `cur_role_id` bigint DEFAULT NULL COMMENT '当前角色Id',
   `status` int DEFAULT '1' COMMENT '状态',
   `is_deleted` int DEFAULT '0' COMMENT '是否删除',
   `create_user` bigint DEFAULT NULL COMMENT '创建人',
@@ -120,6 +124,7 @@ CREATE TABLE `sys_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户表';
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 CREATE TABLE `sys_user_role_rela` (
   `role_id` bigint NOT NULL,

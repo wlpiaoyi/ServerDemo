@@ -71,12 +71,12 @@ public class WebUtilsTest {
 
     @Test
     public void jwtTest(){
-        String secretKey = DataUtils.base64Encode(StringUtils.getUUID32());
+        String secretKey = new String(DataUtils.base64Encode(DataUtils.hexToBytes(StringUtils.getUUID32())));
+        secretKey = secretKey.substring(0, secretKey.length() - 2);
         String token = WebUtils.generateJwtToken(new HashMap(){{
-            put("deviceNo","B837A86F11AC84749BD09DAEF23332");
+            put("rc","123456");
         }},new HashMap(){{
-            put("userName", "wlpiaoyi");
-            put("roleCode", "1234");
+            put("at", "wlpiaoyi");
         }}, 300, secretKey);
         System.out.println("token:" + token);
         WebUtils.isExpiredForToken(token, secretKey);

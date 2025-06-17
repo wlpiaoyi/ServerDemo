@@ -1,4 +1,4 @@
-package org.wlpiaoyi.server.demo.sys.service.impl;
+package org.wlpiaoyi.server.demo.sys.service._del.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.wlpiaoyi.framework.utils.exception.SystemException;
 import org.wlpiaoyi.server.demo.sys.cache.RoleCachesService;
 import org.wlpiaoyi.server.demo.sys.cache.UserCachesService;
 import org.wlpiaoyi.server.demo.common.tools.utils.SpringUtils;
-import org.wlpiaoyi.server.demo.common.tools.web.domain.WebError;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.ErrorEnum;
 import org.wlpiaoyi.server.demo.common.datasource.service.impl.BaseServiceImpl;
 import org.wlpiaoyi.server.demo.common.datasource.tools.ModelWrapper;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Role;
@@ -25,7 +25,7 @@ import org.wlpiaoyi.server.demo.sys.domain.ro.UserRo;
 import org.wlpiaoyi.server.demo.sys.domain.vo.DeptVo;
 import org.wlpiaoyi.server.demo.sys.domain.vo.RoleVo;
 import org.wlpiaoyi.server.demo.sys.domain.vo.UserVo;
-import org.wlpiaoyi.server.demo.sys.service.IUserService;
+import org.wlpiaoyi.server.demo.sys.service._del.IUserService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -62,7 +62,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     public void switchRole(String token, Long roleId) {
         User authUser = SpringUtils.getAuthUser();
         if(authUser == null){
-            throw new BusinessException(WebError.UnLogin);
+            throw new BusinessException(ErrorEnum.UnLogin);
         }
         User user = new User();
         user.setId(authUser.getId());

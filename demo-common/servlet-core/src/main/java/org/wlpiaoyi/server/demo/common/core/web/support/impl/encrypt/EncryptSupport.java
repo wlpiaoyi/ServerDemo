@@ -17,7 +17,7 @@ import org.wlpiaoyi.server.demo.common.tools.web.domain.DoFilterEnum;
 import org.wlpiaoyi.server.demo.common.core.web.support.WebSupport;
 import org.wlpiaoyi.server.demo.common.core.response.ResponseUtils;
 import org.wlpiaoyi.server.demo.common.core.response.ResponseWrapper;
-import org.wlpiaoyi.server.demo.common.tools.web.domain.WebError;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.ErrorEnum;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -165,7 +165,7 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
             try {
                 respWrapper = new ResponseWrapper(response);
             } catch (IOException e) {
-                throw new BusinessException(WebError.Unknown, e);
+                throw new BusinessException(ErrorEnum.Unknown, e);
             }
             obj.put("response", respWrapper);
             obj.put("encrypt_tag", true);
@@ -225,7 +225,7 @@ public abstract class EncryptSupport implements WebSupport<HttpServletRequest, H
                 try {
                     response.getOutputStream().close();
                 } catch (Exception ex) {}
-                throw new BusinessException(WebError.Unknown, e);
+                throw new BusinessException(ErrorEnum.Unknown, e);
             }
         }
     }

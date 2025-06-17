@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 import java.util.List;
 
+import org.wlpiaoyi.server.demo.common.tools.web.domain.AuthUser;
 import org.wlpiaoyi.server.demo.sys.domain.entity.User;
 
 /**
@@ -15,7 +16,7 @@ import org.wlpiaoyi.server.demo.sys.domain.entity.User;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UserVo extends User implements Serializable {
+public class UserVo extends User implements Serializable, AuthUser<Long> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,4 +36,8 @@ public class UserVo extends User implements Serializable {
 	private List<RoleVo> roles;
 
 
+	@Override
+	public String getRoleCode() {
+		return this.curRole.getCode();
+	}
 }

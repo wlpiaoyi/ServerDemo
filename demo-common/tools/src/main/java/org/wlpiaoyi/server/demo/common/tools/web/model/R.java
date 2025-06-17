@@ -3,6 +3,7 @@ package org.wlpiaoyi.server.demo.common.tools.web.model;
 import lombok.Getter;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.exception.CatchException;
+import org.wlpiaoyi.framework.utils.exception.ErrorDefine;
 import org.wlpiaoyi.framework.utils.exception.SystemException;
 
 /**
@@ -22,23 +23,23 @@ public class R<T> {
     private String message;
 
     public static <T> R<T>  success(T data){
-        return R.data(200, data, "SUCCESS");
+        return R.data(ErrorDefine.BIZ_SUCCESS_CODE, data, "SUCCESS");
     }
 
     public static <T> R<T>  success(T data, String message){
-        return R.data(200, data, message);
+        return R.data(ErrorDefine.BIZ_SUCCESS_CODE, data, message);
     }
 
     public static <T> R<T>  failed(String message){
-        return R.data(501, message);
+        return R.data(ErrorDefine.BIZ_BASE_ERROR_CODE, message);
     }
 
     public static <T> R<T>  failed(T data, String message){
-        return R.data(501, data, message);
+        return R.data(ErrorDefine.BIZ_BASE_ERROR_CODE, data, message);
     }
 
     public static  R<Throwable> error(BusinessException exception){
-        return R.data(200, exception.getCause(), exception.getMessage());
+        return R.data(ErrorDefine.BIZ_SUCCESS_CODE, exception.getCause(), exception.getMessage());
     }
 
     public static  R<Throwable> error(SystemException exception){

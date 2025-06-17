@@ -1,4 +1,4 @@
-package org.wlpiaoyi.server.demo.sys.service;
+package org.wlpiaoyi.server.demo.sys.service._del;
 
 import org.wlpiaoyi.server.demo.common.core.web.support.impl.access.AccessUriSet;
 import org.wlpiaoyi.server.demo.common.datasource.service.IBaseService;

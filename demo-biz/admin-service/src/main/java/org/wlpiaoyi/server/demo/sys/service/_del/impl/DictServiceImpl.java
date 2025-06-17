@@ -1,4 +1,4 @@
-package org.wlpiaoyi.server.demo.sys.service.impl;
+package org.wlpiaoyi.server.demo.sys.service._del.impl;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,7 @@ import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.server.demo.common.datasource.service.impl.BaseServiceImpl;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Dict;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.DictMapper;
-import org.wlpiaoyi.server.demo.sys.service.IDictService;
+import org.wlpiaoyi.server.demo.sys.service._del.IDictService;
 
 
 /**

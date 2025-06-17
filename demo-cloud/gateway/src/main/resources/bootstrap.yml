@@ -5,8 +5,9 @@ nacos:
   # 是否为临时实例，默认为 true
   ephemeral: true
   namespace: demo
-  group: local
+  group: DEFAULT_GROUP
   file-extension: yaml
+
 
 # Tomcat
 server:
@@ -15,11 +16,11 @@ server:
 
 # Spring
 spring:
-#  LOWER_CAMEL_CASE    userName    默认策略
-#  KEBAB_CASE    user-name
-#  LOWER_CASE    username
-#  SNAKE_CASE    user_name
-#  UPPER_CAMEL_CASE    UserName
+  #  LOWER_CAMEL_CASE    userName    默认策略
+  #  KEBAB_CASE    user-name
+  #  LOWER_CASE    username
+  #  SNAKE_CASE    user_name
+  #  UPPER_CAMEL_CASE    UserName
   jackson:
     property-naming-strategy: LOWER_CAMEL_CASE
   application:
@@ -41,7 +42,7 @@ spring:
         namespace: ${nacos.namespace}
         # 是否为临时实例，默认为 true
         ephemeral: ${nacos.ephemeral}
-#        group: ${nacos.group} # 使用的 Nacos 配置分组，默认为 DEFAULT_GROUP
+      #        group: ${nacos.group} # 使用的 Nacos 配置分组，默认为 DEFAULT_GROUP
       config:
         bootstrap:
           enable: true
@@ -53,41 +54,30 @@ spring:
         password: ${nacos.password}
         # 命名空间
         namespace: ${nacos.namespace}
-        # 配置文件格式
+        # 配置文件格式zd
         file-extension: ${nacos.file-extension}
         # 共享配置
         shared-configs:
+          - data-id: ${spring.application.name}.${nacos.file-extension}
+            group: ${nacos.group}
+            refresh: true
           - data-id: ${spring.application.name}-${spring.profiles.active}.${nacos.file-extension}
-#            group: demo
+            group: ${nacos.group}
             refresh: true
           - data-id: demo-common.${nacos.file-extension}
-#            group: demo
+            group: ${nacos.group}
             refresh: true
           - data-id: demo-common-${spring.profiles.active}.${nacos.file-extension}
-#            group: demo
+            group: ${nacos.group}
             refresh: true
-#spring:
-#  datasource:
-#    redis:
-#      host: 127.0.0.1 # 地址
-#      port: 6379 # 端口
-#      database: 11 # 数据库索引
-#      password: '000000'
-#      pool:
-#        maxTotal: 1000
-#        maxIdle: 10000
-#    sentinel:
-#      # 取消控制台懒加载
-#      eager: true
-#      transport:
-#        # 控制台地址
-#        dashboard: 127.0.0.1:8718
-#      # nacos配置持久化
-#      datasource:
-#        ds1:
-#          nacos:
-#            server-addr: 127.0.0.1:8848
-#            dataId: demo-gateway
-#            groupId: DEFAULT_GROUP
-#            data-type: json
-#            rule-type: gw-flow
+
+wlpiaoyi:
+  ee:
+    cors:
+      data:
+        charset_name: 'UTF-8'
+        snowflake:
+          workerId: 1
+          datacenterId: 1
+          timerEpoch: 1729087588173
+

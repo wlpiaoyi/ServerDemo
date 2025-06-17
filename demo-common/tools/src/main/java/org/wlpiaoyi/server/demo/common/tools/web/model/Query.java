@@ -1,21 +1,22 @@
 package org.wlpiaoyi.server.demo.common.tools.web.model;
 
-/**
- * {@code @author:}         wlpiaoyi
- * {@code @description:}    TODO
- * {@code @date:}           2023/9/16 12:39
- * {@code @version:}:       1.0
- */
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
 import java.io.Serializable;
 
-
+/**
+ * <p<b>{@code @author:}</b>wlpiaoyi</p>
+ * <p><b>{@code @description:}</b>
+ * 查询条件
+ * </p>
+ * <p><b>{@code @date:}</b>2023/9/16 12:39</p>
+ * <p><b>{@code @version:}</b>1.0</p>
+ */
 @Getter
 @Schema(description = "查询条件")
 public class Query implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "当前页")

@@ -16,6 +16,7 @@ import org.wlpiaoyi.framework.utils.http.request.Request;
 import org.wlpiaoyi.framework.utils.http.response.Response;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
 import org.wlpiaoyi.framework.utils.security.SignVerify;
+import org.wlpiaoyi.server.demo.cloud.gateway.config.Common;
 import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
 
 import java.io.IOException;
@@ -63,12 +64,12 @@ public class TestControllerTest {
             if(request.getBody() != null){
                 System.out.println("request dbody:[\n" + new String(request.getBody()) + "\n]");
             }
-            contentType = WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG + contentType;
+            contentType = Common.ENCRYPT_CONTENT_TYPE_HEAD_TAG + contentType;
             String key = StringUtils.getUUID32();
             String iv = StringUtils.getUUID32().substring(0, 16);
             String dSalt = key + "," + iv;
             String eSalt = new String(DataUtils.base64Encode(this.rsaEncrypt.encrypt(dSalt.getBytes())));
-            request.getHeaders().put(WebUtils.HEADER_SALT_KEY, eSalt);
+            request.getHeaders().put(Common.HEADER_SALT_KEY, eSalt);
             if(request.getBody() != null){
                 Aes aes = Aes.create().setKey(key).setIV(iv).load();
                 request.setBody(aes.encrypt(request.getBody()));
@@ -86,18 +87,18 @@ public class TestControllerTest {
     private void checkResponseBody(Response<byte[]> response){
         byte[] body = response.getBody();
         String contentType = response.getHeaders().get(HttpHeaders.CONTENT_TYPE);
-        if(ValueUtils.isNotBlank(contentType) && contentType.toUpperCase(Locale.ROOT).startsWith(WebUtils.ENCRYPT_CONTENT_TYPE_HEAD_TAG.toUpperCase())){
+        if(ValueUtils.isNotBlank(contentType) && contentType.toUpperCase(Locale.ROOT).startsWith(Common.ENCRYPT_CONTENT_TYPE_HEAD_TAG.toUpperCase())){
             System.out.println("response ebody:[\n" + ValueUtils.bytesToHex(body) + "\n]");
-            String token = response.getHeaders().get(WebUtils.HEADER_TOKEN_KEY);
+            String token = response.getHeaders().get(Common.HEADER_TOKEN_KEY);
             if(ValueUtils.isNotBlank(token)){
                 System.out.println("response token:" + token);
                 this.token = token;
             }
-            String eSalt = response.getHeaders().get(WebUtils.HEADER_SALT_KEY);
+            String eSalt = response.getHeaders().get(Common.HEADER_SALT_KEY);
             String args[] =  new String(this.rsaDecrypt.decrypt(DataUtils.base64Decode(eSalt.getBytes()))).split(",");
             Aes aes = Aes.create().setKey(args[0]).setIV(args[1]).load();
             byte[] dBody = aes.decrypt(body);
-            String sign = response.getHeaders().get(WebUtils.HEADER_SIGN_KEY);
+            String sign = response.getHeaders().get(Common.HEADER_SIGN_KEY);
             if(ValueUtils.isNotBlank(sign)){
                 System.out.println("response sign:" + sign);
                 if(this.verify.verify(dBody, DataUtils.base64Decode(sign.getBytes()))){

@@ -2,25 +2,32 @@ package org.wlpiaoyi.server.demo.common.tools.web.model;
 
 //import com.baomidou.mybatisplus.core.metadata.IPage;
 //import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import lombok.SneakyThrows;
 import org.springframework.beans.BeanUtils;
+import org.wlpiaoyi.framework.utils.exception.BusinessException;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.ErrorEnum;
 
 import java.util.*;
 
 /**
- * {@code @author:}         wlpiaoyi
- * {@code @description:}    TODO
- * {@code @date:}           2023/12/8 11:55
- * {@code @version:}:       1.0
+ * <p<b>{@code @author:}</b>wlpiaoyi</p>
+ * <p><b>{@code @description:}</b>
+ * 模型转换器
+ * </p>
+ * <p><b>{@code @date:}</b>22023/12/8 11:55</p>
+ * <p><b>{@code @version:}</b>1.0</p>
  */
 public class ModelWrapper {
 
-    @SneakyThrows
     public static <T> T parseOne(Object orgObj, Class<T> resClazz) {
         if(orgObj == null){
             return null;
         }
-        T resObj = resClazz.getDeclaredConstructor().newInstance();
+        T resObj;
+        try {
+            resObj = resClazz.getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            throw new BusinessException(ErrorEnum.ModelParse, e);
+        }
         BeanUtils.copyProperties(orgObj, resObj);
         return resObj;
     }
@@ -53,7 +60,7 @@ public class ModelWrapper {
         return resList;
     }
 
-    public static <PK, T> Map<PK, T> parseForMap(Map<PK, ?> orgMap, Class<T> resClazz) {
+    public static <PK, T> Map<PK, T> parseForMap(Map<PK, ?> orgMap, Map<PK, Class<T>> resClazz) {
         if(orgMap == null){
             return null;
         }
@@ -62,7 +69,7 @@ public class ModelWrapper {
         }
         Map<PK, T> resMap = new HashMap<>();
         for (Map.Entry<PK, ?> entry : orgMap.entrySet()){
-            resMap.put(entry.getKey(), parseOne(entry.getValue(), resClazz));
+            resMap.put(entry.getKey(), parseOne(entry.getValue(), resClazz.get(entry.getKey())));
         }
         return resMap;
     }

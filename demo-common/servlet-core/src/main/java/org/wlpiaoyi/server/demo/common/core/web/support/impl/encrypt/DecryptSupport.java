@@ -10,7 +10,7 @@ import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.framework.utils.security.RsaCipher;
 import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
 import org.wlpiaoyi.server.demo.common.tools.web.domain.DoFilterEnum;
-import org.wlpiaoyi.server.demo.common.tools.web.domain.WebError;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.ErrorEnum;
 import org.wlpiaoyi.server.demo.common.core.web.support.WebSupport;
 import org.wlpiaoyi.server.demo.common.core.request.RequestWrapper;
 
@@ -131,14 +131,14 @@ public abstract class DecryptSupport  implements WebSupport<HttpServletRequest, 
         try {
             reqWrapper = new RequestWrapper(request, 1);
         } catch (IOException e) {
-            throw new BusinessException(WebError.Unknown, e);
+            throw new BusinessException(ErrorEnum.Unknown, e);
         }
         try {
             this.decryptRequestBody(reqWrapper, aes);
         } catch (IllegalBlockSizeException e) {
-            throw new BusinessException(WebError.Unknown, e);
+            throw new BusinessException(ErrorEnum.Unknown, e);
         } catch (BadPaddingException e) {
-            throw new BusinessException(WebError.Unknown, e);
+            throw new BusinessException(ErrorEnum.Unknown, e);
         }
         String salt = reqWrapper.getHeader(WebUtils.HEADER_SALT_KEY);
         if(ValueUtils.isNotBlank(salt)){

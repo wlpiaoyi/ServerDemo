@@ -1,11 +1,11 @@
-package org.wlpiaoyi.server.demo.sys.service.impl;
+package org.wlpiaoyi.server.demo.sys.service._del.impl;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.wlpiaoyi.server.demo.common.datasource.service.impl.BaseServiceImpl;
 import org.wlpiaoyi.server.demo.sys.domain.entity.Platform;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.PlatformMapper;
-import org.wlpiaoyi.server.demo.sys.service.IPlatformService;
+import org.wlpiaoyi.server.demo.sys.service._del.IPlatformService;
 
 
 /**

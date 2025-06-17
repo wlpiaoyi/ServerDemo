@@ -1,4 +1,4 @@
-package org.wlpiaoyi.server.demo.sys.service.impl;
+package org.wlpiaoyi.server.demo.sys.service._del.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.wlpiaoyi.server.demo.sys.domain.entity.Role;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.AccessMapper;
 import org.wlpiaoyi.server.demo.sys.domain.mapper.RoleMapper;
 import org.wlpiaoyi.server.demo.sys.domain.vo.RoleVo;
-import org.wlpiaoyi.server.demo.sys.service.IRoleService;
+import org.wlpiaoyi.server.demo.sys.service._del.IRoleService;
 
 import java.util.List;
 

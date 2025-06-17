@@ -21,6 +21,9 @@ import java.util.regex.Pattern;
 @Slf4j
 public class WebUtils {
 
+
+    public static final String JWT_AUTH_ACCOUNT_KEY = "account";
+    public static final String JWT_AUTH_TALENT_KEY = "talent";
     public static final String HEADER_TOKEN_KEY = "token";
     public static final String HEADER_SALT_KEY = "salt";
     public static final String HEADER_SIGN_KEY = "sign";

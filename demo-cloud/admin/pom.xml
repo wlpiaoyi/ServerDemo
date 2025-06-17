@@ -60,5 +60,22 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+
+<!--        &lt;!&ndash; swagger3工具 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>io.swagger.core.v3</groupId> &lt;!&ndash; 接口文档：使用最新版本的 Swagger 模型 &ndash;&gt;-->
+<!--            <artifactId>swagger-annotations</artifactId>-->
+<!--            &lt;!&ndash; <scope>provided</scope> &lt;!&ndash; 设置为 provided，主要是 PageParam 使用到 &ndash;&gt;&ndash;&gt;-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.swagger.core.v3</groupId> &lt;!&ndash; 接口文档：使用最新版本的 Swagger 模型 &ndash;&gt;-->
+<!--            <artifactId>swagger-models</artifactId>-->
+<!--        </dependency>-->
+        <!-- swagger3工具 -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

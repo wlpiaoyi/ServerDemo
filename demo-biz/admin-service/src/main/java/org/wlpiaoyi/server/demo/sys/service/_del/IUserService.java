@@ -1,4 +1,4 @@
-package org.wlpiaoyi.server.demo.sys.service;
+package org.wlpiaoyi.server.demo.sys.service._del;
 
 import org.wlpiaoyi.framework.utils.exception.SystemException;
 import org.wlpiaoyi.server.demo.common.datasource.service.IBaseService;

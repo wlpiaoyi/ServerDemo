@@ -16,6 +16,10 @@ import org.wlpiaoyi.server.demo.common.tools.utils.IdUtils;
  */
 public class ToolsLoader {
 
+    private static ConfigurableListableBeanFactory beanFactory;
+    private static ApplicationContext applicationContext;
+
+
     public static void setBeanFactory(ConfigurableListableBeanFactory beanFactory){
         SpringUtilsInit.setBeanFactory(beanFactory);
     }
@@ -23,8 +27,8 @@ public class ToolsLoader {
         IdUtilsInit.setIdWork(applicationContext);
         SpringUtilsInit.setApplicationContext(applicationContext);
     }
-    public static void setSpringUtilsExpand(SpringUtils.SpringUtilsExpand utilsExpand){
-        SpringUtilsInit.setSpringUtilsExpand(utilsExpand);
+    public static void setAuthDomainContext(SpringUtils.AuthDomainContext authDomainContext){
+        SpringUtilsInit.setAuthDomainContext(authDomainContext);
     }
 
     private static class IdUtilsInit extends IdUtils{
@@ -46,8 +50,8 @@ public class ToolsLoader {
         static void setApplicationContext(ApplicationContext applicationContext){
             SpringUtils.applicationContext = applicationContext;
         }
-        static void setSpringUtilsExpand(SpringUtilsExpand utilsExpand){
-            SpringUtils.utilsExpand = utilsExpand;
+        static void setAuthDomainContext(AuthDomainContext authDomainContext){
+            SpringUtils.authDomainContext = authDomainContext;
         }
     }
 

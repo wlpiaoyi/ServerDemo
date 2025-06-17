@@ -9,7 +9,7 @@ import org.wlpiaoyi.framework.utils.exception.BusinessException;
 import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
 import org.wlpiaoyi.server.demo.common.tools.web.domain.DoFilterEnum;
 import org.wlpiaoyi.server.demo.common.core.web.support.WebSupport;
-import org.wlpiaoyi.server.demo.common.tools.web.domain.WebError;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.ErrorEnum;
 
 import java.io.IOException;
 import java.util.Map;
@@ -50,7 +50,7 @@ public abstract class CensorSupport implements WebSupport<HttpServletRequest, Ht
             return DoFilterEnum.CloseReq.getValue() | DoFilterEnum.CloseResp.getValue() | DoFilterEnum.UndoChain.getValue();
         }
         if(!this.censor(token)){
-            throw new BusinessException(WebError.UnLogin);
+            throw new BusinessException(ErrorEnum.UnLogin);
         }
         return DoFilterEnum.Unknown.getValue();
     }

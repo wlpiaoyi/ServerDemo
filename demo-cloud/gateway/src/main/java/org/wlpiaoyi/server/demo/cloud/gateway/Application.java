@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.wlpiaoyi.server.demo.common.tools.loader.ToolsLoader;
 
 import java.util.TimeZone;
 
@@ -23,8 +24,10 @@ import java.util.TimeZone;
  * {@code @version:}:       1.0
  */
 //Dspring.config.location=/data/config/application-sms.yml
-
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@SpringBootApplication(
+        exclude = {DataSourceAutoConfiguration.class }
+        , scanBasePackages = {"org.wlpiaoyi.server.demo"}
+)
 public class Application implements ApplicationContextAware, BeanFactoryPostProcessor {
 
     @PostConstruct
@@ -35,14 +38,22 @@ public class Application implements ApplicationContextAware, BeanFactoryPostProc
         SpringApplication.run(Application.class, args);
     }
 
-
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        ApplicationInitializer.SpringUtilsBuilder.build().setBeanFactory(beanFactory);
+        ApplicationListens.beanFactory = beanFactory;
+        if(ApplicationListens.beanFactory != null && ApplicationListens.applicationContext != null){
+            ToolsLoader.setBeanFactory(ApplicationListens.beanFactory);
+            ToolsLoader.setApplicationContext(ApplicationListens.applicationContext);
+        }
     }
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        ApplicationInitializer.SpringUtilsBuilder.build().setApplicationContext(applicationContext);
+        ApplicationListens.applicationContext = applicationContext;
+        if(ApplicationListens.beanFactory != null && ApplicationListens.applicationContext != null){
+            ToolsLoader.setBeanFactory(ApplicationListens.beanFactory);
+            ToolsLoader.setApplicationContext(ApplicationListens.applicationContext);
+        }
     }
 
 }
