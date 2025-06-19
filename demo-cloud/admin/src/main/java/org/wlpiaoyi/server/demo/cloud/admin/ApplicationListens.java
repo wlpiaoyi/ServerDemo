@@ -1,5 +1,6 @@
 package org.wlpiaoyi.server.demo.cloud.admin;
 
+import cn.dev33.satoken.SaManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -19,8 +20,8 @@ public class ApplicationListens implements CommandLineRunner, DisposableBean {
     @Override
     public void run(String... args) throws Exception {
 //        RedisOpsValueService redisOpsValueService = SpringUtils.getBean(RedisOpsValueService.class);
-
         log.info("应用启动成功，预相关加载数据");
+        log.info("启动成功，Sa-Token 配置如下：{}", SaManager.getConfig());
     }
 
     //应用启动关闭前的回调

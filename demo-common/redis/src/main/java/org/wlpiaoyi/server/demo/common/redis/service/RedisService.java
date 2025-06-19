@@ -1,9 +1,7 @@
 package org.wlpiaoyi.server.demo.common.redis.service;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -23,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public class RedisService
 {
-//    @Resource(name ="TypeRedisTemplate")
+    @Resource(name ="TypeRedisTemplate")
     private final RedisTemplate redisTemplate;
 
     /**

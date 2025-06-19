@@ -22,12 +22,10 @@
         <dependency>
             <groupId>org.wlpiaoyi.server.demo.common</groupId>
             <artifactId>redis</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.wlpiaoyi.server.demo.common</groupId>
-                    <artifactId>servlet-core</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.wlpiaoyi.server.demo.biz</groupId>
+            <artifactId>admin-service</artifactId>
         </dependency>
 
         <!-- SpringCloud Alibaba Nacos -->

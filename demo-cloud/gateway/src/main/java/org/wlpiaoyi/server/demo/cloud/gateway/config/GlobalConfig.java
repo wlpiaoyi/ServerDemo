@@ -90,7 +90,7 @@ public class GlobalConfig {
      * </p>
      *
      * <p><b>@param</b> <b>modifyRequestBody</b>
-     * {@link ModifyRequestBodyGatewayFilterFactory}
+     * {@link ModifyResponseBodyGatewayFilterFactory}
      * </p>
      *
      * <p><b>@param</b> <b>bodyRewrite</b>
@@ -103,8 +103,14 @@ public class GlobalConfig {
      */
     @Bean
     @Order(Common.AUTH_FILTER_ORDER)
-    public AuthResponseFilter authResponseFilter(ModifyRequestBodyGatewayFilterFactory modifyRequestBody, AuthResponseRewrite bodyRewrite) {
-        return new AuthResponseFilter(modifyRequestBody, bodyRewrite);
+    public AuthResponseFilter authResponseFilter(ModifyResponseBodyGatewayFilterFactory modifyResponseBody, AuthResponseRewrite bodyRewrite) {
+        return new AuthResponseFilter(modifyResponseBody, bodyRewrite);
+    }
+
+    @Bean
+    @Order(Common.EXCLUSION_BIZ_ORDER)   //指定顺序必须在之前
+    public ExclusionBizFilter exclusionBizFilter(ModifyRequestBodyGatewayFilterFactory modifyRequestBody) {
+        return new ExclusionBizFilter(modifyRequestBody);
     }
 
    /**

@@ -4,6 +4,7 @@ import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.filter.factory.rewrite.ModifyRequestBodyGatewayFilterFactory;
+import org.springframework.cloud.gateway.filter.factory.rewrite.ModifyResponseBodyGatewayFilterFactory;
 import org.springframework.core.Ordered;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;
@@ -29,10 +30,10 @@ class AuthResponseFilter implements GlobalFilter, Ordered {
 
     private final String[] authPatterns;
 
-    public AuthResponseFilter(ModifyRequestBodyGatewayFilterFactory modifyRequestBody, AuthResponseRewrite responseRewrite) {
-        this.delegate = modifyRequestBody.apply(new ModifyRequestBodyGatewayFilterFactory.Config()
+    public AuthResponseFilter(ModifyResponseBodyGatewayFilterFactory modifyRequestBody, AuthResponseRewrite responseRewrite) {
+        this.delegate = modifyRequestBody.apply(new ModifyResponseBodyGatewayFilterFactory.Config()
                 .setRewriteFunction(responseRewrite)
-                .setInClass(Math.class)
+                .setInClass(Map.class)
                 .setOutClass(Map.class));
         this.authPatterns = SpringUtils.getBean(ConfigModel.class).getAuthPatterns();
     }
@@ -52,7 +53,7 @@ class AuthResponseFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        return 0;
+        return Common.AUTH_FILTER_ORDER;
     }
 
 }

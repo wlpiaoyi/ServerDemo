@@ -70,6 +70,7 @@ spring:
           - data-id: demo-common-${spring.profiles.active}.${nacos.file-extension}
             group: ${nacos.group}
             refresh: true
+
 #spring:
 #  datasource:
 #    redis:

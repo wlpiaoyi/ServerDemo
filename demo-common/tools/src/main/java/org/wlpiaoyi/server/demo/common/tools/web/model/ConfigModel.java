@@ -31,12 +31,10 @@ public class ConfigModel {
         this.signPrivateKey = SpringUtils.resolve("wlpiaoyi.ee.sign.privateKey", String.class, null);
         this.signPublicKey  = SpringUtils.resolve("wlpiaoyi.ee.sign.publicKey", String.class, null);
 
-        this.decryptPatterns        = SpringUtils.resolve("wlpiaoyi.ee.cors.data.patterns.decrypt").split("\r|\n");
-        this.encryptPatterns        = SpringUtils.resolve("wlpiaoyi.ee.cors.data.patterns.encrypt").split("\r|\n");
-        this.authPatterns           = SpringUtils.resolve("wlpiaoyi.ee.cors.data.patterns.authentication").split("\r|\n");
-
-        this.jwtSecretKey   = SpringUtils.resolve("wlpiaoyi.ee.jwt.secretKey", "123456");
-        this.jwtOutSecond   = SpringUtils.resolve("wlpiaoyi.ee.jwt.outSecond", 300);
+        this.decryptPatterns        = SpringUtils.resolve("wlpiaoyi.ee.cors.data.patterns.decrypt").split(", ");
+        this.encryptPatterns        = SpringUtils.resolve("wlpiaoyi.ee.cors.data.patterns.encrypt").split(", ");
+        this.authPatterns           = SpringUtils.resolve("wlpiaoyi.ee.cors.data.patterns.authentication").split(", ");
+        this.exclusionBizPatterns   = SpringUtils.resolve("wlpiaoyi.ee.cors.data.patterns.exclusionBiz").split(", ");
     }
 
     /** 默认时区 */
@@ -62,10 +60,9 @@ public class ConfigModel {
     //加密解密认证==================================>
     private final String[] decryptPatterns;
     private final String[] encryptPatterns;
-    private final String[] authPatterns;
     //加密解密认证==================================<
+    private final String[] authPatterns;
+    private final String[] exclusionBizPatterns;
 
-    private final String jwtSecretKey;
-    private final Integer jwtOutSecond;
 
 }

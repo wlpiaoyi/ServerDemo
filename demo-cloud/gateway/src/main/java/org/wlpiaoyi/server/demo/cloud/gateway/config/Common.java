@@ -10,8 +10,9 @@ import org.springframework.cloud.gateway.filter.NettyWriteResponseFilter;
  */
 public class Common {
 
-    public static final int BODY_REQ_FILTER_ORDER = NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 2;
-    public static final int BODY_RESP_FILTER_ORDER = NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 2;
+    public static final int BODY_REQ_FILTER_ORDER = NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 3;
+    public static final int BODY_RESP_FILTER_ORDER = NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 3;
+    public static final int EXCLUSION_BIZ_ORDER = NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 2;
     public static final int AUTH_FILTER_ORDER = NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 1;
 
 

@@ -10,6 +10,7 @@ package org.wlpiaoyi.server.demo.common.tools.web.domain;
  */
 public interface AuthUser<PK> {
 
+    String keyTag = "authUser";
     /**
      * <p><b>{@code @description:}</b>
      * 用户Id

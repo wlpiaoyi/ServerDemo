@@ -6,6 +6,7 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.filter.factory.rewrite.ModifyRequestBodyGatewayFilterFactory;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;
 import org.wlpiaoyi.server.demo.common.tools.utils.SpringUtils;
@@ -42,6 +43,10 @@ class DataRequestFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         String path = request.getURI().getPath();
+        if(!request.getMethod().name().equals(HttpMethod.POST.name())
+                && !request.getMethod().name().equals(HttpMethod.PUT.name())){
+            return chain.filter(exchange);
+        }
         if(!WebUtils.mathPath(path, this.decryptPatterns)){
             return chain.filter(exchange);
         }

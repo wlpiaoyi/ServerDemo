@@ -111,7 +111,8 @@ public class TestControllerTest {
         }
     }
 
-    private String token = StringUtils.getUUID32();
+//    private String token = StringUtils.getUUID32();
+    private String token = "42741d1a-854a-4bab-afcf-dd1715a89f8d";
 
     @SneakyThrows
     @Test
@@ -124,7 +125,7 @@ public class TestControllerTest {
     @Test
     public void login() throws IOException {
         HttpClientContext context = HttpClientContext.create();
-        Request<byte[]> request = new Request<>(context, "http://127.0.0.1:18080/demo-admin/test/sys/post", Request.Method.Post);
+        Request<byte[]> request = new Request<>(context, "http://127.0.0.1:18080/demo-admin/test/test/login", Request.Method.Post);
         request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json;charset=utf-8");
         request.setHeader("token", this.token);
         Map body = new HashMap(){{
@@ -135,6 +136,64 @@ public class TestControllerTest {
         request.setBody(GsonBuilder.gsonDefault().toJson(body, Map.class).getBytes(StandardCharsets.UTF_8))
                 .setHttpProxy("127.0.0.1", 8888);
         this.checkRequestBody(request, true);
+        request.setHeader(HttpHeaders.ACCEPT, "application/json");
+        Response<byte[]> response = request.execute(byte[].class);
+        this.checkResponseBody(response);
+        this.token = response.getHeaders().get("token");
+        this.expire();
+        System.out.println("====================================>");
+    }
+
+
+    @SneakyThrows
+    @Test
+    public void expire() throws IOException {
+        HttpClientContext context = HttpClientContext.create();
+        Request<byte[]> request = new Request<>(context, "http://127.0.0.1:18080/demo-admin/test/test/expire", Request.Method.Get);
+        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json;charset=utf-8");
+        request.setHeader("token", this.token);
+        System.out.println("request:" + request.getUrl() + "\n]");
+        request.setHttpProxy("127.0.0.1", 8888);
+        request.setHeader(HttpHeaders.ACCEPT, "application/json");
+        Response<byte[]> response = request.execute(byte[].class);
+        this.checkResponseBody(response);
+        System.out.println("====================================>");
+    }
+
+
+    @SneakyThrows
+    @Test
+    public void post() throws IOException {
+        HttpClientContext context = HttpClientContext.create();
+        Request<byte[]> request = new Request<>(context, "http://127.0.0.1:18080/demo-admin/test/test/post", Request.Method.Post);
+        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json;charset=utf-8");
+        request.setHeader("token", this.token);
+        Map body = new HashMap(){{
+            put("account", "admin");
+            put("password", "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=");
+        }};
+        System.out.println("request:" + request.getUrl() + "\n]");
+        request.setBody(GsonBuilder.gsonDefault().toJson(body, Map.class).getBytes(StandardCharsets.UTF_8))
+                .setHttpProxy("127.0.0.1", 8888);
+        this.checkRequestBody(request, true);
+        request.setHeader(HttpHeaders.ACCEPT, "application/json");
+        Response<byte[]> response = request.execute(byte[].class);
+        this.checkResponseBody(response);
+        System.out.println("====================================>");
+    }
+
+
+    @SneakyThrows
+    @Test
+    public void get() throws IOException {
+        HttpClientContext context = HttpClientContext.create();
+        Request<byte[]> request = new Request<>(context, "http://127.0.0.1:18080/demo-admin/test/test/get", Request.Method.Get);
+        request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json;charset=utf-8");
+        request.setHeader("token", this.token);
+        request.setHeader("testAdd", this.token);
+        request.setHeader("testEdit", this.token);
+        System.out.println("request:" + request.getUrl() + "\n]");
+        request.setHttpProxy("127.0.0.1", 8888);
         request.setHeader(HttpHeaders.ACCEPT, "application/json");
         Response<byte[]> response = request.execute(byte[].class);
         this.checkResponseBody(response);

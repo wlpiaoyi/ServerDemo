@@ -8,7 +8,6 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.wlpiaoyi.framework.utils.PatternUtils;
-import org.wlpiaoyi.framework.utils.StringUtils;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.server.demo.common.tools.web.domain.AuthRole;
 import org.wlpiaoyi.server.demo.common.tools.web.domain.AuthUser;

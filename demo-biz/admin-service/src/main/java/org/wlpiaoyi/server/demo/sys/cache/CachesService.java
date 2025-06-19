@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  * <p><b>{@code @date:}</b>2024-10-14 15:24:40</p>
  * <p><b>{@code @version:}:</b>1.0</p>
  */
-abstract class CachesService<T extends BaseEntity> {
+public abstract class CachesService<T extends BaseEntity> {
 
     protected abstract String getKeyTag();
 
@@ -25,7 +25,6 @@ abstract class CachesService<T extends BaseEntity> {
     protected void set(T entity, long minutes){
         this.redisTemplate.opsForValue().set("cache_db_" + this.getKeyTag() + entity.getId(), entity, minutes, TimeUnit.MINUTES);
     }
-
     protected T get(Long id){
         Object res = this.redisTemplate.opsForValue().get("cache_db_" + this.getKeyTag() + id);
         if(res == null){

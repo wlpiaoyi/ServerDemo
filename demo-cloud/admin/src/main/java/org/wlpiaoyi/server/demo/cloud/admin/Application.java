@@ -1,5 +1,6 @@
 package org.wlpiaoyi.server.demo.cloud.admin;
 
+import cn.dev33.satoken.SaManager;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -12,8 +13,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.ComponentScan;
 import org.wlpiaoyi.server.demo.common.tools.loader.ToolsLoader;
 import org.wlpiaoyi.server.demo.common.tools.utils.SpringUtils;
-import org.wlpiaoyi.server.demo.common.tools.web.domain.AuthRole;
-import org.wlpiaoyi.server.demo.common.tools.web.domain.AuthUser;
 
 /**
  * {@code @author:}         wlpiaoyi
@@ -41,6 +40,7 @@ public class Application implements ApplicationContextAware, BeanFactoryPostProc
         if(ApplicationListens.beanFactory != null && ApplicationListens.applicationContext != null){
             ToolsLoader.setBeanFactory(ApplicationListens.beanFactory);
             ToolsLoader.setApplicationContext(ApplicationListens.applicationContext);
+            ToolsLoader.setAuthDomainContext(SpringUtils.getBean(SpringUtils.AuthDomainContext.class));
         }
     }
 
@@ -50,6 +50,7 @@ public class Application implements ApplicationContextAware, BeanFactoryPostProc
         if(ApplicationListens.beanFactory != null && ApplicationListens.applicationContext != null){
             ToolsLoader.setBeanFactory(ApplicationListens.beanFactory);
             ToolsLoader.setApplicationContext(ApplicationListens.applicationContext);
+            ToolsLoader.setAuthDomainContext(SpringUtils.getBean(SpringUtils.AuthDomainContext.class));
         }
     }
 }

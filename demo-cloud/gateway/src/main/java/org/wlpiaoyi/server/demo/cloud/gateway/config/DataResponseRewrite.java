@@ -84,8 +84,8 @@ public class DataResponseRewrite implements RewriteFunction<byte[], byte[]> {
 //            Map respBody = objectMapper.readValue(bytes, Map.class);
 //            respBody.put("respChange", "test");
 //            return Mono.just(objectMapper.writeValueAsBytes(respBody));
-            Aes aes = this.createAes(exchange);
 
+            Aes aes = this.createAes(exchange);
             String sign = null;
             if(!ValueUtils.isBlank(bytes) && aes != null){
                 sign = new String(DataUtils.base64Encode(signVerify.sign(bytes)));
@@ -94,6 +94,7 @@ public class DataResponseRewrite implements RewriteFunction<byte[], byte[]> {
                 ServerHttpResponse response = exchange.getResponse();
                 response.getHeaders().set(Common.HEADER_SIGN_KEY, sign);
             }
+
             return Mono.just(aes.encrypt(bytes));
         } catch (Exception ex) {
             return Mono.error(new BusinessException(ex));
