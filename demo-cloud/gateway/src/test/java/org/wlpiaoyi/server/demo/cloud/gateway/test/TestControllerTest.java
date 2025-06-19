@@ -167,7 +167,7 @@ public class TestControllerTest {
         HttpClientContext context = HttpClientContext.create();
         Request<byte[]> request = new Request<>(context, "http://127.0.0.1:18080/demo-admin/test/test/post", Request.Method.Post);
         request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json;charset=utf-8");
-        request.setHeader("token", this.token);
+//        request.setHeader("token", this.token);
         Map body = new HashMap(){{
             put("account", "admin");
             put("password", "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=");

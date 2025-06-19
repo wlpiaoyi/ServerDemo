@@ -1,0 +1,124 @@
+package ##package##.##bizTag##.controller;
+
+
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
+import lombok.AllArgsConstructor;
+import ##package##.##bizTag##.domain.entity.##className##;
+import ##package##.##bizTag##.service.I##className##Service;
+import ##package##.##bizTag##.domain.vo.##className##Vo;
+import ##package##.##bizTag##.domain.ro.##className##Ro.*;
+import ##package##.utils.tools.ModelWrapper;
+import ##package##.utils.response.R;
+import ##package##.utils.request.Condition;
+import org.springframework.web.bind.annotation.*;
+import org.wlpiaoyi.framework.utils.ValueUtils;
+
+import jakarta.validation.Valid;
+
+
+/**
+ * {@code @author:} 		##author##
+ * {@code @description:} 	##tableComment## 控制器
+ * {@code @date:} 			##createTime##
+ * {@code @version:}: 		##version##
+ */
+@RestController
+@AllArgsConstructor
+@RequestMapping("/##objectName##")
+@Tag(name = "##tableComment##接口")
+public class ##className##Controller {
+
+	private final I##className##Service ##varClassName##Service;
+
+	/**
+	 * ##tableComment## 详情
+	 */
+	@GetMapping("/detail")
+	@ApiOperationSupport(order = 1)
+	@Operation(summary = "##tableComment## 详情")
+	public R<##className##Vo> detail(##className##Query body) {
+		##className##Vo ##varClassName## = ModelWrapper.parseOne(
+				this.##varClassName##Service.getOne(
+						Condition.getQueryWrapper(ModelWrapper.parseOne(body, ##className##.class))
+				),
+				##className##Vo.class
+		);
+		return R.success(##varClassName##);
+
+	}
+
+	/**
+	 * ##tableComment## 分页
+	 */
+	@PostMapping("/page")
+	@ApiOperationSupport(order = 2)
+	@Operation(summary = "##tableComment## 分页")
+	public R<IPage<##className##Vo>> page(@RequestBody ##className##Query body){
+		LambdaQueryWrapper<##className##> wrapper = Wrappers.<##className##>lambdaQuery();
+		wrapper.orderByDesc(##className##::getCreateTime);
+		IPage<##className##> pages = ##varClassName##Service.page(Condition.getPage(body), wrapper);
+		return R.success(ModelWrapper.parseForPage(pages, ##className##Vo.class));
+	}
+
+	/**
+	 * ##tableComment## 分页
+	 */
+	@PostMapping("/list")
+	@ApiOperationSupport(order = 3)
+	@Operation(summary = "##tableComment## 分页")
+	public R<IPage<##className##Vo>> list(@RequestBody ##className##Query body) {
+		QueryWrapper<##className##> wrapper = Condition.getQueryWrapper(ModelWrapper.parseOne(body, ##className##.class));
+		wrapper.orderByDesc("create_time");
+		IPage<##className##> pages = ##varClassName##Service.page(Condition.getPage(body), wrapper);
+		return R.success(ModelWrapper.parseForPage(pages, ##className##Vo.class));
+	}
+
+	/**
+	 * ##tableComment## 新增
+	 */
+	@PostMapping("/save")
+	@ApiOperationSupport(order = 4)
+	@Operation(summary = "##tableComment## 新增")
+	public R<Boolean> save(@Valid @RequestBody ##className##Submit body) {
+		return R.success(##varClassName##Service.save(ModelWrapper.parseOne(body, ##className##.class)));
+	}
+
+	/**
+	 * ##tableComment## 修改
+	 */
+	@PostMapping("/update")
+	@ApiOperationSupport(order = 5)
+	@Operation(summary = "##tableComment## 修改")
+	public R<Boolean> update(@RequestBody ##className##Submit body) {
+		return R.success(##varClassName##Service.updateById(ModelWrapper.parseOne(body, ##className##.class)));
+	}
+
+	/**
+	 * ##tableComment## 新增或修改
+	 */
+	@PostMapping("/submit")
+	@ApiOperationSupport(order = 6)
+	@Operation(summary = "##tableComment## 新增或修改")
+	public R<Boolean> submit(@Valid @RequestBody ##className##Submit body) {
+		return R.success(##varClassName##Service.saveOrUpdate(ModelWrapper.parseOne(body, ##className##.class)));
+	}
+
+	/**
+	 * ##tableComment## 删除
+	 */
+	@GetMapping("/remove")
+	@ApiOperationSupport(order = 7)
+	@Operation(summary = "##tableComment## 逻辑删除")
+	public R remove(@Parameter(description = "主键集合", required = true) @RequestParam String ids) {
+		return R.success(##varClassName##Service.deleteLogic(ValueUtils.toLongList(ids)));
+	}
+
+}

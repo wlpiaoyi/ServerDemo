@@ -1,0 +1,20 @@
+package ##package##.##bizTag##.domain.vo;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import java.io.Serializable;
+import ##package##.##bizTag##.domain.entity.##className##;
+
+/**
+ * {@code @author:} 		##author##
+ * {@code @description:} 	##tableComment## 视图实体类
+ * {@code @date:} 			##createTime##
+ * {@code @version:}: 		##version##
+ */
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class ##className##Vo extends ##className## implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+}

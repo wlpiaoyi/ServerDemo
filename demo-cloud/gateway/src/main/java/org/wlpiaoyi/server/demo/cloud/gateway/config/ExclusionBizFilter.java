@@ -13,9 +13,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ServerWebExchange;
+import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.gson.GsonBuilder;
+import org.wlpiaoyi.server.demo.common.redis.service.RedisService;
 import org.wlpiaoyi.server.demo.common.tools.utils.SpringUtils;
 import org.wlpiaoyi.server.demo.common.tools.utils.WebUtils;
+import org.wlpiaoyi.server.demo.common.tools.web.domain.AuthUser;
 import org.wlpiaoyi.server.demo.common.tools.web.model.ConfigModel;
 import org.wlpiaoyi.server.demo.common.tools.web.model.R;
 import reactor.core.publisher.Mono;
@@ -37,9 +40,12 @@ public class ExclusionBizFilter implements GlobalFilter, Ordered {
 
     private final Gson gson = GsonBuilder.gsonDefault();
 
+    private final RedisService redisService;
+
     public ExclusionBizFilter(ModifyRequestBodyGatewayFilterFactory modifyRequestBody) {
         this.delegate = modifyRequestBody.apply(new ModifyRequestBodyGatewayFilterFactory.Config());
         this.exclusionBizPatterns = SpringUtils.getBean(ConfigModel.class).getExclusionBizPatterns();
+        this.redisService = SpringUtils.getBean(RedisService.class);
     }
 
 
@@ -63,7 +69,14 @@ public class ExclusionBizFilter implements GlobalFilter, Ordered {
         if(WebUtils.mathPath(path, this.exclusionBizPatterns)){
             return chain.filter(exchange);
         }
-        return writeCustomResponse(exchange, HttpStatus.FORBIDDEN, "Access Denied!");
+        String token = request.getHeaders().getFirst(Common.HEADER_TOKEN_KEY);
+        if(ValueUtils.isBlank(token)){
+            return writeCustomResponse(exchange, HttpStatus.FORBIDDEN, "No token!");
+        }
+        if(!this.redisService.hasKey(AuthUser.keyTag + ":" + token)){
+            return writeCustomResponse(exchange, HttpStatus.FORBIDDEN, "Access Denied!");
+        }
+        return chain.filter(exchange);
     }
 
 

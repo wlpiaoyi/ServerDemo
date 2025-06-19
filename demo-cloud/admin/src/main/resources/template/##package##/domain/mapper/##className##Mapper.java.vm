@@ -1,0 +1,20 @@
+package ##package##.##bizTag##.domain.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import ##package##.##bizTag##.domain.entity.##className##;
+import ##package##.##bizTag##.domain.ro.##className##Ro;
+import ##package##.##bizTag##.domain.vo.##className##Vo;
+
+import java.util.List;
+
+/**
+ * {@code @author:} 		##author##
+ * {@code @description:} 	##tableComment## Mapper 接口
+ * {@code @date:} 			##createTime##
+ * {@code @version:}: 		##version##
+ */
+public interface ##className##Mapper extends BaseMapper<##className##> {
+
+
+}

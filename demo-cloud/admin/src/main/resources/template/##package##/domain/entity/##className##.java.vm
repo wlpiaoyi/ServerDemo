@@ -1,0 +1,36 @@
+package ##package##.##bizTag##.domain.entity;
+
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+import java.io.Serializable;
+import ##package##.domain.entity.BaseEntity;
+import ##package##.domain.entity.CommonEntity;
+##/*import*/##
+
+
+/**
+ * {@code @author:} 		##author##
+ * {@code @description:} 	##tableComment## 实体类
+ * {@code @date:} 			##createTime##
+ * {@code @version:}: 		##version##
+ */
+@Data
+@Accessors(chain=true)
+@TableName("##tableName##")
+@Schema(description = "##tableComment##")
+@EqualsAndHashCode(callSuper = true)
+public class ##className## extends CommonEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    <foreach-column>
+
+    /** ##columnComment## **/
+    ##propertyAnnotationst##
+    private ##propertyType## ##propertyName##;
+    </foreach-column>
+
+}
