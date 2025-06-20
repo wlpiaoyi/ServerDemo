@@ -2,9 +2,9 @@ package org.wlpiaoyi.server.demo.cloud.admin.test;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.wlpiaoyi.server.demo.auth.impl.AuthenticationServiceImpl;
 import org.wlpiaoyi.server.demo.common.redis.service.RedisService;
 import org.wlpiaoyi.server.demo.common.tools.utils.SpringUtils;
-import org.wlpiaoyi.server.demo.sys.auth.impl.AuthenticationServiceImpl;
 
 /**
  * <p><b>{@code @author:}</b>wlpiaoyi</p>

@@ -25,7 +25,7 @@ import reactor.core.publisher.Mono;
  */
 @Slf4j
 @Component
-public class DataRequestRewrite implements RewriteFunction<byte[], byte[]> {
+class DataRequestRewrite implements RewriteFunction<byte[], byte[]> {
 
     @Autowired
     private ObjectMapper objectMapper;

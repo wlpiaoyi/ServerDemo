@@ -1,19 +1,15 @@
-package org.wlpiaoyi.server.demo.sys.auth.impl;
+package org.wlpiaoyi.server.demo.auth.impl;
 
 import cn.dev33.satoken.SaManager;
 import cn.dev33.satoken.stp.StpUtil;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.wlpiaoyi.framework.utils.ValueUtils;
 import org.wlpiaoyi.framework.utils.exception.BusinessException;
+import org.wlpiaoyi.server.demo.auth.AuthenticationService;
 import org.wlpiaoyi.server.demo.common.redis.service.RedisService;
 import org.wlpiaoyi.server.demo.common.tools.utils.SpringUtils;
 import org.wlpiaoyi.server.demo.common.tools.web.domain.AuthRole;
 import org.wlpiaoyi.server.demo.common.tools.web.domain.AuthUser;
-import org.wlpiaoyi.server.demo.sys.auth.AuthenticationService;
 
 import java.util.concurrent.TimeUnit;
 

@@ -20,7 +20,7 @@ import org.wlpiaoyi.server.demo.common.tools.utils.SpringUtils;
  * {@code @date:}           2023/9/14 17:40
  * {@code @version:}:       1.0
  */
-//
+//-Dspring.config.location=/data/config/application-sms.yml
 @ComponentScan(basePackages = {"org.wlpiaoyi.server.demo"})
 @SpringBootApplication(scanBasePackages = {
         "org.wlpiaoyi.server.demo",
@@ -34,9 +34,7 @@ public class Application implements ApplicationContextAware, BeanFactoryPostProc
         SpringApplication.run(Application.class, args);
     }
 
-    @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        ApplicationListens.beanFactory = beanFactory;
+    private static void initCallback(){
         if(ApplicationListens.beanFactory != null && ApplicationListens.applicationContext != null){
             ToolsLoader.setBeanFactory(ApplicationListens.beanFactory);
             ToolsLoader.setApplicationContext(ApplicationListens.applicationContext);
@@ -45,12 +43,14 @@ public class Application implements ApplicationContextAware, BeanFactoryPostProc
     }
 
     @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        ApplicationListens.beanFactory = beanFactory;
+        initCallback();
+    }
+
+    @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         ApplicationListens.applicationContext = applicationContext;
-        if(ApplicationListens.beanFactory != null && ApplicationListens.applicationContext != null){
-            ToolsLoader.setBeanFactory(ApplicationListens.beanFactory);
-            ToolsLoader.setApplicationContext(ApplicationListens.applicationContext);
-            ToolsLoader.setAuthDomainContext(SpringUtils.getBean(SpringUtils.AuthDomainContext.class));
-        }
+        initCallback();
     }
 }

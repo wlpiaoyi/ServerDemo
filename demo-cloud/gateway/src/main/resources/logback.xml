@@ -14,11 +14,11 @@
 
 	<!-- 系统日志输出 -->
 	<appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${log.path}/cloud-demo-gatewey-info.log</file>
+		<file>${log.path}/cloud-demo-gateway-info.log</file>
 		<!-- 循环政策：基于时间创建日志文件 -->
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- 日志文件名格式 -->
-			<fileNamePattern>${log.path}/cloud-demo-gatewey-info.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>${log.path}/cloud-demo-gateway-info.%d{yyyy-MM-dd}.log</fileNamePattern>
 			<!-- 日志最大的历史 60天 -->
 			<maxHistory>60</maxHistory>
 		</rollingPolicy>
@@ -36,11 +36,11 @@
 	</appender>
 
 	<appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${log.path}/cloud-demo-gatewey-error.log</file>
+		<file>${log.path}/cloud-demo-gateway-error.log</file>
 		<!-- 循环政策：基于时间创建日志文件 -->
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- 日志文件名格式 -->
-			<fileNamePattern>${log.path}/cloud-demo-gatewey-error.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>${log.path}/cloud-demo-gateway-error.%d{yyyy-MM-dd}.log</fileNamePattern>
 			<!-- 日志最大的历史 60天 -->
 			<maxHistory>60</maxHistory>
 		</rollingPolicy>

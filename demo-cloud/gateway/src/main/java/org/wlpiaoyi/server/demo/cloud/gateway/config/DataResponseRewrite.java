@@ -34,7 +34,7 @@ import java.nio.charset.StandardCharsets;
  */
 @Slf4j
 @Component
-public class DataResponseRewrite implements RewriteFunction<byte[], byte[]> {
+class DataResponseRewrite implements RewriteFunction<byte[], byte[]> {
 
     @Autowired
     private ObjectMapper objectMapper;

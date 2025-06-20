@@ -32,7 +32,7 @@ import java.util.Map;
  * <p><b>{@code @date:}</b>2025-06-19 18:32:23</p>
  * <p><b>{@code @version:}:</b>1.0</p>
  */
-public class ExclusionBizFilter implements GlobalFilter, Ordered {
+class ExclusionBizFilter implements GlobalFilter, Ordered {
 
     private final GatewayFilter delegate;
 

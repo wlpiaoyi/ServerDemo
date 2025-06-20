@@ -1,4 +1,4 @@
-package org.wlpiaoyi.server.demo.sys.auth;
+package org.wlpiaoyi.server.demo.auth;
 
 import org.wlpiaoyi.server.demo.common.tools.web.domain.AuthUser;
 

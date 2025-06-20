@@ -27,7 +27,7 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-public class AuthResponseRewrite implements RewriteFunction<Map, Map> {
+class AuthResponseRewrite implements RewriteFunction<Map, Map> {
 
     @Autowired
     private ConfigModel configModel;
