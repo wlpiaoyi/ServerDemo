@@ -42,11 +42,11 @@ public class CommonEntity extends BaseEntity{
     private Date updateTime;
 
     @Schema(description = "业务状态")
-    private int status = 1;
+    private Integer status = 1;
 
-    @TableLogic(value = "0", delval = "1")
+    @TableLogic(value = "0", delval = "id")
     @Schema(description = "是否已删除")
-    private int isDeleted = 0;
+    private Long isDeleted = 0L;
 
     /**
      * <p><b>{@code @description:}</b>

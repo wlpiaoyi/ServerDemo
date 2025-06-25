@@ -17,7 +17,8 @@ import java.util.List;
 @Component
 public class WebFilter extends WebBaseFilter {
 
-    private List<WebSupport> webSupports;
+    @lombok.Getter(lombok.AccessLevel.PROTECTED)
+    private final List<WebSupport> webSupports;
 
     public WebFilter(){
         this.webSupports = List.of(
@@ -30,8 +31,4 @@ public class WebFilter extends WebBaseFilter {
         );
     }
 
-    @Override
-    protected List<WebSupport> getWebSupports() {
-        return this.webSupports;
-    }
 }

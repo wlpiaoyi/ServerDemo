@@ -1,11 +1,13 @@
 package org.wlpiaoyi.server.demo.cloud.gateway.config;
 
+import cn.dev33.satoken.reactor.context.SaReactorSyncHolder;
+import cn.dev33.satoken.stp.StpUtil;
 import com.google.gson.Gson;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.filter.factory.rewrite.ModifyRequestBodyGatewayFilterFactory;
-import org.springframework.cloud.gateway.filter.factory.rewrite.ModifyResponseBodyGatewayFilterFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
@@ -24,7 +26,6 @@ import org.wlpiaoyi.server.demo.common.tools.web.model.R;
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
 
 /**
  * <p><b>{@code @author:}</b>wlpiaoyi</p>
@@ -32,19 +33,21 @@ import java.util.Map;
  * <p><b>{@code @date:}</b>2025-06-19 18:32:23</p>
  * <p><b>{@code @version:}:</b>1.0</p>
  */
-class ExclusionBizFilter implements GlobalFilter, Ordered {
+@Slf4j
+class ExclusionCensorFilter implements GlobalFilter, Ordered {
 
     private final GatewayFilter delegate;
 
-    private final String[] exclusionBizPatterns;
+    private final String[] exclusionCensorPatterns;
 
     private final Gson gson = GsonBuilder.gsonDefault();
-
     private final RedisService redisService;
 
-    public ExclusionBizFilter(ModifyRequestBodyGatewayFilterFactory modifyRequestBody) {
+
+
+    public ExclusionCensorFilter(ModifyRequestBodyGatewayFilterFactory modifyRequestBody) {
         this.delegate = modifyRequestBody.apply(new ModifyRequestBodyGatewayFilterFactory.Config());
-        this.exclusionBizPatterns = SpringUtils.getBean(ConfigModel.class).getExclusionBizPatterns();
+        this.exclusionCensorPatterns = SpringUtils.getBean(ConfigModel.class).getExclusionCensorPatterns();
         this.redisService = SpringUtils.getBean(RedisService.class);
     }
 
@@ -66,7 +69,7 @@ class ExclusionBizFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         String path = request.getURI().getPath();
-        if(WebUtils.mathPath(path, this.exclusionBizPatterns)){
+        if(WebUtils.mathPath(path, this.exclusionCensorPatterns)){
             return chain.filter(exchange);
         }
         String token = request.getHeaders().getFirst(Common.HEADER_TOKEN_KEY);
@@ -77,6 +80,20 @@ class ExclusionBizFilter implements GlobalFilter, Ordered {
             return writeCustomResponse(exchange, HttpStatus.FORBIDDEN, "Access Denied!");
         }
         return chain.filter(exchange);
+//        try {
+//            // 先 set 上下文，再调用 Sa-Token 同步 API，并在 finally 里清除上下文
+//            SaReactorSyncHolder.setContext(exchange);
+//            if(!StpUtil.isLogin()){//StpUtil.login(1002)
+//                return writeCustomResponse(exchange, HttpStatus.FORBIDDEN, "Access Denied!");
+//            }
+//            return chain.filter(exchange);
+//        }catch (Exception e) {
+//            log.error("check login fail", e);
+//            return writeCustomResponse(exchange, HttpStatus.FORBIDDEN, "Access Denied!");
+//        }
+//        finally {
+//            SaReactorSyncHolder.clearContext();
+//        }
     }
 
 

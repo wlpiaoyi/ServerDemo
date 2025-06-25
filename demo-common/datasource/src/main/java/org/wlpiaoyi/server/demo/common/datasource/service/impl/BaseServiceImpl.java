@@ -75,7 +75,7 @@ public class BaseServiceImpl<M extends BaseMapper<T>, T extends BaseEntity> exte
             T entity = ClassModel.newInstance(this.currentModelClass());
             entity.setId(id);
             if(entity instanceof CommonEntity){
-                ((CommonEntity) entity).setIsDeleted(1);
+                ((CommonEntity) entity).setIsDeleted(entity.getId());
                 ((CommonEntity) entity).setUpdateTime(new Date());
             }else{
                 throw new BusinessException("not support logic delete");

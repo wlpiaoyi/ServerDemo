@@ -11,7 +11,6 @@
 
     <groupId>org.wlpiaoyi.server.demo.common</groupId>
     <artifactId>datasource</artifactId>
-    <version>1.0.1-DEV-JDK21</version>
     <name>CommonDataSource</name>
     <description>数据功能集合</description>
 
