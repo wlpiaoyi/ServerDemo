@@ -21,7 +21,6 @@ public abstract class CachesService<T extends BaseEntity> {
 
     protected abstract long getCacheDuriMinutes();
 
-
     protected void set(T entity, long minutes){
         this.redisTemplate.opsForValue().set("cache_db_" + this.getKeyTag() + entity.getId(), entity, minutes, TimeUnit.MINUTES);
     }
@@ -32,7 +31,6 @@ public abstract class CachesService<T extends BaseEntity> {
         }
         return (T) res;
     }
-
 
     protected boolean expire(Long id, long minutes){
         return this.redisTemplate.expire("cache_db_" + this.getKeyTag() + id, minutes, TimeUnit.MINUTES);
