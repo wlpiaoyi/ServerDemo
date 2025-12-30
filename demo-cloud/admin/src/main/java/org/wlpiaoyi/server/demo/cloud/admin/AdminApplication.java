@@ -1,6 +1,5 @@
 package org.wlpiaoyi.server.demo.cloud.admin;
 
-import cn.dev33.satoken.SaManager;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -25,13 +24,13 @@ import org.wlpiaoyi.server.demo.common.tools.utils.SpringUtils;
 @SpringBootApplication(scanBasePackages = {
         "org.wlpiaoyi.server.demo",
 },exclude = {DataSourceAutoConfiguration.class })
-public class Application implements ApplicationContextAware, BeanFactoryPostProcessor{
+public class AdminApplication implements ApplicationContextAware, BeanFactoryPostProcessor{
 
     @PostConstruct
     void started() {
     }
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(AdminApplication.class, args);
     }
 
     private static void initCallback(){

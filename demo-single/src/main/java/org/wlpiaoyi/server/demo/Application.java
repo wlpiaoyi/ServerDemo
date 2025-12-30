@@ -16,6 +16,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.ComponentScan;
 import org.wlpiaoyi.server.demo.common.datasource.domain.entity.BaseEntity;
+import org.wlpiaoyi.server.demo.common.tools.loader.ToolsLoader;
+import org.wlpiaoyi.server.demo.common.tools.utils.SpringUtils;
 
 import java.util.TimeZone;
 
@@ -53,14 +55,32 @@ public class Application implements ApplicationContextAware, BeanFactoryPostProc
 //        org.yaml.snakeyaml.inspector.TagInspector
         SpringApplication.run(Application.class, args);
     }
+    private static void initCallback(){
+        if(ApplicationListens.beanFactory != null && ApplicationListens.applicationContext != null){
+            ToolsLoader.setBeanFactory(ApplicationListens.beanFactory);
+            ToolsLoader.setApplicationContext(ApplicationListens.applicationContext);
+//            ToolsLoader.setAuthDomainContext(SpringUtils.getBean(SpringUtils.AuthDomainContext.class));
+        }
+    }
 
     @Override
-    public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        ApplicationInitializer.SpringUtilsBuilder.build().setBeanFactory(beanFactory);
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        ApplicationListens.beanFactory = beanFactory;
+        initCallback();
     }
+
     @Override
-    public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
-        ApplicationInitializer.SpringUtilsBuilder.build().setApplicationContext(applicationContext);
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        ApplicationListens.applicationContext = applicationContext;
+        initCallback();
     }
+//    @Override
+//    public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory beanFactory) throws BeansException {
+//        ApplicationInitializer.SpringUtilsBuilder.build().setBeanFactory(beanFactory);
+//    }
+//    @Override
+//    public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
+//        ApplicationInitializer.SpringUtilsBuilder.build().setApplicationContext(applicationContext);
+//    }
 
 }

@@ -1,7 +1,7 @@
 package org.wlpiaoyi.server.demo.common.tools.web.model;
 
 import lombok.Getter;
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.wlpiaoyi.server.demo.common.tools.utils.SpringUtils;
 
@@ -31,10 +31,10 @@ public class ConfigModel {
         this.signPrivateKey = SpringUtils.resolve("wlpiaoyi.ee.sign.privateKey", String.class, null);
         this.signPublicKey  = SpringUtils.resolve("wlpiaoyi.ee.sign.publicKey", String.class, null);
 
-        this.decryptPatterns        = SpringUtils.resolve("wlpiaoyi.ee.cors.data.patterns.decrypt").split(", ");
-        this.encryptPatterns        = SpringUtils.resolve("wlpiaoyi.ee.cors.data.patterns.encrypt").split(", ");
-        this.authPatterns           = SpringUtils.resolve("wlpiaoyi.ee.cors.data.patterns.authentication").split(", ");
-        this.exclusionBizPatterns   = SpringUtils.resolve("wlpiaoyi.ee.cors.data.patterns.exclusionBiz").split(", ");
+        this.decryptPatterns        = SpringUtils.resolve("wlpiaoyi.ee.cors.data.patterns.decrypt", "").split(", ");
+        this.encryptPatterns        = SpringUtils.resolve("wlpiaoyi.ee.cors.data.patterns.encrypt", "").split(", ");
+        this.authPatterns           = SpringUtils.resolve("wlpiaoyi.ee.cors.data.patterns.authentication", "").split(", ");
+        this.exclusionCensorPatterns = SpringUtils.resolve("wlpiaoyi.ee.cors.data.patterns.exclusionCensor", "").split(", ");
     }
 
     /** 默认时区 */
@@ -62,7 +62,7 @@ public class ConfigModel {
     private final String[] encryptPatterns;
     //加密解密认证==================================<
     private final String[] authPatterns;
-    private final String[] exclusionBizPatterns;
+    private final String[] exclusionCensorPatterns;
 
 
 }

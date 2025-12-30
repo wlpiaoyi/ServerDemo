@@ -1,7 +1,6 @@
 package org.wlpiaoyi.server.demo.cloud.gateway;
 
 import jakarta.annotation.PostConstruct;
-import lombok.Getter;
 //import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -11,11 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.wlpiaoyi.server.demo.common.tools.loader.ToolsLoader;
-
-import java.util.TimeZone;
 
 /**
  * {@code @author:}         wlpiaoyi
@@ -28,14 +23,15 @@ import java.util.TimeZone;
         exclude = {DataSourceAutoConfiguration.class }
         , scanBasePackages = {"org.wlpiaoyi.server.demo"}
 )
-public class Application implements ApplicationContextAware, BeanFactoryPostProcessor {
+public class GatewayApplication implements ApplicationContextAware, BeanFactoryPostProcessor {
 
     @PostConstruct
     void started() {
+        
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(GatewayApplication.class, args);
     }
 
     @Override

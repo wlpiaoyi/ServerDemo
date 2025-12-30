@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.wlpiaoyi.server.demo</groupId>
         <artifactId>ServerDemo</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.1-DEV-JDK21</version>
     </parent>
 
     <artifactId>demo-biz</artifactId>

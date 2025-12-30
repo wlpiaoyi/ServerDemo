@@ -2,7 +2,6 @@ package org.wlpiaoyi.server.demo.cloud.gateway.config;
 
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.filter.factory.rewrite.ModifyRequestBodyGatewayFilterFactory;
 import org.springframework.cloud.gateway.filter.factory.rewrite.ModifyResponseBodyGatewayFilterFactory;
@@ -109,8 +108,8 @@ public class GlobalConfig {
 
     @Bean
     @Order(Common.EXCLUSION_BIZ_ORDER)   //指定顺序必须在之前
-    public ExclusionBizFilter exclusionBizFilter(ModifyRequestBodyGatewayFilterFactory modifyRequestBody) {
-        return new ExclusionBizFilter(modifyRequestBody);
+    public ExclusionCensorFilter exclusionBizFilter(ModifyRequestBodyGatewayFilterFactory modifyRequestBody) {
+        return new ExclusionCensorFilter(modifyRequestBody);
     }
 
    /**

@@ -13,8 +13,19 @@ import java.util.List;
  */
 public interface IBaseService<T> extends IService<T> {
 
+    /**
+     * 逻辑删除
+     * @param ids
+     * @return
+     */
     boolean deleteLogic(@NotEmpty List<Long> ids);
 
+    /**
+     * 状态更改
+     * @param ids
+     * @param status
+     * @return
+     */
     boolean changeStatus(@NotEmpty List<Long> ids, Integer status);
 }
 

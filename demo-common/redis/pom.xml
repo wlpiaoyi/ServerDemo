@@ -11,7 +11,6 @@
 
     <groupId>org.wlpiaoyi.server.demo.common</groupId>
     <artifactId>redis</artifactId>
-    <version>1.0.1-DEV-JDK21</version>
     <name>CommonRedis</name>
     <description>Redis功能集合</description>
 
